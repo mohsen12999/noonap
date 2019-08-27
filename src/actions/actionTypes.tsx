@@ -1,0 +1,7 @@
+
+export enum ActionTypes {
+    CHANGE_PAGE = "CHANGE_PAGE",
+    CHANGE_STAGE = "CHANGE_STAGE",
+    PAUSE_GAME = "PAUSE_GAME",
+    RESUME_PAGE = "RESUME_PAGE"
+}
