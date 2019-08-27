@@ -2,4 +2,5 @@
 
 ## Todo
 
-[ ] - redux
+[x] - redux
+[ ] - add storybook -> `npx storybook`
