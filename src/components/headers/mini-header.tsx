@@ -16,7 +16,8 @@ const useStyles = makeStyles((theme: Theme) =>
       marginLeft: theme.spacing(2)
     },
     title: {
-      flexGrow: 1
+      flexGrow: 1,
+      fontFamily: "Yekan"
     }
   })
 );

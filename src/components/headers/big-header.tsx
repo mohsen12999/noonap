@@ -4,11 +4,19 @@ import Paper from "@material-ui/core/Paper";
 import Tabs from "@material-ui/core/Tabs";
 import Tab from "@material-ui/core/Tab";
 
-import MiniHeader from "./mini-header";
-
 const useStyles = makeStyles({
+  title: {
+    textAlign: "center"
+  },
   root: {
-    flexGrow: 1
+    flexGrow: 1,
+    fontFamily: "Yekan"
+  },
+  tab: {
+    fontFamily: "Yekan"
+  },
+  titleImg: {
+    verticalAlign: "middle"
   }
 });
 
@@ -22,8 +30,14 @@ const BigHeader: React.FC = () => {
 
   return (
     <div>
-      <h2>logo name</h2>
-      <h3>header span</h3>
+      <h2 className={classes.title}>
+        <img
+          className={classes.titleImg}
+          src="/manifest/icon-48x48.png"
+          alt="logo"
+        />{" "}
+        نون
+      </h2>
       <Paper className={classes.root}>
         <Tabs
           value={value}
@@ -32,9 +46,9 @@ const BigHeader: React.FC = () => {
           textColor="primary"
           centered
         >
-          <Tab label="Item One" />
-          <Tab label="Item Two" />
-          <Tab label="Item Three" />
+          <Tab className={classes.tab} label="صفحه اصلی" />
+          <Tab className={classes.tab} label="ارتباط با ما" />
+          {/* <Tab className={classes.tab} label="Item Three" /> */}
         </Tabs>
       </Paper>
     </div>
