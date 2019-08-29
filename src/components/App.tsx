@@ -6,9 +6,12 @@ import Main from "./Main";
 import NotFound from "./NotFound";
 import About from "./About";
 
+import Header from "./headers/header";
+
 const App: React.FC = () => {
   return (
     <div className="App">
+      <Header />
       <header className="App-header">
         <h3>app name</h3>
       </header>
