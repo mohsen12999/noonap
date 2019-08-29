@@ -1,19 +1,9 @@
-
 import React from "react";
-import Button from "@material/react-button";
-import "@material/react-button/index.scss";
 
 const Navbar: React.FC = () => {
   return (
     <div>
-        <h3>Navbar page</h3>
-        <Button
-          raised
-          className="button-alternate"
-          onClick={() => console.log("clicked!")}
-        >
-          Click Me!
-        </Button>
+      <h3>Navbar page</h3>
     </div>
   );
 };
