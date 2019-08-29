@@ -1,18 +1,6 @@
 {
-  "short_name": "نون",
-  "name": "نون - خرید و تحویل درب منزل",
-  "description": "خرید و تحویل راحت نان و سایر کالاها درب منزل",
-  "version": "0.1",
-  "version_name": "0.1 beta test",
-  "default_locale": "fa",
-  "lang": "fa",
-  "dir": "rtl",
-  "manifest_version": 2,
-  "author": "Mohsen Shabanian",
-  "developer": {
-    "name": "Mohsen Shabanian",
-    "url": "https://MohsenShabanian.com/"
-  },
+  "short_name": "React App",
+  "name": "Create React App Sample",
   "icons": [
     {
       "src": "favicon.ico",
@@ -20,20 +8,15 @@
       "type": "image/x-icon"
     },
     {
-      "src": "manifest/icon-144x144.png",
-      "type": "image/png",
-      "sizes": "144x144"
-    },
-    {
-      "src": "manifest/icon-192x192.png",
+      "src": "logo192.png",
       "type": "image/png",
       "sizes": "192x192"
     },
     {
-      "src": "manifest/icon-512x512.png",
+      "src": "logo512.png",
       "type": "image/png",
       "sizes": "512x512"
-    }
+    }	 
   ],
   "start_url": ".",
   "display": "standalone",
