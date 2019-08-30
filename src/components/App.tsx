@@ -1,7 +1,7 @@
 import React from "react";
 import { Switch, Route } from "react-router";
 
-import Main from "./pages/Main";
+import Main from "./pages/mainPage/Main";
 import NotFound from "./pages/NotFound";
 import About from "./pages/About";
 import MainHeader from "./headers/main-header";
