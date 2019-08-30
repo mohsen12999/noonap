@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import MiniHeader from "./mini-header";
 import BigHeader from "./big-header";
 
-const Header: React.FC = () => {
+const MainHeader: React.FC = () => {
   const [isMobile, setIsMobile] = useState({});
 
   useEffect(() => {
@@ -18,4 +18,4 @@ const Header: React.FC = () => {
   }
 };
 
-export default Header;
+export default MainHeader;

@@ -1,17 +1,17 @@
 import React from "react";
-import "./App.css";
-import Navbar from "./Navbar";
 import { Switch, Route } from "react-router";
+
 import Main from "./Main";
 import NotFound from "./NotFound";
 import About from "./About";
+import MainHeader from "./headers/main-header";
 
-import Header from "./headers/header";
+import "./App.css";
 
 const App: React.FC = () => {
   return (
     <div className="App">
-      <Header />
+      <MainHeader />
       <header className="App-header">
         <h3>app name</h3>
       </header>
@@ -33,3 +33,8 @@ const App: React.FC = () => {
 };
 
 export default App;
+
+// https://reacttraining.com/react-router/web/guides/basic-components
+
+// https://github.com/material-components/material-components-web-react
+// https://react-mdc.github.io/#/
