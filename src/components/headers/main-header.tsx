@@ -3,14 +3,15 @@ import MiniHeader from "./mini-header";
 import BigHeader from "./big-header";
 
 const MainHeader: React.FC = () => {
-  const [isMobile, setIsMobile] = useState({});
+  const [isMobile, setIsMobile] = useState(window.innerWidth <= 500);
 
   useEffect(() => {
     window.addEventListener("resize", () => {
-      setIsMobile({ isMobile: window.innerWidth <= 500 });
+      setIsMobile(window.innerWidth <= 500);
     });
   });
 
+  console.log("isMobile", isMobile);
   if (isMobile) {
     return <MiniHeader />;
   } else {
