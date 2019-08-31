@@ -14,6 +14,9 @@ const useStyles = makeStyles(theme => ({
     padding: theme.spacing(2),
     textAlign: "center",
     color: theme.palette.text.secondary
+  },
+  link: {
+    textDecoration: "none"
   }
 }));
 
@@ -28,36 +31,16 @@ const Main: React.FC = () => {
       <Grid container spacing={3} justify="space-around" alignItems="stretch">
         {groups.map(group => (
           <Grid key={group.id} item xs={6}>
-            <PageCart
-              title={group.persianTitle}
-              subtitle={group.persianSubtitle}
-              img={group.img}
-            />
+            <a className={classes.link} href="#">
+              <PageCart
+                title={group.persianTitle}
+                subtitle={group.persianSubtitle}
+                img={group.img}
+              />
+            </a>
           </Grid>
         ))}
       </Grid>
-
-      {/* <Grid container spacing={3} justify="space-around" alignItems="center">
-        <Grid item xs={6}>
-          <Paper className={classes.paper}>xs=6</Paper>
-        </Grid>
-        <Grid item xs={6}>
-          <Paper className={classes.paper}>xs=6</Paper>
-        </Grid>
-        <Grid item xs={6}>
-          <Paper className={classes.paper}>xs=6</Paper>
-        </Grid>
-        <Grid item xs={6}>
-          <Paper className={classes.paper}>xs=6</Paper>
-        </Grid>
-        <Grid item xs={6}>
-          <Paper className={classes.paper}>xs=6</Paper>
-        </Grid>
-        <Grid item xs={6}>
-          <Paper className={classes.paper}>xs=6</Paper>
-        </Grid>
-      </Grid>
-      <PageCart /> */}
     </Container>
   );
 };
