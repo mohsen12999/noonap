@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/noon-ap/static/css/main.799fe238.chunk.css",
+    "main.js": "/noon-ap/static/js/main.a88e0c55.chunk.js",
+    "main.js.map": "/noon-ap/static/js/main.a88e0c55.chunk.js.map",
+    "runtime~main.js": "/noon-ap/static/js/runtime~main.f76d2dea.js",
+    "runtime~main.js.map": "/noon-ap/static/js/runtime~main.f76d2dea.js.map",
+    "static/js/2.f18b58ba.chunk.js": "/noon-ap/static/js/2.f18b58ba.chunk.js",
+    "static/js/2.f18b58ba.chunk.js.map": "/noon-ap/static/js/2.f18b58ba.chunk.js.map",
+    "index.html": "/noon-ap/index.html",
+    "precache-manifest.be424c0e0e5e90563122c10f56ac2ea8.js": "/noon-ap/precache-manifest.be424c0e0e5e90563122c10f56ac2ea8.js",
+    "service-worker.js": "/noon-ap/service-worker.js",
+    "static/css/main.799fe238.chunk.css.map": "/noon-ap/static/css/main.799fe238.chunk.css.map"
+  }
+}
