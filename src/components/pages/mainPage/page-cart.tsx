@@ -29,28 +29,47 @@ const useStyles = makeStyles(theme => ({
   playIcon: {
     height: 38,
     width: 38
+  },
+  persianfont: {
+    fontFamily: "Yekan"
   }
 }));
 
-const PageCart: React.FC = () => {
+interface IPageCartProp {
+  title: string;
+  subtitle: string;
+  img: string;
+}
+
+const PageCart: React.FC<IPageCartProp> = ({ title, subtitle, img }) => {
+  // const PageCart: React.FC = (title: string, subtitle: string, img: string) => {
   const classes = useStyles();
   const theme = useTheme();
+  console.log(title, subtitle, img);
 
   return (
     <Card className={classes.card}>
       <CardMedia
         className={classes.cover}
-        image="/images/group/shopping-cart.png"
+        image={"/" + img} //"/images/group/shopping-cart.png"
         title="Live from space album cover"
       />
 
       <div className={classes.details}>
         <CardContent className={classes.content}>
-          <Typography component="h5" variant="h5">
-            Live From Space
+          <Typography
+            className={classes.persianfont}
+            component="h5"
+            variant="h5"
+          >
+            {title}
           </Typography>
-          <Typography variant="subtitle1" color="textSecondary">
-            Mac Miller
+          <Typography
+            className={classes.persianfont}
+            variant="subtitle1"
+            color="textSecondary"
+          >
+            {subtitle}
           </Typography>
         </CardContent>
       </div>

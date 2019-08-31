@@ -57,7 +57,7 @@ export const PRODUCT_GROUPS: IProductGroup[] = [
     title: "Breads",
     persianTitle: "نان تازه",
     persianSubtitle: "خرید نان تازه و گرم",
-    img: "../images/group/bread.png",
+    img: "images/group/bread.png",
     enable: true
   },
   {
@@ -65,7 +65,7 @@ export const PRODUCT_GROUPS: IProductGroup[] = [
     title: "Market",
     persianTitle: "سوپر مارکت",
     persianSubtitle: "انتخاب و خرید مواد غذایی",
-    img: "../images/group/shopping-cart.png",
+    img: "images/group/shopping-cart.png",
     enable: false
   },
   {
@@ -73,7 +73,7 @@ export const PRODUCT_GROUPS: IProductGroup[] = [
     title: "FastFoods",
     persianTitle: "فست فود",
     persianSubtitle: "سفارش غذا از فست فود و کافه",
-    img: "../images/group/fast-food.png",
+    img: "images/group/fast-food.png",
     enable: false
   },
   {
@@ -81,7 +81,7 @@ export const PRODUCT_GROUPS: IProductGroup[] = [
     title: "Restaurants",
     persianTitle: "رستوران",
     persianSubtitle: "سفارش غذاهای ایرانی و محلی",
-    img: "../images/group/resturant.png",
+    img: "images/group/resturant.png",
     enable: false
   },
   {
@@ -89,7 +89,7 @@ export const PRODUCT_GROUPS: IProductGroup[] = [
     title: "Souvenir",
     persianTitle: "سوغات",
     persianSubtitle: "صنایع دستی محلی و بومی",
-    img: "../images/group/souvenir.png",
+    img: "images/group/souvenir.png",
     enable: false
   },
   {
@@ -97,7 +97,7 @@ export const PRODUCT_GROUPS: IProductGroup[] = [
     title: "Discount",
     persianTitle: "تخفیفان رامسر",
     persianSubtitle: "تخفیف های باورنکردنی از همه چیز",
-    img: "../images/group/discount.png",
+    img: "images/group/discount.png",
     enable: false
   }
 ];
