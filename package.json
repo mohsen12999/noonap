@@ -2,7 +2,7 @@
   "name": "noon-ap",
   "version": "0.1.0",
   "private": true,
-  "homepage": "http://mohsen12999.github.io/noon-ap",
+  "homepage": "http://mohsen12999.github.io/NoonAp",
   "dependencies": {
     "@material-ui/core": "^4.3.3",
     "@material-ui/icons": "^4.2.1",

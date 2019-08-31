@@ -2,5 +2,5 @@
 
 ## Todo
 
-[x] - redux
-[ ] - add storybook -> `npx storybook`
+- [x] redux
+- [ ] add storybook -> `npx storybook`
