@@ -20,22 +20,22 @@
       "type": "image/x-icon"
     },
     {
-      "src": "manifiest/icon-96x96.png",
+      "src": "icon-96x96.png",
       "type": "image/png",
       "sizes": "96x96"
     },
     {
-      "src": "manifiest/icon-144x144.png",
+      "src": "icon-144x144.png",
       "type": "image/png",
       "sizes": "144x144"
     },
     {
-      "src": "manifiest/icon-192x192.png",
+      "src": "icon-192x192.png",
       "type": "image/png",
       "sizes": "192x192"
     },
     {
-      "src": "manifiest/icon-512x512.png",
+      "src": "icon-512x512.png",
       "type": "image/png",
       "sizes": "512x512"
     }	 

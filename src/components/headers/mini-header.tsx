@@ -13,8 +13,9 @@ import Divider from "@material-ui/core/Divider";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
-import InboxIcon from "@material-ui/icons/MoveToInbox";
-import MailIcon from "@material-ui/icons/Mail";
+
+import ViewModule from "@material-ui/icons/ViewModule";
+import ImportantDevices from "@material-ui/icons/ImportantDevices";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -33,6 +34,9 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     fullList: {
       width: "auto"
+    },
+    menuTitle: {
+      textAlign: "right"
     }
   })
 );
@@ -69,6 +73,24 @@ const MiniHeader: React.FC = () => {
       onKeyDown={toggleDrawer(side, false)}
     >
       <List>
+        <ListItem button key="main">
+          <ListItemIcon>
+            <ViewModule />
+          </ListItemIcon>
+          <ListItemText className={classes.menuTitle} primary="صفحه اصلی" />
+        </ListItem>
+      </List>
+      <Divider />
+      <List>
+        <ListItem button key="main">
+          <ListItemIcon>
+            <ImportantDevices />
+          </ListItemIcon>
+          <ListItemText className={classes.menuTitle} primary="درباره ما" />
+        </ListItem>
+      </List>
+
+      {/* <List>
         {["Inbox", "Starred", "Send email", "Drafts"].map((text, index) => (
           <ListItem button key={text}>
             <ListItemIcon>
@@ -88,7 +110,7 @@ const MiniHeader: React.FC = () => {
             <ListItemText primary={text} />
           </ListItem>
         ))}
-      </List>
+      </List> */}
     </div>
   );
 

@@ -11,7 +11,6 @@ const MainHeader: React.FC = () => {
     });
   });
 
-  console.log("isMobile", isMobile);
   if (isMobile) {
     return <MiniHeader />;
   } else {

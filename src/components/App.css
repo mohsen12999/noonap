@@ -48,3 +48,7 @@
 .YekanFint {
   font-family: 'Yekan';
 }
+
+.MuiTypography-body1 {
+  font-family: 'Yekan' !important;
+}
