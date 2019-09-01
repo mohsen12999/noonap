@@ -51,7 +51,7 @@ const PageCart: React.FC<IPageCartProp> = ({ title, subtitle, img }) => {
     <Card className={classes.card}>
       <CardMedia
         className={classes.cover}
-        image={"/" + img} //"/images/group/shopping-cart.png"
+        image={process.env.PUBLIC_URL + img} //"/images/group/shopping-cart.png"
         title="Live from space album cover"
       />
 

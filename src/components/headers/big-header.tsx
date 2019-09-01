@@ -31,7 +31,11 @@ const BigHeader: React.FC = () => {
   return (
     <div>
       <h2 className={classes.title}>
-        <img className={classes.titleImg} src="/icon-48x48.png" alt="logo" />{" "}
+        <img
+          className={classes.titleImg}
+          src={process.env.PUBLIC_URL + "/icon-48x48.png"}
+          alt="logo"
+        />{" "}
         نون
       </h2>
       <Paper className={classes.root}>
