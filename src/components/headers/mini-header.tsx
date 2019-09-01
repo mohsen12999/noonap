@@ -17,6 +17,8 @@ import ListItemText from "@material-ui/core/ListItemText";
 import ViewModule from "@material-ui/icons/ViewModule";
 import ImportantDevices from "@material-ui/icons/ImportantDevices";
 
+import { Link } from "react-router-dom";
+
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
@@ -73,7 +75,12 @@ const MiniHeader: React.FC = () => {
       onKeyDown={toggleDrawer(side, false)}
     >
       <List>
-        <ListItem button key="main">
+        <ListItem
+          button
+          component={Link}
+          to={process.env.PUBLIC_URL + "/"}
+          key="main"
+        >
           <ListItemIcon>
             <ViewModule />
           </ListItemIcon>
@@ -82,7 +89,12 @@ const MiniHeader: React.FC = () => {
       </List>
       <Divider />
       <List>
-        <ListItem button key="main">
+        <ListItem
+          button
+          component={Link}
+          to={process.env.PUBLIC_URL + "/about"}
+          key="about"
+        >
           <ListItemIcon>
             <ImportantDevices />
           </ListItemIcon>

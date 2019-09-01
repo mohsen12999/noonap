@@ -46,8 +46,16 @@ const BigHeader: React.FC = () => {
           textColor="primary"
           centered
         >
-          <Tab className={classes.tab} label="صفحه اصلی" href="/" />
-          <Tab className={classes.tab} label="ارتباط با ما" href="/about" />
+          <Tab
+            className={classes.tab}
+            label="صفحه اصلی"
+            href={process.env.PUBLIC_URL + "/"}
+          />
+          <Tab
+            className={classes.tab}
+            label="ارتباط با ما"
+            href={process.env.PUBLIC_URL + "/about"}
+          />
           {/* <Tab className={classes.tab} label="Item Three" /> */}
         </Tabs>
       </Paper>

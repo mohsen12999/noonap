@@ -14,8 +14,8 @@ const App: React.FC = () => {
       <MainHeader />
       <section>
         <Switch>
-          <Route exact path="/" component={Main} />
-          <Route exact path="/about" component={About} />
+          <Route exact path={process.env.PUBLIC_URL + "/"} component={Main} />
+          <Route exact path={process.env.PUBLIC_URL + "/about"} component={About} />
           <Route component={NotFound} />
         </Switch>
       </section>

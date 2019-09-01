@@ -10,6 +10,9 @@ const useStyles = makeStyles(theme => ({
   root: {
     flexGrow: 1
   },
+  grid: {
+    paddingTop: theme.spacing(2)
+  },
   paper: {
     padding: theme.spacing(2),
     textAlign: "center",
@@ -27,11 +30,19 @@ const Main: React.FC = () => {
 
   return (
     <Container maxWidth="md">
-      <h3>main page</h3>
-      <Grid container spacing={3} justify="space-around" alignItems="stretch">
+      <Grid
+        className={classes.grid}
+        container
+        spacing={3}
+        justify="space-around"
+        alignItems="stretch"
+      >
         {groups.map(group => (
-          <Grid key={group.id} item xs={6}>
-            <a className={classes.link} href="#">
+          <Grid key={group.id} item xs={12} sm={6}>
+            <a
+              className={classes.link}
+              href={"/product/" + group.id + "/" + group.title}
+            >
               <PageCart
                 title={group.persianTitle}
                 subtitle={group.persianSubtitle}
