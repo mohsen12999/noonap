@@ -45,8 +45,7 @@ const PageCart: React.FC<IPageCartProp> = ({ title, subtitle, img }) => {
   // const PageCart: React.FC = (title: string, subtitle: string, img: string) => {
   const classes = useStyles();
   // const theme = useTheme();
-
-  console.log(title, subtitle, img);
+  //console.log(title, subtitle, img);
 
   return (
     <Card className={classes.card}>
