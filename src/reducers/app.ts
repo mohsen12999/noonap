@@ -8,6 +8,7 @@ export enum AppPages {
 }
 
 export interface IAppState {
+  tabId?:number;
   pageId: number;
   pageName: AppPages;
   pageTitle: string;
@@ -16,6 +17,7 @@ export interface IAppState {
 }
 
 export const INITIAL_APPSTATE: IAppState = {
+  tabId: 0,
   pageId: 0,
   pageName: AppPages.MAIN_PAGE,
   pageTitle: "صفحه اصلی",

@@ -26,6 +26,9 @@ export default Product;
 */
 
 import React from "react";
+import { RouteComponentProps } from "react-router-dom";
+import { connect } from "react-redux";
+
 import { createStyles, Theme, makeStyles } from "@material-ui/core/styles";
 import Table from "@material-ui/core/Table";
 import TableBody from "@material-ui/core/TableBody";
@@ -34,7 +37,12 @@ import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import Paper from "@material-ui/core/Paper";
 import Container from "@material-ui/core/Container";
-import { connect } from "react-redux";
+
+import { IAppState } from "../../reducers/app";
+import { IShopState } from "../../reducers/shop";
+
+import { PRODUCT_LIST } from "../../actions/shop";
+
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -52,6 +60,7 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
+//-- temp
 function createData(
   name: string,
   calories: number,
@@ -69,9 +78,26 @@ const rows = [
   createData("Cupcake", 305, 3.7, 67, 4.3),
   createData("Gingerbread", 356, 16.0, 49, 3.9)
 ];
+//- /temp
 
-const Product: React.FC = () => {
+interface IMatchParams {
+  id?: string;
+  name?: string;
+}
+
+interface IProductProps extends RouteComponentProps<IMatchParams> {}
+
+const Product: React.FC <IProductProps> = (prop: IProductProps) => {
   const classes = useStyles();
+  const productId = prop.match.params.id;
+  const products = productId==undefined ? []:
+    PRODUCT_LIST.filter(p=>p.id == Number(productId)).reduce(p=>{
+      // fix
+      // const cartItem = cart.find(p=>p.id==Number(productId));
+      // const count = cartItem==undefined?0:cartItem.count;
+      return{...p,count:1};
+    });
+  // if products=0 => به زودی
 
   return (
     <Container maxWidth="md">
@@ -127,9 +153,8 @@ const Product: React.FC = () => {
   );
 };
 
-const mapStateToProps = (allState: any) => ({
-  // pageSetting: allState.gameState.pageSetting,
-  // chaptersInfo: allState.gameState.chaptersInfo
+const mapStateToProps = (State: {app:IAppState ,shop:IShopState}) => ({
+  cart: State.shop.cart
 });
 
 const mapDispatchToProps = {

@@ -4,6 +4,20 @@
 
 - [x] redux
 - [x] material-ui
+
+- [ ] main page -> tab index
+- [ ] product page
+    - [ ] product list
+    - [ ] add/remove product
+    - [ ] product cart count
+    - [ ] page title
+- [ ] address page
+    - [ ] make page
+    - [ ] load address
+    - [ ] enable/disable load address btn
+    - [ ] load current location
+    - [ ] load times
+
 - [ ] install btn ->isAppInstallable && !isAppInstalled,deferredPrompt.prompt()
 - [ ] router, title, active enable
 
