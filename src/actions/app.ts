@@ -1,6 +1,6 @@
 import { ActionTypes } from "./actionTypes";
 import { Dispatch } from "redux";
-import { AppPages } from "../reducers/pages";
+import { AppPages } from "../reducers/app";
 
 // export const scorePage = () => dispatch => {
 //     //...
