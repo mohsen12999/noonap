@@ -1,20 +1,14 @@
-import initialState, { IState } from "./initialState";
 import { ActionTypes } from "../actions/actionTypes";
-import { AppPages } from "./pages";
+import { Reducer } from "redux";
+import { IShopState, INITIAL_SHOPSTATE } from "./shop";
 
-export default function MainReducer(state: IState = initialState, action: { type: any; payload: any }): any {
-
+const ShopReducer: Reducer<IShopState, { type: any; payload: any }> = (
+  state = INITIAL_SHOPSTATE,
+  action
+) => {
   switch (action.type) {
     case ActionTypes.CHANGE_PAGE:
-
       const newPage: any = action.payload.newPage;
-      if (newPage === AppPages.GAME_PAGE) {
-        return {
-          ...state,
-          pageName: action.payload.newPage,
-          levelId: action.payload.levelId
-        };
-      }
       return {
         ...state,
         pageName: newPage
@@ -97,7 +91,7 @@ export default function MainReducer(state: IState = initialState, action: { type
           let currentStage = currentlevel && currentlevel.stages.find(stage => stage.stageId === stageId);
 
           if (!currentStage) {
-            console.log('can not find stage'); // TODO: Score Page
+            console.log('can not find stage');
             return {
               ...state,
 
@@ -149,4 +143,6 @@ export default function MainReducer(state: IState = initialState, action: { type
     default:
       return state;
   }
-}
+};
+
+export default ShopReducer;

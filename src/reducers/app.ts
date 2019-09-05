@@ -1,28 +1,23 @@
-
-export interface ILevel {
-    levelId: number;
-    levelName: string;
-    levelWords: Array<string>;
-    worldsCount: number;
-    displayWordsCount: number;
-    locked: boolean;
+export enum AppPages {
+  MAIN_PAGE = "mainPage",
+  ABOUT_PAGE = "aboutPage",
+  PRODUCT_PAGE = "productPage",
+  ADDRESS_PAGE = "addressPage",
+  BILL_PAGE = "billPage",
+  CHECKOUT_PAGE = "checkoutPage"
 }
 
-export const Levels:ILevel[] = [
-    {
-        levelId: 1,
-        levelName: "مرحله تستی کوچک",
-        levelWords: ["brave","clever","cruel"],
-        worldsCount:3,
-        displayWordsCount:2,
-        locked:false
-    },
-    {
-        levelId: 2,
-        levelName: "مرحله تستی بزرگ",
-        levelWords: ["brave","clever","cruel","funny","selfish","lazy","person","kind","shy"],
-        worldsCount:9,
-        displayWordsCount:20,
-        locked:false
-    }
-];
+export interface IAppState {
+  pageId: number;
+  pageName: AppPages;
+  pageTitle: string;
+  args?: string[];
+  offline: boolean;
+}
+
+export const INITIAL_APPSTATE: IAppState = {
+  pageId: 0,
+  pageName: AppPages.MAIN_PAGE,
+  pageTitle: "صفحه اصلی",
+  offline: false
+};

@@ -34,6 +34,7 @@ import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import Paper from "@material-ui/core/Paper";
 import Container from "@material-ui/core/Container";
+import { connect } from "react-redux";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -44,6 +45,9 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     table: {
       minWidth: 650
+    },
+    tableCell: {
+      fontFamily: "Yekan"
     }
   })
 );
@@ -75,23 +79,45 @@ const Product: React.FC = () => {
         <Table className={classes.table}>
           <TableHead>
             <TableRow>
-              <TableCell align="right">تصویر محصول</TableCell>
-              <TableCell align="right">نام وقیمت</TableCell>
-              <TableCell align="right">تعداد</TableCell>
-              <TableCell align="right">قیمت</TableCell>
-              <TableCell align="right">Protein&nbsp;(g)</TableCell>
+              <TableCell className={classes.tableCell} align="right">
+                تصویر محصول
+              </TableCell>
+              <TableCell className={classes.tableCell} align="right">
+                نام و قیمت
+              </TableCell>
+              <TableCell className={classes.tableCell} align="right">
+                تعداد
+              </TableCell>
+              <TableCell className={classes.tableCell} align="right">
+                قیمت
+              </TableCell>
+              <TableCell className={classes.tableCell} align="right">
+                Protein&nbsp;(g)
+              </TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
             {rows.map(row => (
               <TableRow key={row.name}>
-                <TableCell component="th" scope="row">
+                <TableCell
+                  className={classes.tableCell}
+                  component="th"
+                  scope="row"
+                >
                   {row.name}
                 </TableCell>
-                <TableCell align="right">{row.calories}</TableCell>
-                <TableCell align="right">{row.fat}</TableCell>
-                <TableCell align="right">{row.carbs}</TableCell>
-                <TableCell align="right">{row.protein}</TableCell>
+                <TableCell className={classes.tableCell} align="right">
+                  {row.calories}
+                </TableCell>
+                <TableCell className={classes.tableCell} align="right">
+                  {row.fat}
+                </TableCell>
+                <TableCell className={classes.tableCell} align="right">
+                  {row.carbs}
+                </TableCell>
+                <TableCell className={classes.tableCell} align="right">
+                  {row.protein}
+                </TableCell>
               </TableRow>
             ))}
           </TableBody>
@@ -101,4 +127,16 @@ const Product: React.FC = () => {
   );
 };
 
-export default Product;
+const mapStateToProps = (allState: any) => ({
+  // pageSetting: allState.gameState.pageSetting,
+  // chaptersInfo: allState.gameState.chaptersInfo
+});
+
+const mapDispatchToProps = {
+  // changePage: changePage
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Product);

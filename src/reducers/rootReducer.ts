@@ -1,8 +1,9 @@
 import { combineReducers } from "redux";
-import MainReducer from "./mainReducer";
+import AppReducer from "./appReducer";
+import ShopReducer from "./shopReducer";
 
 export default combineReducers({
   // mainReducer
-  Cart: MainReducer,
-  config: MainReducer
+  app: AppReducer,
+  shop: ShopReducer,
 });

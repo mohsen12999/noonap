@@ -1,28 +1,45 @@
-
-export interface ILevel {
-    levelId: number;
-    levelName: string;
-    levelWords: Array<string>;
-    worldsCount: number;
-    displayWordsCount: number;
-    locked: boolean;
+export interface IShopState {
+  products: IProductsState;
+  cart: ICartState;
+  deliver: IDeliverState;
+  error: string;
 }
 
-export const Levels:ILevel[] = [
-    {
-        levelId: 1,
-        levelName: "مرحله تستی کوچک",
-        levelWords: ["brave","clever","cruel"],
-        worldsCount:3,
-        displayWordsCount:2,
-        locked:false
-    },
-    {
-        levelId: 2,
-        levelName: "مرحله تستی بزرگ",
-        levelWords: ["brave","clever","cruel","funny","selfish","lazy","person","kind","shy"],
-        worldsCount:9,
-        displayWordsCount:20,
-        locked:false
-    }
-];
+export interface IProductsState {
+  [index: string]: IProductState;
+}
+
+export interface IProductState {
+  id: number;
+  title: string;
+  price: number;
+  max: number;
+  img: string;
+  enable: boolean;
+}
+
+export interface ICartState {
+  [index: string]: number;
+}
+
+export interface ICartItem {
+  id: number;
+  title: string;
+  amount: number;
+  price: number;
+}
+
+export interface IDeliverState {
+  fullName: string;
+  mobile: string;
+  address: string;
+  location?: Position;
+  time: string;
+}
+
+export const INITIAL_SHOPSTATE: IShopState = {
+  products: {},
+  cart: {},
+  deliver: { fullName: "", address: "", mobile: "", time: "" },
+  error: ""
+};
