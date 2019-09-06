@@ -11,6 +11,10 @@ import TableRow from "@material-ui/core/TableRow";
 import Paper from "@material-ui/core/Paper";
 import Container from "@material-ui/core/Container";
 
+import Fab from "@material-ui/core/Fab";
+import AddIcon from "@material-ui/icons/Add";
+import RemoveIcon from "@material-ui/icons/Remove";
+
 import { IAppState } from "../../reducers/app";
 import { IShopState, ICartState } from "../../reducers/shop";
 
@@ -24,7 +28,7 @@ const useStyles = makeStyles((theme: Theme) =>
       overflowX: "auto"
     },
     table: {
-      minWidth: 650
+      maxWidth: "100%"
     },
     tableCell: {
       fontFamily: "Yekan"
@@ -34,6 +38,9 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     cellImg: {
       width: "72px"
+    },
+    margin: {
+      margin: theme.spacing(1)
     }
   })
 );
@@ -118,7 +125,23 @@ const Product: React.FC<IProductProps> = (prop: IProductProps) => {
                   scope="row"
                   align="center"
                 >
+                  <Fab
+                    size="small"
+                    color="secondary"
+                    aria-label="add"
+                    className={classes.margin}
+                  >
+                    <AddIcon />
+                  </Fab>
                   {product.count}
+                  <Fab
+                    size="small"
+                    color="secondary"
+                    aria-label="add"
+                    className={classes.margin}
+                  >
+                    <RemoveIcon />
+                  </Fab>
                 </TableCell>
                 <TableCell
                   className={classes.tableCell}

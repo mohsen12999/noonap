@@ -52,3 +52,12 @@
 .MuiTypography-body1 {
   font-family: 'Yekan' !important;
 }
+
+@media only screen and (max-width: 600px) {
+
+  table th.MuiTableCell-head,
+  table td.MuiTableCell-body {
+    padding-right: 0;
+    padding-left: 0;
+  }
+}
