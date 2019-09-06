@@ -2,7 +2,6 @@ import { ActionTypes } from "./actionTypes";
 import { Dispatch } from "redux";
 import { AppPages } from "../reducers/app";
 
-
 // export const scorePage = () => dispatch => {
 //     //...
 //     dispatch({
@@ -38,10 +37,11 @@ export interface IProductSpecific {
   id: number;
   title: string;
   price: number;
-  inventory: number;
+  max: number;
   img: string;
   enable: boolean;
   productGroupId: number;
+  count: number;
 }
 
 export interface IDeliverTime {
@@ -109,46 +109,51 @@ export const PRODUCT_LIST: IProductSpecific[] = [
     id: 1,
     title: "بربری آزاد ساده",
     price: 1500,
-    inventory: 30,
+    max: 30,
     img: "../images/noon/barbari-192.png",
     enable: true,
-    productGroupId: 1
+    productGroupId: 1,
+    count: 0
   },
   {
     id: 2,
     title: "بربری آزاد کنجدی",
     price: 2000,
-    inventory: 30,
+    max: 30,
     img: "../images/noon/barbari-konjedi-192.png",
     enable: false,
-    productGroupId: 1
+    productGroupId: 1,
+    count: 0
   },
   {
     id: 3,
     title: "سنگک آزاد ساده",
     price: 1500,
-    inventory: 30,
+    max: 30,
     img: "../images/noon/sangak-192.png",
     enable: false,
-    productGroupId: 1
+    productGroupId: 1,
+    count: 0
   },
   {
     id: 4,
     title: "سنگک آزاد کنجدی",
     price: 2000,
-    inventory: 30,
+    max: 30,
     img: "../images/noon/sangak-konjedi-192.png",
     enable: false,
-    productGroupId: 1
+    productGroupId: 1,
+    count: 0
   },
   {
     id: 5,
     title: "لواش",
     price: 250,
-    inventory: 100,
+    max: 100,
     img: "../images/noon/lavash-192.png",
     enable: false,
-    productGroupId: 1
+    productGroupId: 1,
+    count: 0
   }
 ];
 

@@ -39,10 +39,9 @@ import Paper from "@material-ui/core/Paper";
 import Container from "@material-ui/core/Container";
 
 import { IAppState } from "../../reducers/app";
-import { IShopState } from "../../reducers/shop";
+import { IShopState, ICartState } from "../../reducers/shop";
 
-import { PRODUCT_LIST } from "../../actions/shop";
-
+import { PRODUCT_LIST, IProductSpecific } from "../../actions/shop";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -85,18 +84,28 @@ interface IMatchParams {
   name?: string;
 }
 
-interface IProductProps extends RouteComponentProps<IMatchParams> {}
+interface IProductProps extends RouteComponentProps<IMatchParams> {
+  cart: ICartState;
+}
 
-const Product: React.FC <IProductProps> = (prop: IProductProps) => {
+const Product: React.FC<IProductProps> = (prop: IProductProps) => {
   const classes = useStyles();
-  const productId = prop.match.params.id;
-  const products = productId==undefined ? []:
-    PRODUCT_LIST.filter(p=>p.id == Number(productId)).reduce(p=>{
-      // fix
-      // const cartItem = cart.find(p=>p.id==Number(productId));
-      // const count = cartItem==undefined?0:cartItem.count;
-      return{...p,count:1};
-    });
+
+  const productId: string | undefined = prop.match.params.id;
+  const preProducts: IProductSpecific[] =
+    productId === undefined
+      ? []
+      : PRODUCT_LIST.filter(p => p.productGroupId === Number(productId));
+  const products: IProductSpecific[] = preProducts.map(pCart => {
+    pCart.count =
+      prop.cart === undefined || prop.cart[pCart.id] === undefined
+        ? 0
+        : prop.cart[pCart.id];
+    return pCart;
+  });
+
+  console.log("products", preProducts, products);
+
   // if products=0 => به زودی
 
   return (
@@ -153,7 +162,7 @@ const Product: React.FC <IProductProps> = (prop: IProductProps) => {
   );
 };
 
-const mapStateToProps = (State: {app:IAppState ,shop:IShopState}) => ({
+const mapStateToProps = (State: { app: IAppState; shop: IShopState }) => ({
   cart: State.shop.cart
 });
 
