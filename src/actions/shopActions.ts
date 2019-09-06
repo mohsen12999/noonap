@@ -1,6 +1,5 @@
 import { ActionTypes } from "./actionTypes";
 import { Dispatch } from "redux";
-import { AppPages } from "../reducers/app";
 
 // export const scorePage = () => dispatch => {
 //     //...
@@ -9,7 +8,7 @@ import { AppPages } from "../reducers/app";
 //         payload: []
 //     })
 // }
-
+/*
 export const changePage: Function = (
   event: React.MouseEvent<HTMLButtonElement>,
   newPage: AppPages,
@@ -22,7 +21,7 @@ export const changePage: Function = (
   });
 };
 
-/*
+
 export const changeStage =
     (event: React.MouseEvent<HTMLButtonElement>,stageId:string, score:number, backgroundPic:string) => (dispatch:Dispatch) => {
 
@@ -43,4 +42,73 @@ export const pauseGame = (event:React.MouseEvent<HTMLButtonElement>, show:boolea
         payload: { isPaused: show }
     })
 }
+*/
+
+export const addToCart = (
+  event: React.MouseEvent<HTMLButtonElement>,
+  productId: number
+) => (dispatch: Dispatch) => {
+  event.stopPropagation();
+  dispatch({
+    type: ActionTypes.ADD_TO_CART,
+    payload: { productId }
+  });
+};
+
+export const removeFromCart = (
+  event: React.MouseEvent<HTMLButtonElement>,
+  productId: number
+) => (dispatch: Dispatch) => {
+  event.stopPropagation();
+  dispatch({
+    type: ActionTypes.REMOVE_FROM_CART,
+    payload: { productId }
+  });
+};
+
+/*
+export const ChangeFullname: ActionCreator<IChangeFullnameDeliver> = (productId) => {
+  return {
+    type: CHANGE_FULLNAME,
+    productId
+  };
+};
+
+export const ChangeMobile: ActionCreator<IChangeMobileDeliver> = (productId) => {
+  return {
+    type: CHANGE_MOBILE,
+    productId
+  };
+};
+
+export const ChangeAddress: ActionCreator<IChangeAddressDeliver> = (productId) => {
+  return {
+    type: CHANGE_ADDRESS,
+    productId
+  };
+};
+
+export const ChangeTime: ActionCreator<IChangeTimeDeliver> = (productId) => {
+  return {
+    type: CHANGE_TIME,
+    productId
+  };
+};
+
+export const ChangeLocation: ActionCreator<IChangeDeliverLocation> = (location, address) => {
+  console.log("actions", location, address);
+  return {
+    type: CHANGE_LOCATION,
+    location,
+    address
+  };
+};
+
+export const LoadUserInfo: ActionCreator<ILoadUserInfo> = (name, mobile, address, latitude, longitude) => {
+  console.log("actions", name, mobile, address, latitude, longitude);
+  return {
+    type: LOAD_USER_INFO,
+    name, mobile, address, latitude, longitude
+  };
+};
 */

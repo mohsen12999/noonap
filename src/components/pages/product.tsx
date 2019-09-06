@@ -19,6 +19,7 @@ import { IAppState } from "../../reducers/app";
 import { IShopState, ICartState } from "../../reducers/shop";
 
 import { PRODUCT_LIST, IProductSpecific } from "../../actions/shop";
+import { addToCart, removeFromCart } from "../../actions/shopActions";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -52,6 +53,8 @@ interface IMatchParams {
 
 interface IProductProps extends RouteComponentProps<IMatchParams> {
   cart: ICartState;
+  addToCart: Function;
+  removeFromCart: Function;
 }
 
 const Product: React.FC<IProductProps> = (prop: IProductProps) => {
@@ -130,6 +133,7 @@ const Product: React.FC<IProductProps> = (prop: IProductProps) => {
                     color="secondary"
                     aria-label="add"
                     className={classes.margin}
+                    onClick={event => prop.addToCart(event, product.id)}
                   >
                     <AddIcon />
                   </Fab>
@@ -139,6 +143,7 @@ const Product: React.FC<IProductProps> = (prop: IProductProps) => {
                     color="secondary"
                     aria-label="add"
                     className={classes.margin}
+                    onClick={event => prop.removeFromCart(event, product.id)}
                   >
                     <RemoveIcon />
                   </Fab>
@@ -174,6 +179,8 @@ const mapStateToProps = (State: { app: IAppState; shop: IShopState }) => ({
 
 const mapDispatchToProps = {
   // changePage: changePage
+  addToCart: addToCart,
+  removeFromCart: removeFromCart
 };
 
 export default connect(
