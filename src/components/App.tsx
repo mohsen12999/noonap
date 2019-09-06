@@ -6,6 +6,7 @@ import NotFound from "./pages/notFound";
 import About from "./pages/about";
 import Product from "./pages/product";
 import MainHeader from "./headers/main-header";
+import Soon from "./pages/soon";
 
 import "./App.css";
 
@@ -24,7 +25,12 @@ const App: React.FC = () => {
           <Route
             exact
             path={process.env.PUBLIC_URL + "/product/:id/:name"}
-            component={(props:any)=> <Product {...props}/>}
+            component={(props: any) => <Product {...props} />}
+          />
+          <Route
+            exact
+            path={process.env.PUBLIC_URL + "/soon"}
+            component={Soon}
           />
           <Route component={NotFound} />
         </Switch>

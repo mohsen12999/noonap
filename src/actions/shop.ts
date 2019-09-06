@@ -110,7 +110,7 @@ export const PRODUCT_LIST: IProductSpecific[] = [
     title: "بربری آزاد ساده",
     price: 1500,
     max: 30,
-    img: "../images/noon/barbari-192.png",
+    img: "/images/noon/barbari-192.png",
     enable: true,
     productGroupId: 1,
     count: 0
@@ -120,7 +120,7 @@ export const PRODUCT_LIST: IProductSpecific[] = [
     title: "بربری آزاد کنجدی",
     price: 2000,
     max: 30,
-    img: "../images/noon/barbari-konjedi-192.png",
+    img: "/images/noon/barbari-konjedi-192.png",
     enable: false,
     productGroupId: 1,
     count: 0
@@ -130,7 +130,7 @@ export const PRODUCT_LIST: IProductSpecific[] = [
     title: "سنگک آزاد ساده",
     price: 1500,
     max: 30,
-    img: "../images/noon/sangak-192.png",
+    img: "/images/noon/sangak-192.png",
     enable: false,
     productGroupId: 1,
     count: 0
@@ -140,7 +140,7 @@ export const PRODUCT_LIST: IProductSpecific[] = [
     title: "سنگک آزاد کنجدی",
     price: 2000,
     max: 30,
-    img: "../images/noon/sangak-konjedi-192.png",
+    img: "/images/noon/sangak-konjedi-192.png",
     enable: false,
     productGroupId: 1,
     count: 0
@@ -150,7 +150,7 @@ export const PRODUCT_LIST: IProductSpecific[] = [
     title: "لواش",
     price: 250,
     max: 100,
-    img: "../images/noon/lavash-192.png",
+    img: "/images/noon/lavash-192.png",
     enable: false,
     productGroupId: 1,
     count: 0

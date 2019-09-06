@@ -41,7 +41,7 @@ const Main: React.FC = () => {
           <Grid key={group.id} item xs={12} sm={6}>
             <a
               className={classes.link}
-              href={"/product/" + group.id + "/" + group.title}
+              href={group.enable?("/product/" + group.id + "/" + group.title):"/soon"}
             >
               <PageCart
                 title={group.persianTitle}

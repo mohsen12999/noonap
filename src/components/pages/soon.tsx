@@ -16,21 +16,21 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-const NotFound: React.FC = () => {
+const Soon: React.FC = () => {
   const classes = useStyles();
 
   return (
     <Container maxWidth="sm">
       <Paper className={classes.root}>
         <Typography className={classes.myFont} variant="h5" component="h3">
-          صفحه مورد نظر پیدا نشد.
+          این بخش در حال ساخت می باشد.
         </Typography>
         <Typography className={classes.myFont} component="p">
-          لطفاً دوباره تلاش کنید.
+          به زودی این بخش ساخته می شود و در دسترس قرار می گیرد
         </Typography>
       </Paper>
     </Container>
   );
 };
 
-export default NotFound;
+export default Soon;

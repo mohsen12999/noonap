@@ -7,22 +7,23 @@
 
 - [ ] main page -> tab index
 - [ ] product page
-    - [ ] product list
-    - [ ] add/remove product
-    - [ ] product cart count
-    - [ ] page title
+  - [ ] product list
+  - [ ] add/remove product
+  - [ ] product cart count
+  - [ ] page title
 - [ ] address page
-    - [ ] make page
-    - [ ] load address
-    - [ ] enable/disable load address btn
-    - [ ] load current location
-    - [ ] load times
+  - [ ] make page
+  - [ ] load address
+  - [ ] enable/disable load address btn
+  - [ ] load current location
+  - [ ] load times
+- [ ] soon page -> product group == false
 
 - [ ] install btn ->isAppInstallable && !isAppInstalled,deferredPrompt.prompt()
 - [ ] router, title, active enable
 
-* active tab in state -> [Example of React JS with Material UI components](https://www.golangprograms.com/example-of-react-js-with-material-ui-components.html)
-* change active tab in constroctor or hook to/from state.
+- active tab in state -> [Example of React JS with Material UI components](https://www.golangprograms.com/example-of-react-js-with-material-ui-components.html)
+- change active tab in constroctor or hook to/from state.
 
 ## suggest
 
