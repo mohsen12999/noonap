@@ -17,7 +17,9 @@
   - [ ] enable/disable load address btn
   - [ ] load current location
   - [ ] load times
-- [ ] soon page -> product group == false
+- [x] soon page -> product group == false
+- [ ] cart page -> see what you buy
+- [ ] checkout page -> after address & before go to bank
 
 - [ ] install btn ->isAppInstallable && !isAppInstalled,deferredPrompt.prompt()
 - [ ] router, title, active enable
