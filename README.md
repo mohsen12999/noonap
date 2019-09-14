@@ -8,7 +8,7 @@
 - [ ] main page -> tab index
 - [ ] product page
   - [ ] product list
-  - [ ] add/remove product
+  - [x] add/remove product
   - [ ] product cart count
   - [ ] page title
 - [ ] address page
