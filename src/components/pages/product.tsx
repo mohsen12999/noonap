@@ -14,12 +14,17 @@ import Container from "@material-ui/core/Container";
 import Fab from "@material-ui/core/Fab";
 import AddIcon from "@material-ui/icons/Add";
 import RemoveIcon from "@material-ui/icons/Remove";
+import ShoppingBasket from "@material-ui/icons/ShoppingBasket";
+import ViewModule from "@material-ui/icons/ViewModule";
 
 import { IAppState } from "../../reducers/app";
 import { IShopState, ICartState } from "../../reducers/shop";
 
 import { PRODUCT_LIST, IProductSpecific } from "../../actions/shop";
 import { addToCart, removeFromCart } from "../../actions/shopActions";
+
+import Button from "@material-ui/core/Button";
+import ButtonGroup from "@material-ui/core/ButtonGroup";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -42,6 +47,17 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     margin: {
       margin: theme.spacing(1)
+    },
+    btnGroup: {
+      marginTop: theme.spacing(3),
+      direction: "ltr"
+    },
+    extendedIcon: {
+      marginRight: theme.spacing(1)
+    },
+    btnText: {
+      fontFamily: "Yekan",
+      margin: "5px"
     }
   })
 );
@@ -169,6 +185,28 @@ const Product: React.FC<IProductProps> = (prop: IProductProps) => {
           </TableBody>
         </Table>
       </Paper>
+      <ButtonGroup
+        className={classes.btnGroup}
+        fullWidth
+        aria-label="full width contained button group"
+      >
+        <Button
+          color="secondary"
+          className={classes.btnGroup}
+          href={process.env.PUBLIC_URL + "/checkout"}
+        >
+          <ShoppingBasket className={classes.extendedIcon} />
+          <h4 className={classes.btnText}>سبد خرید</h4>
+        </Button>
+        <Button
+          color="primary"
+          className={classes.btnGroup}
+          href={process.env.PUBLIC_URL + "/"}
+        >
+          <ViewModule className={classes.extendedIcon} />
+          <h4 className={classes.btnText}>ادامه خرید</h4>
+        </Button>
+      </ButtonGroup>
     </Container>
   );
 };
