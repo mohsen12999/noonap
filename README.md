@@ -35,7 +35,8 @@
 
 ## Bugs
 
-- [ ] page title
+- [ ] page title -> set when component mount
 - [ ] reset store when change page
-- [ ] active tab
+- [ ] active tab -> read from store
+- [ ] https/ssl -> cloudflare
 
