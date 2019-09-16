@@ -29,6 +29,8 @@
 - active tab in state -> [Example of React JS with Material UI components](https://www.golangprograms.com/example-of-react-js-with-material-ui-components.html)
 - [Getting started with create-react-app, Redux, React Router & Redux Thunk](https://medium.com/@notrab/getting-started-with-create-react-app-redux-react-router-redux-thunk-d6a19259f71f)
 - change active tab in constroctor or hook to/from state.
+- https://subscription.packtpub.com/book/web_development/9781789532555/8/ch08lvl1sec46/getting-started-with-connected-react-router
+
 
 ## suggest
 
@@ -41,3 +43,5 @@
 - [ ] active tab -> read from store
 - [ ] https/ssl -> cloudflare
 
+https://github.com/supasate/connected-react-router
+https://github.com/zalmoxisus/redux-devtools-extension
