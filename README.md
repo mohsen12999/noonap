@@ -27,6 +27,7 @@
 - [ ] router, title, active enable
 
 - active tab in state -> [Example of React JS with Material UI components](https://www.golangprograms.com/example-of-react-js-with-material-ui-components.html)
+- [Getting started with create-react-app, Redux, React Router & Redux Thunk](https://medium.com/@notrab/getting-started-with-create-react-app-redux-react-router-redux-thunk-d6a19259f71f)
 - change active tab in constroctor or hook to/from state.
 
 ## suggest
