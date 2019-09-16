@@ -20,6 +20,8 @@
 - [x] soon page -> product group == false
 - [ ] cart page -> see what you buy
 - [ ] checkout page -> after address & before go to bank
+- [ ] come back from bank page
+- [ ] rating page
 
 - [ ] install btn ->isAppInstallable && !isAppInstalled,deferredPrompt.prompt()
 - [ ] router, title, active enable
@@ -30,3 +32,10 @@
 ## suggest
 
 - [ ] add storybook -> `npx storybook`
+
+## Bugs
+
+- [ ] page title
+- [ ] reset store when change page
+- [ ] active tab
+
