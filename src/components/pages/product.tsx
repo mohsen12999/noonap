@@ -26,6 +26,8 @@ import { addToCart, removeFromCart } from "../../actions/shopActions";
 import Button from "@material-ui/core/Button";
 import ButtonGroup from "@material-ui/core/ButtonGroup";
 
+import { push } from "connected-react-router";
+
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
@@ -71,6 +73,8 @@ interface IProductProps extends RouteComponentProps<IMatchParams> {
   cart: ICartState;
   addToCart: Function;
   removeFromCart: Function;
+
+  changePage: Function;
 }
 
 const Product: React.FC<IProductProps> = (prop: IProductProps) => {
@@ -193,7 +197,8 @@ const Product: React.FC<IProductProps> = (prop: IProductProps) => {
         <Button
           color="secondary"
           className={classes.btnGroup}
-          href={process.env.PUBLIC_URL + "/checkout"}
+          // href={process.env.PUBLIC_URL + "/checkout"}
+          onClick={() => prop.changePage(process.env.PUBLIC_URL + "/checkout")}
         >
           <ShoppingBasket className={classes.extendedIcon} />
           <h4 className={classes.btnText}>سبد خرید</h4>
@@ -201,7 +206,8 @@ const Product: React.FC<IProductProps> = (prop: IProductProps) => {
         <Button
           color="primary"
           className={classes.btnGroup}
-          href={process.env.PUBLIC_URL + "/"}
+          // href={process.env.PUBLIC_URL + "/"}
+          onClick={() => prop.changePage(process.env.PUBLIC_URL + "/")}
         >
           <ViewModule className={classes.extendedIcon} />
           <h4 className={classes.btnText}>ادامه خرید</h4>
@@ -218,7 +224,8 @@ const mapStateToProps = (State: { app: IAppState; shop: IShopState }) => ({
 const mapDispatchToProps = {
   // changePage: changePage
   addToCart: addToCart,
-  removeFromCart: removeFromCart
+  removeFromCart: removeFromCart,
+  changePage: (url: string) => push(url)
 };
 
 export default connect(

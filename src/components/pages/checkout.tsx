@@ -41,22 +41,15 @@ const Checkout: React.FC<ICheckoutProps> = (prop: ICheckoutProps) => {
   return (
     <Container maxWidth="md">
       <h3 className={classes.mainTitle}>لیست سفارش ها</h3>
-      <p className={classes.mainTitle}>
-        کلیه حقوق مادی و معنوی اپلیکیشن نون متعلق به شرکت
-        <a
-          className={classes.companyLink}
-          href="http://www.apdr.ir"
-          title="وب سایت شرکت کاوشگران البرز"
-        >
-          کاوشگران البرز
-        </a>
-        می‌باشد.
-      </p>
-      <h4 className={classes.mainTitle}>آدرس</h4>
-      <p className={classes.mainTitle}>
-        رامسر - خیابان مطهری - جنب بانک صادرات مرکزی - طبقه دوم - شرکت کاوشگران
-        البرز
-      </p>
+      {products2.length === 0 ? (
+        <h3>سبد خرید خالی هست</h3>
+      ) : (
+        products2.map(p => (
+          <h4>
+            {p.title} * {p.count}
+          </h4>
+        ))
+      )}
     </Container>
   );
 };

@@ -3,6 +3,7 @@
 ## Todo
 
 - [x] redux
+- [x] add [redux-devtools-extension](https://github.com/zalmoxisus/redux-devtools-extension)
 - [x] material-ui
 
 - [ ] main page -> tab index
@@ -26,22 +27,22 @@
 - [ ] install btn ->isAppInstallable && !isAppInstalled,deferredPrompt.prompt()
 - [ ] router, title, active enable
 
-- active tab in state -> [Example of React JS with Material UI components](https://www.golangprograms.com/example-of-react-js-with-material-ui-components.html)
-- [Getting started with create-react-app, Redux, React Router & Redux Thunk](https://medium.com/@notrab/getting-started-with-create-react-app-redux-react-router-redux-thunk-d6a19259f71f)
-- change active tab in constroctor or hook to/from state.
-- https://subscription.packtpub.com/book/web_development/9781789532555/8/ch08lvl1sec46/getting-started-with-connected-react-router
-
-
 ## suggest
 
 - [ ] add storybook -> `npx storybook`
+- [ ] [react-snap](https://github.com/stereobooster/react-snap)
 
 ## Bugs
 
-- [ ] page title -> set when component mount
 - [ ] reset store when change page
-- [ ] active tab -> read from store
 - [ ] https/ssl -> cloudflare
+- [ ] page title -> set when component mount -> [React Helmet](https://github.com/nfl/react-helmet)
+- [ ] active tab -> read from store
 
-https://github.com/supasate/connected-react-router
-https://github.com/zalmoxisus/redux-devtools-extension
+## Help link
+
+- active tab in state -> [Example of React JS with Material UI components](https://www.golangprograms.com/example-of-react-js-with-material-ui-components.html)
+- [Getting started with create-react-app, Redux, React Router & Redux Thunk](https://medium.com/@notrab/getting-started-with-create-react-app-redux-react-router-redux-thunk-d6a19259f71f)
+- change active tab in constroctor or hook to/from state.
+- [connected-react-router](https://github.com/supasate/connected-react-router)
+- [getting-started-with-connected-react-router](https://subscription.packtpub.com/book/web_development/9781789532555/8/ch08lvl1sec46/getting-started-with-connected-react-router)
