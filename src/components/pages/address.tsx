@@ -2,7 +2,7 @@ import React from "react";
 import Container from "@material-ui/core/Container";
 import { makeStyles } from "@material-ui/core/styles";
 
-const useStyles = makeStyles({
+const useStyles:any = makeStyles({
   mainTitle: {
     fontFamily: "Yekan"
   },
@@ -13,7 +13,7 @@ const useStyles = makeStyles({
 });
 
 const Address: React.FC = () => {
-  const classes = useStyles();
+  const classes:any = useStyles();
 
   return (
     <Container maxWidth="md">

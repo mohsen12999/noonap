@@ -7,16 +7,18 @@ import PageCart from "./page-cart";
 import { IAppState } from "../../../reducers/app";
 import { IShopState } from "../../../reducers/shop";
 import { connect } from "react-redux";
+import { push } from "connected-react-router";
 
 import { PRODUCT_GROUPS, IProductGroup } from "../../../actions/shop";
 
-const useStyles = makeStyles(theme => ({
+const useStyles: any = makeStyles(theme => ({
   root: {
     flexGrow: 1
   },
   grid: {
     paddingTop: theme.spacing(2)
   },
+  littleGrid: { cursor: "pointer" },
   paper: {
     padding: theme.spacing(2),
     textAlign: "center",
@@ -30,10 +32,11 @@ const useStyles = makeStyles(theme => ({
 interface IMainProps {
   // tabId?: number;
   // changeTabId: Function;
+  changePage: Function;
 }
 
 const Main: React.FC<IMainProps> = (prop: IMainProps) => {
-  const classes = useStyles();
+  const classes: any = useStyles();
 
   // useEffect(() => {
   //   prop.changeTabId(0);
@@ -53,21 +56,34 @@ const Main: React.FC<IMainProps> = (prop: IMainProps) => {
         alignItems="stretch"
       >
         {groups.map(group => (
-          <Grid key={group.id} item xs={12} sm={6}>
-            <a
+          <Grid
+            className={classes.littleGrid}
+            key={group.id}
+            item
+            xs={12}
+            sm={6}
+            onClick={() =>
+              prop.changePage(
+                group.enable
+                  ? "/product/" + group.id + "/" + group.title
+                  : "/soon"
+              )
+            }
+          >
+            {/* <a
               className={classes.link}
               href={
                 group.enable
                   ? "/product/" + group.id + "/" + group.title
                   : "/soon"
               }
-            >
-              <PageCart
-                title={group.persianTitle}
-                subtitle={group.persianSubtitle}
-                img={group.img}
-              />
-            </a>
+            > */}
+            <PageCart
+              title={group.persianTitle}
+              subtitle={group.persianSubtitle}
+              img={group.img}
+            />
+            {/* </a> */}
           </Grid>
         ))}
       </Grid>
@@ -83,6 +99,7 @@ const mapStateToProps = (State: { app: IAppState; shop: IShopState }) => ({
 const mapDispatchToProps = {
   // changePage: changePage
   // changeTabId: changeTabId
+  changePage: (url: string) => push(url)
 };
 
 export default connect(
