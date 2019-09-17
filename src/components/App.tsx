@@ -11,6 +11,7 @@ import Address from "./pages/address";
 import Checkout from "./pages/checkout";
 
 import "./App.css";
+import { AppPages } from "../reducers/app";
 
 const App: React.FC = () => {
   return (
@@ -21,27 +22,29 @@ const App: React.FC = () => {
           <Route exact path={process.env.PUBLIC_URL + "/"} component={Main} />
           <Route
             exact
-            path={process.env.PUBLIC_URL + "/about"}
+            path={process.env.PUBLIC_URL + "/" + AppPages.ABOUT}
             component={About}
           />
           <Route
             exact
-            path={process.env.PUBLIC_URL + "/product/:id/:name"}
+            path={
+              process.env.PUBLIC_URL + "/" + AppPages.PRODUCT + "/:id/:name"
+            }
             component={(props: any) => <Product {...props} />}
           />
           <Route
             exact
-            path={process.env.PUBLIC_URL + "/soon"}
+            path={process.env.PUBLIC_URL + "/" + AppPages.SOON}
             component={Soon}
           />
           <Route
             exact
-            path={process.env.PUBLIC_URL + "/checkout"}
+            path={process.env.PUBLIC_URL + "/" + AppPages.CHECKOUT}
             component={Checkout}
           />
           <Route
             exact
-            path={process.env.PUBLIC_URL + "/address"}
+            path={process.env.PUBLIC_URL + "/" + AppPages.ADDRESS}
             component={Address}
           />
           <Route component={NotFound} />

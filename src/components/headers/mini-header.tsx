@@ -16,8 +16,13 @@ import ListItemText from "@material-ui/core/ListItemText";
 
 import ViewModule from "@material-ui/icons/ViewModule";
 import ImportantDevices from "@material-ui/icons/ImportantDevices";
+// import { Link } from "react-router-dom";
 
-import { Link } from "react-router-dom";
+import { push } from "connected-react-router";
+import { connect } from "react-redux";
+import Button from "@material-ui/core/Button";
+import { IAppState, AppPages } from "../../reducers/app";
+import { IShopState } from "../../reducers/shop";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -43,7 +48,11 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-const MiniHeader: React.FC = () => {
+interface IMiniHeaderProps {
+  changePage: Function;
+}
+
+const MiniHeader: React.FC<IMiniHeaderProps> = (prop: IMiniHeaderProps) => {
   const classes = useStyles();
   const [state, setState] = React.useState({
     top: false,
@@ -77,8 +86,9 @@ const MiniHeader: React.FC = () => {
       <List>
         <ListItem
           button
-          component={Link}
-          to={process.env.PUBLIC_URL + "/"}
+          component={Button}
+          // to={process.env.PUBLIC_URL + "/"}
+          onClick={() => prop.changePage(process.env.PUBLIC_URL + "/")}
           key="main"
         >
           <ListItemIcon>
@@ -91,8 +101,11 @@ const MiniHeader: React.FC = () => {
       <List>
         <ListItem
           button
-          component={Link}
-          to={process.env.PUBLIC_URL + "/about"}
+          component={Button}
+          // to={process.env.PUBLIC_URL + "/about"}
+          onClick={() =>
+            prop.changePage(process.env.PUBLIC_URL + "/" + AppPages.ABOUT)
+          }
           key="about"
         >
           <ListItemIcon>
@@ -101,28 +114,6 @@ const MiniHeader: React.FC = () => {
           <ListItemText className={classes.menuTitle} primary="درباره ما" />
         </ListItem>
       </List>
-
-      {/* <List>
-        {["Inbox", "Starred", "Send email", "Drafts"].map((text, index) => (
-          <ListItem button key={text}>
-            <ListItemIcon>
-              {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-            </ListItemIcon>
-            <ListItemText primary={text} />
-          </ListItem>
-        ))}
-      </List>
-      <Divider />
-      <List>
-        {["All mail", "Trash", "Spam"].map((text, index) => (
-          <ListItem button key={text}>
-            <ListItemIcon>
-              {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-            </ListItemIcon>
-            <ListItemText primary={text} />
-          </ListItem>
-        ))}
-      </List> */}
     </div>
   );
 
@@ -157,4 +148,17 @@ const MiniHeader: React.FC = () => {
     </div>
   );
 };
-export default MiniHeader;
+
+const mapStateToProps = (State: { app: IAppState; shop: IShopState }) => ({
+  // cart: State.shop.cart
+});
+
+const mapDispatchToProps = {
+  // changePage: changePage
+  changePage: (url: string) => push(url)
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(MiniHeader);

@@ -17,7 +17,7 @@ import RemoveIcon from "@material-ui/icons/Remove";
 import ShoppingBasket from "@material-ui/icons/ShoppingBasket";
 import ViewModule from "@material-ui/icons/ViewModule";
 
-import { IAppState } from "../../reducers/app";
+import { IAppState, AppPages } from "../../reducers/app";
 import { IShopState, ICartState } from "../../reducers/shop";
 
 import { PRODUCT_LIST, IProductSpecific } from "../../actions/shop";
@@ -198,7 +198,7 @@ const Product: React.FC<IProductProps> = (prop: IProductProps) => {
           color="secondary"
           className={classes.btnGroup}
           // href={process.env.PUBLIC_URL + "/checkout"}
-          onClick={() => prop.changePage(process.env.PUBLIC_URL + "/checkout")}
+          onClick={() => prop.changePage(process.env.PUBLIC_URL + "/"+AppPages.CHECKOUT)}
         >
           <ShoppingBasket className={classes.extendedIcon} />
           <h4 className={classes.btnText}>سبد خرید</h4>
