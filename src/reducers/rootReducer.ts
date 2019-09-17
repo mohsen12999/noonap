@@ -1,9 +1,12 @@
 import { combineReducers } from "redux";
+import { connectRouter } from 'connected-react-router'
+
 import AppReducer from "./appReducer";
 import ShopReducer from "./shopReducer";
 
-export default combineReducers({
-  // mainReducer
+const createRootReducer = (history:any) => combineReducers({
+  router: connectRouter(history),
   app: AppReducer,
   shop: ShopReducer,
-});
+})
+export default createRootReducer
