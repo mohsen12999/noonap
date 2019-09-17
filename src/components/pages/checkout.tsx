@@ -1,43 +1,41 @@
 import React from "react";
-import { connect } from "react-redux";
 import Paper from "@material-ui/core/Paper";
 import Typography from "@material-ui/core/Typography";
 import Container from "@material-ui/core/Container";
 import Button from "@material-ui/core/Button";
 
 import { IAppState } from "../../reducers/app";
-import { IShopState } from "../../reducers/shop";
+import { IShopState, ICartState } from "../../reducers/shop";
 import { connect } from "react-redux";
 import { push } from "connected-react-router";
 
-import { IAppState } from "../../reducers/app";
-import { IShopState, ICartState } from "../../reducers/shop";
-
-import { makeStyles } from "@material-ui/core/styles";
+import { Theme, createStyles, makeStyles } from "@material-ui/core/styles";
 
 import { PRODUCT_LIST, IProductSpecific } from "../../actions/shop";
 
-const useStyles = makeStyles({
-  mainTitle: {
-    fontFamily: "Yekan"
-  },
-  companyLink: {
-    fontFamily: "Yekan",
-    padding: "2px"
-  },
-  root: {
-    padding: theme.spacing(3, 2),
-    margin: theme.spacing(3, 2)
-  },
-  myFont: {
-    fontFamily: "Yekan"
-  },
-  btn: {
-    fontFamily: "Yekan",
-    textAlign: "left",
-    margin: theme.spacing(1, 2)
-  }
-});
+const useStyles: any = makeStyles((theme: Theme) =>
+  createStyles({
+    mainTitle: {
+      fontFamily: "Yekan"
+    },
+    companyLink: {
+      fontFamily: "Yekan",
+      padding: "2px"
+    },
+    root: {
+      padding: theme.spacing(3, 2),
+      margin: theme.spacing(3, 2)
+    },
+    myFont: {
+      fontFamily: "Yekan"
+    },
+    btn: {
+      fontFamily: "Yekan",
+      textAlign: "left",
+      margin: theme.spacing(1, 2)
+    }
+  })
+);
 
 interface ICheckoutProps {
   cart: ICartState;
