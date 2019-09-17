@@ -13,7 +13,12 @@ const AppReducer: Reducer<IAppState, { type: any; payload: any }> = (
         ...state,
         pageName: newPage
       };
-
+    case ActionTypes.CHANGE_TAB_ID:
+      const tabId: number = action.payload.tabId;
+      return {
+        ...state,
+        tabId: tabId
+      };
     //     case UPDATE_PAGE:
     //       return {
     //         ...state,

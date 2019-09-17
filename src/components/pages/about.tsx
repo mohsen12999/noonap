@@ -2,7 +2,11 @@ import React from "react";
 import Container from "@material-ui/core/Container";
 import { makeStyles } from "@material-ui/core/styles";
 
-const useStyles = makeStyles({
+import { IAppState } from "../../reducers/app";
+import { IShopState } from "../../reducers/shop";
+import { connect } from "react-redux";
+
+const useStyles: any = makeStyles({
   mainTitle: {
     fontFamily: "Yekan"
   },
@@ -12,8 +16,19 @@ const useStyles = makeStyles({
   }
 });
 
-const About: React.FC = () => {
-  const classes = useStyles();
+interface IAboutProps {
+  // tabId?: number;
+  // changeTabId: Function;
+}
+
+const About: React.FC<IAboutProps> = (prop: IAboutProps) => {
+  const classes: any = useStyles();
+
+  // useEffect(() => {
+  //   prop.changeTabId(1);
+  // });
+
+  // console.log(prop.tabId);
 
   return (
     <Container maxWidth="sm">
@@ -38,4 +53,17 @@ const About: React.FC = () => {
   );
 };
 
-export default About;
+const mapStateToProps = (State: { app: IAppState; shop: IShopState }) => ({
+  // cart: State.shop.cart
+  // tabId: State.app.tabId
+});
+
+const mapDispatchToProps = {
+  // changePage: changePage
+  // changeTabId: changeTabId
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(About);

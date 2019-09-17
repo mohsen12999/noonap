@@ -18,7 +18,7 @@ export interface IAppState {
 }
 
 export const INITIAL_APPSTATE: IAppState = {
-  tabId: 0,
+  tabId: 10,
   pageId: 0,
   pageName: AppPages.MAIN,
   pageTitle: "صفحه اصلی",

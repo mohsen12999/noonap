@@ -4,6 +4,10 @@ import { makeStyles } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
 import PageCart from "./page-cart";
 
+import { IAppState } from "../../../reducers/app";
+import { IShopState } from "../../../reducers/shop";
+import { connect } from "react-redux";
+
 import { PRODUCT_GROUPS, IProductGroup } from "../../../actions/shop";
 
 const useStyles = makeStyles(theme => ({
@@ -23,8 +27,19 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const Main: React.FC = () => {
+interface IMainProps {
+  // tabId?: number;
+  // changeTabId: Function;
+}
+
+const Main: React.FC<IMainProps> = (prop: IMainProps) => {
   const classes = useStyles();
+
+  // useEffect(() => {
+  //   prop.changeTabId(0);
+  // });
+
+  // console.log(prop.tabId);
 
   const groups: IProductGroup[] = PRODUCT_GROUPS;
 
@@ -41,7 +56,11 @@ const Main: React.FC = () => {
           <Grid key={group.id} item xs={12} sm={6}>
             <a
               className={classes.link}
-              href={group.enable?("/product/" + group.id + "/" + group.title):"/soon"}
+              href={
+                group.enable
+                  ? "/product/" + group.id + "/" + group.title
+                  : "/soon"
+              }
             >
               <PageCart
                 title={group.persianTitle}
@@ -56,4 +75,17 @@ const Main: React.FC = () => {
   );
 };
 
-export default Main;
+const mapStateToProps = (State: { app: IAppState; shop: IShopState }) => ({
+  // cart: State.shop.cart
+  tabId: State.app.tabId
+});
+
+const mapDispatchToProps = {
+  // changePage: changePage
+  // changeTabId: changeTabId
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Main);

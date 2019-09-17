@@ -21,3 +21,12 @@ export const changePage: Function = (
     payload: { levelId, newPage }
   });
 };
+
+export const changeTabId: Function = (tabId: number) => (
+  dispatch: Dispatch
+) => {
+  dispatch({
+    type: ActionTypes.CHANGE_TAB_ID,
+    payload: { tabId }
+  });
+};

@@ -10,10 +10,20 @@ import Soon from "./pages/soon";
 import Address from "./pages/address";
 import Checkout from "./pages/checkout";
 
-import "./App.css";
-import { AppPages } from "../reducers/app";
+import { push } from "connected-react-router";
+import { connect } from "react-redux";
+import { IAppState, AppPages } from "../reducers/app";
+import { IShopState } from "../reducers/shop";
 
-const App: React.FC = () => {
+import "./App.css";
+
+interface IAppProps {
+  tabId?: number;
+  changePage: Function;
+}
+
+const App: React.FC<IAppProps> = (prop: IAppProps) => {
+  console.log("app:", prop.tabId);
   return (
     <div className="App">
       <MainHeader />
@@ -57,7 +67,20 @@ const App: React.FC = () => {
   );
 };
 
-export default App;
+const mapStateToProps = (State: { app: IAppState; shop: IShopState }) => ({
+  // cart: State.shop.cart
+  tabId: State.app.pageId
+});
+
+const mapDispatchToProps = {
+  // changePage: changePage
+  changePage: (url: string) => push(url)
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(App);
 
 // https://reacttraining.com/react-router/web/guides/basic-components
 
