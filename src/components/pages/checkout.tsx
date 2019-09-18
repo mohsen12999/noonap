@@ -59,7 +59,7 @@ const Checkout: React.FC<ICheckoutProps> = (prop: ICheckoutProps) => {
       {products.length === 0 ? (
         <Paper className={classes.root}>
           <Typography className={classes.myFont} variant="h5" component="h3">
-            !سبد خرید خالی هست
+            سبد خرید خالی هست!
           </Typography>
           <Typography className={classes.myFont} component="p">
             لطفاً کالا یا کالاهایی را انتخاب کنید.
@@ -74,11 +74,14 @@ const Checkout: React.FC<ICheckoutProps> = (prop: ICheckoutProps) => {
           </Button>
         </Paper>
       ) : (
-        products.map(p => (
-          <h4>
-            {p.title} * {p.count}
-          </h4>
-        ))
+        <>
+          {products.map(p => (
+            <h4>
+              {p.count} * {p.title}
+            </h4>
+          ))}
+          <h4>مجموع</h4>
+        </>
       )}
     </Container>
   );

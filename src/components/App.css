@@ -61,3 +61,12 @@
     padding-left: 0;
   }
 }
+
+.MuiInputLabel-formControl {
+  right: 0 !important;
+  font-family: 'Yekan' !important;
+}
+
+.MuiInputLabel-shrink {
+  transform-origin: top right !important;
+}

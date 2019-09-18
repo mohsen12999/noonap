@@ -161,6 +161,8 @@ const ShopReducer: Reducer<IShopState, { type: any; payload: any }> = (
 };
 
 const cart = (state: ICartState, action: { type: any; payload: any }) => {
+  console.log("-- action", action, action.type);
+
   switch (action.type) {
     case ActionTypes.ADD_TO_CART:
       const addId = action.payload.productId;
@@ -168,13 +170,12 @@ const cart = (state: ICartState, action: { type: any; payload: any }) => {
         ...state,
         [addId]: (state[addId] || 0) + 1
       };
+
     case ActionTypes.REMOVE_FROM_CART:
       const removeId = action.payload.productId;
       const quantity = (state[removeId] || 0) - 1;
       if (quantity <= 0) {
-        const newState = {
-          ...state
-        };
+        const newState = { ...state };
         delete newState[removeId];
         return newState;
       } else {
@@ -183,6 +184,7 @@ const cart = (state: ICartState, action: { type: any; payload: any }) => {
           [removeId]: quantity
         };
       }
+      
     // case CHECKOUT_SUCCESS:
     //   return {};
     default:

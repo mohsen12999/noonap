@@ -66,6 +66,17 @@ export const removeFromCart = (
   });
 };
 
+// export const removeFromCart = (
+//   event: React.MouseEvent<HTMLButtonElement>,
+//   productId: number
+// ) => (dispatch: Dispatch) => {
+//   event.stopPropagation();
+//   dispatch({
+//     type: ActionTypes.REMOVE_FROM_CART,
+//     payload: { productId }
+//   });
+// };
+
 /*
 export const ChangeFullname: ActionCreator<IChangeFullnameDeliver> = (productId) => {
   return {

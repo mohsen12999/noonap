@@ -9,7 +9,8 @@
 - [ ] main page -> tab index
 - [ ] product page
   - [ ] product list
-  - [x] add/remove product
+  - [x] add product
+  - [ ] remove product
   - [ ] product cart count
   - [ ] page title
 - [ ] address page
@@ -38,6 +39,7 @@
 - [ ] https/ssl -> cloudflare
 - [ ] page title -> set when component mount -> [React Helmet](https://github.com/nfl/react-helmet)
 - [ ] active tab -> read from store
+- [ ] remove from shop cart
 
 ## Help link
 

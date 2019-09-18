@@ -28,7 +28,7 @@ import ButtonGroup from "@material-ui/core/ButtonGroup";
 
 import { push } from "connected-react-router";
 
-const useStyles = makeStyles((theme: Theme) =>
+const useStyles: any = makeStyles((theme: Theme) =>
   createStyles({
     root: {
       width: "100%",
@@ -78,7 +78,7 @@ interface IProductProps extends RouteComponentProps<IMatchParams> {
 }
 
 const Product: React.FC<IProductProps> = (prop: IProductProps) => {
-  const classes = useStyles();
+  const classes: any = useStyles();
 
   const productId: string | undefined = prop.match.params.id;
 
@@ -198,7 +198,9 @@ const Product: React.FC<IProductProps> = (prop: IProductProps) => {
           color="secondary"
           className={classes.btnGroup}
           // href={process.env.PUBLIC_URL + "/checkout"}
-          onClick={() => prop.changePage(process.env.PUBLIC_URL + "/"+AppPages.CHECKOUT)}
+          onClick={() =>
+            prop.changePage(process.env.PUBLIC_URL + "/" + AppPages.CHECKOUT)
+          }
         >
           <ShoppingBasket className={classes.extendedIcon} />
           <h4 className={classes.btnText}>سبد خرید</h4>
