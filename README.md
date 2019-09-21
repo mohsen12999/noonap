@@ -118,3 +118,7 @@ export function productsReducer(state = initialState, action) {
 - change active tab in constroctor or hook to/from state.
 - [connected-react-router](https://github.com/supasate/connected-react-router)
 - [getting-started-with-connected-react-router](https://subscription.packtpub.com/book/web_development/9781789532555/8/ch08lvl1sec46/getting-started-with-connected-react-router)
+
+## flow
+
+* main => markets => products => deliver => address => order => bank => factor
