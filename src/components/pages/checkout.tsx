@@ -11,7 +11,7 @@ import { push } from "connected-react-router";
 
 import { Theme, createStyles, makeStyles } from "@material-ui/core/styles";
 
-import { PRODUCT_LIST, IProductSpecific } from "../../actions/shop";
+import { PRODUCT_LIST, IProduct } from "../../actions/shop";
 
 const useStyles: any = makeStyles((theme: Theme) =>
   createStyles({
@@ -45,7 +45,7 @@ interface ICheckoutProps {
 const Checkout: React.FC<ICheckoutProps> = (prop: ICheckoutProps) => {
   const classes = useStyles();
 
-  const products: IProductSpecific[] = PRODUCT_LIST.map(pCart => {
+  const products: IProduct[] = PRODUCT_LIST.map(pCart => {
     pCart.count =
       prop.cart === undefined || prop.cart[pCart.id] === undefined
         ? 0

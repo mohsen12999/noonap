@@ -40,6 +40,76 @@
 - [ ] page title -> set when component mount -> [React Helmet](https://github.com/nfl/react-helmet)
 - [ ] active tab -> read from store
 - [ ] remove from shop cart
+- [ ] read all product info from server at beggining and save in store -> component mount off app
+
+```js
+function fetchProducts() {
+    return dispatch => {
+        dispatch(fetchProductsPending());
+        fetch('https://exampleapi.com/products')
+        .then(res => res.json())
+        .then(res => {
+            if(res.error) {
+                throw(res.error);
+            }
+            dispatch(fetchProductsSuccess(res.products);
+            return res.products;
+        })
+        .catch(error => {
+            dispatch(fetchProductsError(error));
+        })
+    }
+}
+
+export function productsReducer(state = initialState, action) {
+    switch(action.type) {
+        case FETCH_PRODUCTS_PENDING:
+            return {
+                ...state,
+                pending: true
+            }
+        case FETCH_PRODUCTS_SUCCESS:
+            return {
+                ...state,
+                pending: false,
+                products: action.payload
+            }
+        case FETCH_PRODUCTS_ERROR:
+            return {
+                ...state,
+                pending: false,
+                error: action.error
+            }
+        default:
+            return state;
+    }
+}
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const result = await axios(
+        'https://hn.algolia.com/api/v1/search?query=redux',
+      );
+      setData(result.data);
+    };
+    fetchData();
+  }, []);
+
+  const useFetch = (url) => {
+  const [data, setData] = useState(null);
+  useEffect(() => {
+    let mounted = true;
+    (async () => {
+      const res = await fetch(url);
+      const data = await res.json();
+      if (mounted) setData(data);
+    })();
+    const cleanup = () => { mounted = false; };
+    return cleanup;
+  }, [url]);
+  return data;
+};
+```
 
 ## Help link
 

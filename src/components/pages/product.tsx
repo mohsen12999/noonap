@@ -20,7 +20,7 @@ import ViewModule from "@material-ui/icons/ViewModule";
 import { IAppState, AppPages } from "../../reducers/app";
 import { IShopState, ICartState } from "../../reducers/shop";
 
-import { PRODUCT_LIST, IProductSpecific } from "../../actions/shop";
+import { PRODUCT_LIST, IProduct } from "../../actions/shop";
 import { addToCart, removeFromCart } from "../../actions/shopActions";
 
 import Button from "@material-ui/core/Button";
@@ -82,7 +82,7 @@ const Product: React.FC<IProductProps> = (prop: IProductProps) => {
 
   const productId: string | undefined = prop.match.params.id;
 
-  const products: IProductSpecific[] =
+  const products: IProduct[] =
     productId === undefined
       ? []
       : PRODUCT_LIST.filter(p => p.productGroupId === Number(productId)).map(

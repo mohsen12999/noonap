@@ -1,22 +1,34 @@
-export interface IProductGroup {
+export interface IMarketGroup {
+  id: number;
+  title: string;
+  persianTitle: string;
+  persianSubtitle?: string;
+  img: string;
+  enable: boolean;
+  // "products": IProduct[];
+}
+
+export interface IMarket {
   id: number;
   title: string;
   persianTitle: string;
   persianSubtitle: string;
   img: string;
+  discount?: number;
   enable: boolean;
-  // "products": IProductSpecific[];
+  marketGroupId: number;
 }
 
-export interface IProductSpecific {
+export interface IProduct {
   id: number;
   title: string;
+  subtitle?: string;
   price: number;
-  max: number;
   img: string;
   enable: boolean;
-  productGroupId: number;
+  max: number;
   count: number;
+  productGroupId: number;
 }
 
 export interface IDeliverTime {
@@ -27,7 +39,7 @@ export interface IDeliverTime {
 }
 
 // values
-export const PRODUCT_GROUPS: IProductGroup[] = [
+export const MarketsGroups: IMarketGroup[] = [
   {
     id: 1,
     title: "Breads",
@@ -78,7 +90,7 @@ export const PRODUCT_GROUPS: IProductGroup[] = [
   }
 ];
 
-export const PRODUCT_LIST: IProductSpecific[] = [
+export const PRODUCT_LIST: IProduct[] = [
   // - Breads
   {
     id: 1,
@@ -139,3 +151,5 @@ export const TIME_LIST: IDeliverTime[] = [
   { id: 4, title: "17:00 تا 19:00 عصر", start: 17, end: 19 },
   { id: 5, title: "19:00 تا 22:00 شب", start: 19, end: 22 }
 ];
+
+// - Todo: 3 title

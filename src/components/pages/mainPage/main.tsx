@@ -9,7 +9,7 @@ import { IShopState } from "../../../reducers/shop";
 import { connect } from "react-redux";
 import { push } from "connected-react-router";
 
-import { PRODUCT_GROUPS, IProductGroup } from "../../../actions/shop";
+import { MarketsGroups, IMarketGroup } from "../../../actions/shop";
 
 const useStyles: any = makeStyles(theme => ({
   root: {
@@ -44,7 +44,7 @@ const Main: React.FC<IMainProps> = (prop: IMainProps) => {
 
   // console.log(prop.tabId);
 
-  const groups: IProductGroup[] = PRODUCT_GROUPS;
+  const groups: IMarketGroup[] = MarketsGroups;
 
   return (
     <Container maxWidth="md">
