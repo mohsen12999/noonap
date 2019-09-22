@@ -55,7 +55,8 @@ export interface IDeliverTime {
   end: number;
 }
 
-// values
+// mock values -> read from server at last
+// market groups
 export const MarketsGroups: IMarketGroup[] = [
   {
     id: 1,
@@ -106,6 +107,8 @@ export const MarketsGroups: IMarketGroup[] = [
     enable: false
   }
 ];
+
+
 
 export const PRODUCT_LIST: IProduct[] = [
   // - Breads

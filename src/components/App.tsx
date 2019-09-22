@@ -9,6 +9,7 @@ import MainHeader from "./headers/main-header";
 import Soon from "./pages/soon";
 import Address from "./pages/address";
 import Checkout from "./pages/checkout";
+import Market from "./pages/market";
 
 import { push } from "connected-react-router";
 import { connect } from "react-redux";
@@ -34,6 +35,13 @@ const App: React.FC<IAppProps> = (prop: IAppProps) => {
             exact
             path={process.env.PUBLIC_URL + "/" + AppPages.ABOUT}
             component={About}
+          />
+          <Route
+            exact
+            path={
+              process.env.PUBLIC_URL + "/" + AppPages.MARKET + "/:id/:name"
+            }
+            component={(props: any) => <Market {...props} />}
           />
           <Route
             exact

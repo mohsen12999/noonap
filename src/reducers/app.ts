@@ -1,6 +1,7 @@
 export enum AppPages {
   MAIN = "main",
   ABOUT = "about",
+  MARKET = "market",
   PRODUCT = "product",
   ADDRESS = "address",
   BILL = "bill",
