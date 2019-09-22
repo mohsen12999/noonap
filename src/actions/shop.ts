@@ -35,7 +35,7 @@ export interface IProduct {
   enable: boolean;
   max: number;
   count: number;
-  productGroupId: number;
+  MarketId?: number;
 }
 
 export interface IOpenTime {
@@ -116,7 +116,7 @@ export const PRODUCT_LIST: IProduct[] = [
     max: 30,
     img: "/images/noon/barbari-192.png",
     enable: true,
-    productGroupId: 1,
+    MarketId: 1,
     count: 0
   },
   {
@@ -126,7 +126,7 @@ export const PRODUCT_LIST: IProduct[] = [
     max: 30,
     img: "/images/noon/barbari-konjedi-192.png",
     enable: false,
-    productGroupId: 1,
+    MarketId: 1,
     count: 0
   },
   {
@@ -136,7 +136,7 @@ export const PRODUCT_LIST: IProduct[] = [
     max: 30,
     img: "/images/noon/sangak-192.png",
     enable: false,
-    productGroupId: 1,
+    MarketId: 1,
     count: 0
   },
   {
@@ -146,7 +146,7 @@ export const PRODUCT_LIST: IProduct[] = [
     max: 30,
     img: "/images/noon/sangak-konjedi-192.png",
     enable: false,
-    productGroupId: 1,
+    MarketId: 1,
     count: 0
   },
   {
@@ -156,7 +156,7 @@ export const PRODUCT_LIST: IProduct[] = [
     max: 100,
     img: "/images/noon/lavash-192.png",
     enable: false,
-    productGroupId: 1,
+    MarketId: 1,
     count: 0
   }
 ];
