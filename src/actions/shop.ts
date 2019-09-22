@@ -12,11 +12,18 @@ export interface IMarket {
   id: number;
   title: string;
   persianTitle: string;
-  persianSubtitle: string;
+  persianSubtitle?: string;
   img: string;
   discount?: number;
   enable: boolean;
+
   marketGroupId: number;
+
+  products?: IProduct[];
+  openTime?: IOpenTime[];
+
+  address?: string;
+  description?: string;
 }
 
 export interface IProduct {
@@ -29,6 +36,16 @@ export interface IProduct {
   max: number;
   count: number;
   productGroupId: number;
+}
+
+export interface IOpenTime {
+  day: string;
+  morning: string;
+  morningStart: number;
+  morningEnd: number;
+  evening?: string;
+  eveningStart?: number;
+  eveningEnd?: number;
 }
 
 export interface IDeliverTime {
