@@ -80,7 +80,7 @@ const Main: React.FC<IMainProps> = (prop: IMainProps) => {
             > */}
             <PageCart
               title={group.persianTitle}
-              subtitle={group.persianSubtitle}
+              subtitle={group.persianSubtitle!=undefined?group.persianSubtitle :""}
               img={group.img}
             />
             {/* </a> */}

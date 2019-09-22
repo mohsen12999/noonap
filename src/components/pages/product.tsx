@@ -85,7 +85,7 @@ const Product: React.FC<IProductProps> = (prop: IProductProps) => {
   const products: IProduct[] =
     productId === undefined
       ? []
-      : PRODUCT_LIST.filter(p => p.productGroupId === Number(productId)).map(
+      : PRODUCT_LIST.filter(p => p.MarketId === Number(productId)).map(
           pCart => {
             pCart.count =
               prop.cart === undefined || prop.cart[pCart.id] === undefined
