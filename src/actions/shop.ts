@@ -21,8 +21,8 @@ export interface IMarket {
 
   marketGroupId: number;
 
-  products?: IProduct[];
-  openTime?: IOpenTime[];
+  products: IProduct[];
+  openTime: IOpenTimesState;
 
   address?: string;
   description?: string;
@@ -40,14 +40,20 @@ export interface IProduct {
   MarketId?: number;
 }
 
+export interface IWorkTime {
+  title?: string;
+  start: number;
+  end: number;
+}
+
 export interface IOpenTime {
-  day: string;
-  morning: string;
-  morningStart: number;
-  morningEnd: number;
-  evening?: string;
-  eveningStart?: number;
-  eveningEnd?: number;
+  day?: string;
+  firstTime: IWorkTime;
+  secoundTime?: IWorkTime;
+}
+
+interface IOpenTimesState {
+  [date: string]: IOpenTime;
 }
 
 export interface IDeliverTime {
@@ -115,6 +121,7 @@ export const Markets: IMarket[] = [
     id: 1,
     title: "Ebrahimi",
     persianTitle: "نانوایی ابراهیمی",
+    persianSubtitle: "ابریشم محله",
     img: "/images/market/bakery-logo.png",
     enable: true,
     discount: 0,
@@ -141,14 +148,17 @@ export const Markets: IMarket[] = [
         count: 0
       }
     ],
-    openTime: [
-      {
+    openTime: {
+      "6": {
         day: "شنبه",
-        morning: "۶ تا ۱۱",
-        morningStart: 6,
-        morningEnd: 11
+        firstTime: {
+          title: "6 تا 11",
+          start: 6,
+          end: 11
+        }
       }
-    ],
+    },
+
     address: "رامسر - ابریشم محله",
     description: ""
   },
@@ -202,14 +212,16 @@ export const Markets: IMarket[] = [
         count: 0
       }
     ],
-    openTime: [
-      {
+    openTime: {
+      "6": {
         day: "شنبه",
-        morning: "۱۰ تا ۱۳",
-        morningStart: 10,
-        morningEnd: 13
+        firstTime: {
+          title: "6 تا 11",
+          start: 6,
+          end: 11
+        }
       }
-    ],
+    },
     address: "رامسر - ابریشم محله",
     description: ""
   }

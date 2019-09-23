@@ -70,3 +70,8 @@
 .MuiInputLabel-shrink {
   transform-origin: top right !important;
 }
+
+.MuiChip-icon {
+  margin-right: 5px !important;
+  margin-left: -8px !important;
+}

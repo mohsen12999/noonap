@@ -5,6 +5,12 @@ import CardContent from "@material-ui/core/CardContent";
 import CardMedia from "@material-ui/core/CardMedia";
 import Typography from "@material-ui/core/Typography";
 
+import Chip from "@material-ui/core/Chip";
+import LoyaltyIcon from "@material-ui/icons/Loyalty";
+import MeetingRoomIcon from "@material-ui/icons/MeetingRoom";
+import NoMeetingRoomIcon from "@material-ui/icons/NoMeetingRoom";
+import LocalShippingIcon from "@material-ui/icons/LocalShipping";
+
 const useStyles = makeStyles(theme => ({
   card: {
     display: "flex"
@@ -32,26 +38,40 @@ const useStyles = makeStyles(theme => ({
   },
   persianfont: {
     fontFamily: "Yekan"
+  },
+  chip: {
+    fontFamily: "Yekan",
+    padding: theme.spacing(1)
   }
 }));
 
-interface IPageCartProp {
+interface IMarketCartProp {
   title: string;
-  subtitle: string;
+  subtitle?: string;
   img: string;
+  open: boolean;
+  address?: string;
+  discount?: number;
+  freeDeliver?: boolean;
 }
 
-const PageCart: React.FC<IPageCartProp> = ({ title, subtitle, img }) => {
-  // const PageCart: React.FC = (title: string, subtitle: string, img: string) => {
+const MarketCart: React.FC<IMarketCartProp> = ({
+  title,
+  subtitle,
+  img,
+  open,
+  address,
+  discount,
+  freeDeliver
+}) => {
+  // const MarketCart: React.FC = (title: string, subtitle: string, img: string) => {
   const classes = useStyles();
-  // const theme = useTheme();
-  //console.log(title, subtitle, img);
 
   return (
     <Card className={classes.card}>
       <CardMedia
         className={classes.cover}
-        image={process.env.PUBLIC_URL + img} //"/images/group/shopping-cart.png"
+        image={process.env.PUBLIC_URL + img}
         title="Live from space album cover"
       />
 
@@ -64,20 +84,69 @@ const PageCart: React.FC<IPageCartProp> = ({ title, subtitle, img }) => {
           >
             {title}
           </Typography>
-          <Typography
-            className={classes.persianfont}
-            variant="subtitle1"
-            color="textSecondary"
-          >
-            {subtitle}
-          </Typography>
+          {subtitle !== undefined && (
+            <Typography
+              className={classes.persianfont}
+              variant="subtitle1"
+              color="textSecondary"
+            >
+              {subtitle}
+            </Typography>
+          )}
+          {address !== undefined && (
+            <Typography
+              className={classes.persianfont}
+              variant="subtitle1"
+              color="textSecondary"
+            >
+              {address}
+            </Typography>
+          )}
+          {open ? (
+            <Chip
+              icon={<MeetingRoomIcon />}
+              label="باز است"
+              clickable
+              className={classes.chip}
+              variant="outlined"
+            />
+          ) : (
+            <Chip
+              icon={<NoMeetingRoomIcon />}
+              label="بسته است"
+              clickable
+              className={classes.chip}
+              color="primary"
+              variant="outlined"
+            />
+          )}
+          {discount !== undefined && discount > 0 && (
+            <Chip
+              icon={<LoyaltyIcon />}
+              label={discount + " درصد تخفیف"}
+              clickable
+              className={classes.chip}
+              color="secondary"
+              // variant="outlined"
+            />
+          )}
+          {freeDeliver !== undefined && freeDeliver && (
+            <Chip
+              icon={<LocalShippingIcon />}
+              label="تحویل رایگان"
+              clickable
+              className={classes.chip}
+              color="secondary"
+              // variant="outlined"
+            />
+          )}
         </CardContent>
       </div>
     </Card>
   );
 };
 
-export default PageCart;
+export default MarketCart;
 
 /*
 import React from "react";
