@@ -20,7 +20,7 @@ import ViewModule from "@material-ui/icons/ViewModule";
 import { IAppState, AppPages } from "../../reducers/app";
 import { IShopState, ICartState } from "../../reducers/shop";
 
-import { PRODUCT_LIST, IProduct } from "../../actions/shop";
+import { PRODUCT_LIST, IProduct, Markets, IMarket } from "../../actions/shop";
 import { addToCart, removeFromCart } from "../../actions/shopActions";
 
 import Button from "@material-ui/core/Button";
@@ -79,6 +79,15 @@ interface IProductProps extends RouteComponentProps<IMatchParams> {
 
 const Product: React.FC<IProductProps> = (prop: IProductProps) => {
   const classes: any = useStyles();
+
+  const marketId: string | undefined = prop.match.params.id;
+  const market: IMarket | undefined =
+    marketId === undefined
+      ? undefined
+      : Markets.find(m => m.id === Number(marketId));
+  const products2: IProduct[] = market.products;
+
+  console.log(marketId, market, products2);
 
   const productId: string | undefined = prop.match.params.id;
 

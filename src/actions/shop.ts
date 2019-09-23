@@ -33,9 +33,10 @@ export interface IProduct {
   title: string;
   subtitle?: string;
   price: number;
+  discount?:number;
   img: string;
   enable: boolean;
-  max: number;
+  max?: number;
   count: number;
   MarketId?: number;
 }
