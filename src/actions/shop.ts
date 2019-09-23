@@ -124,7 +124,8 @@ export const Markets: IMarket[] = [
     persianSubtitle: "ابریشم محله",
     img: "/images/market/bakery-logo.png",
     enable: true,
-    discount: 0,
+    discount: 10,
+    freeDeliver: true,
     marketGroupId: 1,
     products: [
       {

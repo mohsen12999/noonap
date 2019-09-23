@@ -41,7 +41,8 @@ const useStyles = makeStyles(theme => ({
   },
   chip: {
     fontFamily: "Yekan",
-    padding: theme.spacing(1)
+    // padding: theme.spacing(1),
+    margin: "2px"
   }
 }));
 
@@ -136,7 +137,7 @@ const MarketCart: React.FC<IMarketCartProp> = ({
               label="تحویل رایگان"
               clickable
               className={classes.chip}
-              color="secondary"
+              color="primary"
               // variant="outlined"
             />
           )}
