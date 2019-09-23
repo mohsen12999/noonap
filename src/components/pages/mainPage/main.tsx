@@ -4,7 +4,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
 import PageCart from "./page-cart";
 
-import { IAppState } from "../../../reducers/app";
+import { IAppState, AppPages } from "../../../reducers/app";
 import { IShopState } from "../../../reducers/shop";
 import { connect } from "react-redux";
 import { push } from "connected-react-router";
@@ -65,8 +65,8 @@ const Main: React.FC<IMainProps> = (prop: IMainProps) => {
             onClick={() =>
               prop.changePage(
                 group.enable
-                  ? "/product/" + group.id + "/" + group.title
-                  : "/soon"
+                  ? "/" + AppPages.MARKET + "/" + group.id + "/" + group.title
+                  : "/" + AppPages.SOON
               )
             }
           >
@@ -80,7 +80,9 @@ const Main: React.FC<IMainProps> = (prop: IMainProps) => {
             > */}
             <PageCart
               title={group.persianTitle}
-              subtitle={group.persianSubtitle!=undefined?group.persianSubtitle :""}
+              subtitle={
+                group.persianSubtitle !== undefined ? group.persianSubtitle : ""
+              }
               img={group.img}
             />
             {/* </a> */}

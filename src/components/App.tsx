@@ -9,7 +9,7 @@ import MainHeader from "./headers/main-header";
 import Soon from "./pages/soon";
 import Address from "./pages/address";
 import Checkout from "./pages/checkout";
-import Market from "./pages/market";
+import Market from "./pages/marketPage/market";
 
 import { push } from "connected-react-router";
 import { connect } from "react-redux";

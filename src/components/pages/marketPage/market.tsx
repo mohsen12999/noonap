@@ -3,14 +3,14 @@ import { RouteComponentProps } from "react-router-dom";
 import Container from "@material-ui/core/Container";
 import { makeStyles } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
-import PageCart from "./mainPage/page-cart";
+import PageCart from "./page-cart";
 
-import { IAppState } from "../../reducers/app";
-import { IShopState } from "../../reducers/shop";
+import { IAppState, AppPages } from "../../../reducers/app";
+import { IShopState } from "../../../reducers/shop";
 import { connect } from "react-redux";
 import { push } from "connected-react-router";
 
-import { Markets, IMarket } from "../../actions/shop";
+import { Markets, IMarket } from "../../../actions/shop";
 
 const useStyles: any = makeStyles(theme => ({
   root: {
@@ -52,7 +52,7 @@ const Market: React.FC<IMarketProps> = (prop: IMarketProps) => {
   // console.log(prop.tabId);
 
   const markets: IMarket[] = Markets.filter(
-    m => m.marketGroupId == Number(groupId)
+    m => m.marketGroupId === Number(groupId)
   );
 
   return (
@@ -74,8 +74,13 @@ const Market: React.FC<IMarketProps> = (prop: IMarketProps) => {
             onClick={() =>
               prop.changePage(
                 market.enable
-                  ? "/product/" + market.id + "/" + market.title
-                  : "/soon"
+                  ? "/" +
+                      AppPages.PRODUCT +
+                      "/" +
+                      market.id +
+                      "/" +
+                      market.title
+                  : "/" + AppPages.SOON
               )
             }
           >
@@ -90,7 +95,7 @@ const Market: React.FC<IMarketProps> = (prop: IMarketProps) => {
             <PageCart
               title={market.persianTitle}
               subtitle={
-                market.persianSubtitle != undefined
+                market.persianSubtitle !== undefined
                   ? market.persianSubtitle
                   : ""
               }

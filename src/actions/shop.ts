@@ -14,7 +14,9 @@ export interface IMarket {
   persianTitle: string;
   persianSubtitle?: string;
   img: string;
+
   discount?: number;
+  freeDeliver?: boolean;
   enable: boolean;
 
   marketGroupId: number;
