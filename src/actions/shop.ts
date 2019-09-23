@@ -108,7 +108,110 @@ export const MarketsGroups: IMarketGroup[] = [
   }
 ];
 
-
+export const Markets: IMarket[] = [
+  {
+    id: 1,
+    title: "Ebrahimi",
+    persianTitle: "نانوایی ابراهیمی",
+    img: "/images/market/bakery-logo.png",
+    enable: true,
+    discount: 0,
+    marketGroupId: 1,
+    products: [
+      {
+        id: 1,
+        title: "بربری آزاد ساده",
+        price: 1500,
+        max: 30,
+        img: "/images/product/barbari-192.png",
+        enable: true,
+        MarketId: 1,
+        count: 0
+      },
+      {
+        id: 2,
+        title: "بربری آزاد کنجدی",
+        price: 2000,
+        max: 30,
+        img: "/images/product/barbari-konjedi-192.png",
+        enable: false,
+        MarketId: 1,
+        count: 0
+      }
+    ],
+    openTime: [
+      {
+        day: "شنبه",
+        morning: "۶ تا ۱۱",
+        morningStart: 6,
+        morningEnd: 11
+      }
+    ],
+    address: "رامسر - ابریشم محله",
+    description: ""
+  },
+  {
+    id: 2,
+    title: "hayat",
+    persianTitle: "نگارخانه حیاط حیات",
+    img: "/images/market/florist-bakery-cafe.png",
+    enable: true,
+    discount: 0,
+    marketGroupId: 1,
+    products: [
+      {
+        id: 1,
+        title: "دیتاکس کیوی",
+        price: 15000,
+        max: 5,
+        img: "/images/product/water-kiwi.png",
+        enable: true,
+        MarketId: 1,
+        count: 0
+      },
+      {
+        id: 2,
+        title: "دیتاکس خیار",
+        price: 20000,
+        max: 5,
+        img: "/images/product/StrawberryCucumber.png",
+        enable: false,
+        MarketId: 1,
+        count: 0
+      },
+      {
+        id: 3,
+        title: "دیتاکس لیمو",
+        price: 20000,
+        max: 5,
+        img: "/images/product/lemon.png",
+        enable: false,
+        MarketId: 1,
+        count: 0
+      },
+      {
+        id: 4,
+        title: "دیتاکس مخصوص",
+        price: 20000,
+        max: 5,
+        img: "/images/product/detox-water-.png",
+        enable: false,
+        MarketId: 1,
+        count: 0
+      }
+    ],
+    openTime: [
+      {
+        day: "شنبه",
+        morning: "۱۰ تا ۱۳",
+        morningStart: 10,
+        morningEnd: 13
+      }
+    ],
+    address: "رامسر - ابریشم محله",
+    description: ""
+  }
+];
 
 export const PRODUCT_LIST: IProduct[] = [
   // - Breads
