@@ -1,4 +1,5 @@
 import React from "react";
+import { RouteComponentProps } from "react-router-dom";
 import Container from "@material-ui/core/Container";
 import { makeStyles } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
@@ -9,7 +10,7 @@ import { IShopState } from "../../reducers/shop";
 import { connect } from "react-redux";
 import { push } from "connected-react-router";
 
-import { MarketsGroups, IMarketGroup } from "../../actions/shop";
+import { Markets, IMarket } from "../../actions/shop";
 
 const useStyles: any = makeStyles(theme => ({
   root: {
@@ -29,7 +30,12 @@ const useStyles: any = makeStyles(theme => ({
   }
 }));
 
-interface IMarketProps {
+interface IMatchParams {
+  id?: string;
+  name?: string;
+}
+
+interface IMarketProps extends RouteComponentProps<IMatchParams> {
   // tabId?: number;
   // changeTabId: Function;
   changePage: Function;
@@ -38,13 +44,16 @@ interface IMarketProps {
 const Market: React.FC<IMarketProps> = (prop: IMarketProps) => {
   const classes: any = useStyles();
 
+  const groupId: string | undefined = prop.match.params.id;
   // useEffect(() => {
   //   prop.changeTabId(0);
   // });
 
   // console.log(prop.tabId);
 
-  const groups: IMarketGroup[] = MarketsGroups;
+  const markets: IMarket[] = Markets.filter(
+    m => m.marketGroupId == Number(groupId)
+  );
 
   return (
     <Container maxWidth="md">
@@ -55,17 +64,17 @@ const Market: React.FC<IMarketProps> = (prop: IMarketProps) => {
         justify="space-around"
         alignItems="stretch"
       >
-        {groups.map(group => (
+        {markets.map(market => (
           <Grid
             className={classes.littleGrid}
-            key={group.id}
+            key={market.id}
             item
             xs={12}
             sm={6}
             onClick={() =>
               prop.changePage(
-                group.enable
-                  ? "/product/" + group.id + "/" + group.title
+                market.enable
+                  ? "/product/" + market.id + "/" + market.title
                   : "/soon"
               )
             }
@@ -73,17 +82,19 @@ const Market: React.FC<IMarketProps> = (prop: IMarketProps) => {
             {/* <a
               className={classes.link}
               href={
-                group.enable
-                  ? "/product/" + group.id + "/" + group.title
+                market.enable
+                  ? "/product/" + market.id + "/" + market.title
                   : "/soon"
               }
             > */}
             <PageCart
-              title={group.persianTitle}
+              title={market.persianTitle}
               subtitle={
-                group.persianSubtitle != undefined ? group.persianSubtitle : ""
+                market.persianSubtitle != undefined
+                  ? market.persianSubtitle
+                  : ""
               }
-              img={group.img}
+              img={market.img}
             />
             {/* </a> */}
           </Grid>
