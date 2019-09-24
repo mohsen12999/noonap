@@ -28,11 +28,6 @@
 - [ ] install btn ->isAppInstallable && !isAppInstalled,deferredPrompt.prompt()
 - [ ] router, title, active enable
 
-## suggest
-
-- [ ] add storybook -> `npx storybook`
-- [ ] [react-snap](https://github.com/stereobooster/react-snap)
-
 ## Bugs
 
 - [ ] reset store when change page
@@ -41,9 +36,12 @@
 - [ ] active tab -> read from store
 - [x] remove from shop cart
 - [ ] only save one market
-- [ ] read the most new list
-  - [ ] from file in program
-  - [ ] read all product info from server at beggining and save in store -> component mount off app -> not good for offline mode
+
+## suggest
+
+- [ ] add storybook -> `npx storybook`
+- [ ] [react-snap](https://github.com/stereobooster/react-snap)
+- [ ] read info at first -> fetch at beggining and save in store -> component mount off app -> not good for offline mode
 
 ```js
 function fetchProducts() {
