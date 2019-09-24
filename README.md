@@ -39,8 +39,11 @@
 - [ ] https/ssl -> cloudflare
 - [ ] page title -> set when component mount -> [React Helmet](https://github.com/nfl/react-helmet)
 - [ ] active tab -> read from store
-- [ ] remove from shop cart
-- [ ] read all product info from server at beggining and save in store -> component mount off app
+- [x] remove from shop cart
+- [ ] only save one market
+- [ ] read the most new list
+  - [ ] from file in program
+  - [ ] read all product info from server at beggining and save in store -> component mount off app -> not good for offline mode
 
 ```js
 function fetchProducts() {
@@ -121,4 +124,4 @@ export function productsReducer(state = initialState, action) {
 
 ## flow
 
-* main => markets => products => deliver => address => order => bank => factor
+- main => markets => products => deliver => address => order => bank => factor

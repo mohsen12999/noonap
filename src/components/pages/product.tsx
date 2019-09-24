@@ -50,16 +50,10 @@ const useStyles: any = makeStyles((theme: Theme) =>
     margin: {
       margin: theme.spacing(1)
     },
-    btnGroup: {
-      marginTop: theme.spacing(3),
-      direction: "ltr"
-    },
-    extendedIcon: {
-      marginRight: theme.spacing(1)
-    },
-    btnText: {
+    button: {
+      marginTop: theme.spacing(1),
       fontFamily: "Yekan",
-      margin: "5px"
+      float: "left"
     }
   })
 );
@@ -85,30 +79,24 @@ const Product: React.FC<IProductProps> = (prop: IProductProps) => {
     marketId === undefined
       ? undefined
       : Markets.find(m => m.id === Number(marketId));
-  const products2: IProduct[] = market.products;
-
-  console.log(marketId, market, products2);
-
-  const productId: string | undefined = prop.match.params.id;
-
   const products: IProduct[] =
-    productId === undefined
+    market === undefined
       ? []
-      : PRODUCT_LIST.filter(p => p.MarketId === Number(productId)).map(
-          pCart => {
-            pCart.count =
-              prop.cart === undefined || prop.cart[pCart.id] === undefined
-                ? 0
-                : prop.cart[pCart.id];
-            return pCart;
-          }
-        );
+      : market.products.map(pCart => {
+          pCart.count =
+            prop.cart === undefined || prop.cart[pCart.id] === undefined
+              ? 0
+              : prop.cart[pCart.id];
+          return pCart;
+        });
+
+  // console.log(marketId, market, products);
+
   const totalPrice: number = products.reduce(
     (sum, p) => sum + p.count * p.price,
     0
   );
 
-  // console.log("products", products);
   // if products=0 => به زودی
 
   return (
@@ -198,7 +186,20 @@ const Product: React.FC<IProductProps> = (prop: IProductProps) => {
           </TableBody>
         </Table>
       </Paper>
-      <ButtonGroup
+      {totalPrice > 0 && (
+        <Button
+          variant="contained"
+          color="primary"
+          className={classes.button}
+          onClick={() =>
+            prop.changePage(process.env.PUBLIC_URL + "/" + AppPages.ADDRESS)
+          }
+        >
+          تکمیل خرید
+          <ShoppingBasket className={classes.extendedIcon} />
+        </Button>
+      )}
+      {/* <ButtonGroup
         className={classes.btnGroup}
         fullWidth
         aria-label="full width contained button group"
@@ -223,16 +224,16 @@ const Product: React.FC<IProductProps> = (prop: IProductProps) => {
           <ViewModule className={classes.extendedIcon} />
           <h4 className={classes.btnText}>ادامه خرید</h4>
         </Button>
-      </ButtonGroup>
+      </ButtonGroup> */}
     </Container>
   );
 };
 
-const mapStateToProps = (State: { app: IAppState; shop: IShopState }) => ({
+const mapStateToProps: any = (State: { app: IAppState; shop: IShopState }) => ({
   cart: State.shop.cart
 });
 
-const mapDispatchToProps = {
+const mapDispatchToProps: any = {
   // changePage: changePage
   addToCart: addToCart,
   removeFromCart: removeFromCart,
