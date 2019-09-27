@@ -145,16 +145,55 @@ const Product: React.FC<IProductProps> = (prop: IProductProps) => {
                   scope="row"
                   align="center"
                 >
-                  <Fab
-                    size="small"
-                    color="secondary"
-                    aria-label="add"
-                    className={classes.margin}
-                    onClick={event => prop.addToCart(event, product.id)}
-                  >
-                    <AddIcon />
-                  </Fab>
+                  {product.max != undefined && product.count >= product.max ? (
+                    <Fab
+                      size="small"
+                      // color="secondary"
+                      aria-label="add"
+                      className={classes.margin}
+                      // onClick={event => prop.addToCart(event, product.id)}
+                    >
+                      <AddIcon />
+                    </Fab>
+                  ) : (
+                    <Fab
+                      size="small"
+                      color="secondary"
+                      aria-label="add"
+                      className={classes.margin}
+                      onClick={event =>
+                        prop.addToCart(event, product.id, marketId)
+                      }
+                    >
+                      <AddIcon />
+                    </Fab>
+                  )}
+
                   {product.count}
+
+                  {product.count > 0 ? (
+                    <Fab
+                      size="small"
+                      color="secondary"
+                      aria-label="add"
+                      className={classes.margin}
+                      onClick={event =>
+                        prop.removeFromCart(event, product.id, marketId)
+                      }
+                    >
+                      <RemoveIcon />
+                    </Fab>
+                  ) : (
+                    <Fab
+                      size="small"
+                      // color="secondary"
+                      aria-label="add"
+                      className={classes.margin}
+                      // onClick={event => prop.removeFromCart(event, product.id)}
+                    >
+                      <RemoveIcon />
+                    </Fab>
+                  )}
                   <Fab
                     size="small"
                     color="secondary"

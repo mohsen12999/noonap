@@ -1,4 +1,5 @@
 export interface IShopState {
+  lastMarketId?:number;
   products: IProductsState;
   cart: ICartState;
   deliver: IDeliverState;

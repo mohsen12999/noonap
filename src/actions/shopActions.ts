@@ -46,23 +46,25 @@ export const pauseGame = (event:React.MouseEvent<HTMLButtonElement>, show:boolea
 
 export const addToCart = (
   event: React.MouseEvent<HTMLButtonElement>,
-  productId: number
+  productId: number,
+  marketId: number
 ) => (dispatch: Dispatch) => {
   event.stopPropagation();
   dispatch({
     type: ActionTypes.ADD_TO_CART,
-    payload: { productId }
+    payload: { productId, marketId }
   });
 };
 
 export const removeFromCart = (
   event: React.MouseEvent<HTMLButtonElement>,
-  productId: number
+  productId: number,
+  marketId: number
 ) => (dispatch: Dispatch) => {
   event.stopPropagation();
   dispatch({
     type: ActionTypes.REMOVE_FROM_CART,
-    payload: { productId }
+    payload: { productId, marketId }
   });
 };
 

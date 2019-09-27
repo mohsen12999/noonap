@@ -1,6 +1,7 @@
 import { ActionTypes } from "../actions/actionTypes";
 import { Reducer } from "redux";
 import { IShopState, INITIAL_SHOPSTATE, ICartState } from "./shop";
+import { PRODUCT_LIST } from "../actions/shop";
 
 const ShopReducer: Reducer<IShopState, { type: any; payload: any }> = (
   state = INITIAL_SHOPSTATE,
@@ -15,13 +16,22 @@ const ShopReducer: Reducer<IShopState, { type: any; payload: any }> = (
       };
 
     case ActionTypes.ADD_TO_CART:
+      return {
+        ...state,
+        lastMarketId: action.payload.marketId,
+        // products: state.products,
+        cart: cart(state.cart, action)
+        // deliver: state.deliver,
+        // error: state.error
+      };
     case ActionTypes.REMOVE_FROM_CART:
       return {
         ...state,
-        products: state.products,
-        cart: cart(state.cart, action),
-        deliver: state.deliver,
-        error: state.error
+        // lastMarketId:MarketId(action),
+        // products: state.products,
+        cart: cart(state.cart, action)
+        // deliver: state.deliver,
+        // error: state.error
       };
 
     default:
@@ -33,6 +43,16 @@ const cart = (state: ICartState, action: { type: any; payload: any }) => {
   switch (action.type) {
     case ActionTypes.ADD_TO_CART:
       const addId = action.payload.productId;
+      // check max
+      // const quant = (state[addId] || 0);
+      // const prod = PRODUCT_LIST.find(x=>x.id === addId);
+      // const max = prod!==undefined ? prod.max : undefined;
+      // if(max !== undefined && quant>=max){
+      //   return {
+      //     ...state,
+      //     [addId]: max
+      //   };
+      // }
       return {
         ...state,
         [addId]: (state[addId] || 0) + 1
