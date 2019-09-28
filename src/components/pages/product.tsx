@@ -145,7 +145,7 @@ const Product: React.FC<IProductProps> = (prop: IProductProps) => {
                   scope="row"
                   align="center"
                 >
-                  {product.max != undefined && product.count >= product.max ? (
+                  {product.max !== undefined && product.count >= product.max ? (
                     <Fab
                       size="small"
                       // color="secondary"
@@ -194,15 +194,6 @@ const Product: React.FC<IProductProps> = (prop: IProductProps) => {
                       <RemoveIcon />
                     </Fab>
                   )}
-                  <Fab
-                    size="small"
-                    color="secondary"
-                    aria-label="add"
-                    className={classes.margin}
-                    onClick={event => prop.removeFromCart(event, product.id)}
-                  >
-                    <RemoveIcon />
-                  </Fab>
                 </TableCell>
                 <TableCell
                   className={classes.tableCell}
