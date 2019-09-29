@@ -50,6 +50,10 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     grid: {
       paddingTop: theme.spacing(2)
+    },selectFormControl:{
+      marginLeft: theme.spacing(1),
+      marginRight: theme.spacing(1),
+      width: "100%"
     }
   })
 );
@@ -119,7 +123,7 @@ const Address: React.FC = () => {
         alignItems="stretch"
       >
         <Grid item xs={12} sm={6}>
-          <FormControl className={classes.formControl}>
+          <FormControl className={classes.selectFormControl}>
             <InputLabel htmlFor="age-helper">Age</InputLabel>
             <Select
               value={values.age}
