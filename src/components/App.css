@@ -33,28 +33,27 @@
 } */
 
 @font-face {
-  font-family: 'Yekan';
-  src: url('/fonts/Yekan.eot');
-  src: url('/fonts/Yekan.eot?#iefix') format("embedded-opentype"),
-    url('/fonts/Yekan.woff2') format('woff2'),
-    url('/fonts/Yekan.woff') format('woff'),
-    url('/fonts/Yekan.ttf') format('truetype'),
-    url('/fonts/Yekan.otf') format('opentype'),
-    url('/fonts/Yekan.svg#Yekan') format('svg');
+  font-family: "Yekan";
+  src: url("/fonts/Yekan.eot");
+  src: url("/fonts/Yekan.eot?#iefix") format("embedded-opentype"),
+    url("/fonts/Yekan.woff2") format("woff2"),
+    url("/fonts/Yekan.woff") format("woff"),
+    url("/fonts/Yekan.ttf") format("truetype"),
+    url("/fonts/Yekan.otf") format("opentype"),
+    url("/fonts/Yekan.svg#Yekan") format("svg");
   font-weight: normal;
   font-style: normal;
 }
 
 .YekanFint {
-  font-family: 'Yekan';
+  font-family: "Yekan";
 }
 
 .MuiTypography-body1 {
-  font-family: 'Yekan' !important;
+  font-family: "Yekan" !important;
 }
 
 @media only screen and (max-width: 600px) {
-
   table th.MuiTableCell-head,
   table td.MuiTableCell-body {
     padding-right: 0;
@@ -64,7 +63,7 @@
 
 .MuiInputLabel-formControl {
   right: 0 !important;
-  font-family: 'Yekan' !important;
+  font-family: "Yekan" !important;
 }
 
 .MuiInputLabel-shrink {
@@ -74,4 +73,14 @@
 .MuiChip-icon {
   margin-right: 5px !important;
   margin-left: -8px !important;
+}
+
+.MuiInputBase-inputSelect {
+  padding-right: 0 !important;
+  padding-right: 24px !important;
+}
+
+.MuiSelect-icon {
+  right: inherit !important;
+  left: 0 !important;
 }

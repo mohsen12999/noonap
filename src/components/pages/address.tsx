@@ -50,7 +50,8 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     grid: {
       paddingTop: theme.spacing(2)
-    },selectFormControl:{
+    },
+    selectFormControl: {
       marginLeft: theme.spacing(1),
       marginRight: theme.spacing(1),
       width: "100%"
@@ -124,7 +125,7 @@ const Address: React.FC = () => {
       >
         <Grid item xs={12} sm={6}>
           <FormControl className={classes.selectFormControl}>
-            <InputLabel htmlFor="age-helper">Age</InputLabel>
+            <InputLabel htmlFor="age-helper">شیوه دریافت</InputLabel>
             <Select
               value={values.age}
               onChange={handleChange2}
@@ -136,13 +137,38 @@ const Address: React.FC = () => {
               <MenuItem value="">
                 <em>None</em>
               </MenuItem>
-              <MenuItem value={10}>Ten</MenuItem>
-              <MenuItem value={20}>Twenty</MenuItem>
-              <MenuItem value={30}>Thirty</MenuItem>
+              <MenuItem value={10}>ارسال فوری</MenuItem>
+              <MenuItem value={20}>ارسال در آینده</MenuItem>
+              <MenuItem value={30}>دریافت حضوری</MenuItem>
+              <MenuItem value={40}>رزرو مکان</MenuItem>
             </Select>
-            <FormHelperText>Some important helper text</FormHelperText>
+            <FormHelperText>شیوه دریافت را انتخاب کنید</FormHelperText>
           </FormControl>
         </Grid>
+
+        <Grid item xs={12} sm={6}>
+          <FormControl className={classes.selectFormControl}>
+            <InputLabel htmlFor="age-helper">محدوده دریافت</InputLabel>
+            <Select
+              value={values.age}
+              onChange={handleChange2}
+              inputProps={{
+                name: "age",
+                id: "age-helper"
+              }}
+            >
+              <MenuItem value="">
+                <em>None</em>
+              </MenuItem>
+              <MenuItem value={10}>ابریشم محله و بیست متری</MenuItem>
+              <MenuItem value={20}>کتالم و سادات شهر</MenuItem>
+              <MenuItem value={30}>رضی محله و میدان رجایی</MenuItem>
+              <MenuItem value={40}>تنگه دره و لات محله</MenuItem>
+            </Select>
+            <FormHelperText>محدوده دریافت را انتخاب کنید</FormHelperText>
+          </FormControl>
+        </Grid>
+
         <Grid item xs={12} sm={6}>
           <FormControl className={clsx(classes.margin, classes.textField)}>
             <InputLabel htmlFor="adornment-mobile">موبایل</InputLabel>
@@ -167,6 +193,9 @@ const Address: React.FC = () => {
                 </InputAdornment>
               }
             />
+            <FormHelperText id="component-helper-text">
+              اگر قبلا مشتری بودید روی دکمه کلیک کنید
+            </FormHelperText>
           </FormControl>
         </Grid>
 
@@ -207,6 +236,9 @@ const Address: React.FC = () => {
                 </InputAdornment>
               }
             />
+            <FormHelperText id="component-helper-text">
+              برای تعیین موقعیت فعلی روی دکمه کلیک کنید
+            </FormHelperText>
           </FormControl>
         </Grid>
       </Grid>
