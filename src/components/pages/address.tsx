@@ -19,6 +19,8 @@ import RecentActorsIcon from "@material-ui/icons/RecentActors";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import NotListedLocationIcon from "@material-ui/icons/NotListedLocation";
 
+import Select from "@material-ui/core/Select";
+
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     container: {
@@ -26,8 +28,8 @@ const useStyles = makeStyles((theme: Theme) =>
       flexWrap: "wrap"
     },
     textField: {
-      marginLeft: theme.spacing(1),
-      marginRight: theme.spacing(1),
+      // marginLeft: theme.spacing(1),
+      // marginRight: theme.spacing(1),
       fontFamily: "Yekan"
       // width: 200
     },
@@ -38,7 +40,9 @@ const useStyles = makeStyles((theme: Theme) =>
       width: 200
     },
     margin: {
-      margin: theme.spacing(1),
+      // margin: theme.spacing(1),
+      marginLeft: theme.spacing(1),
+      marginRight: theme.spacing(1),
       width: "100%"
     },
     textField2: {
@@ -55,6 +59,8 @@ interface IAddressProp {
   mobile: string;
   address: string;
 
+  age: string;
+
   loadingInfo: boolean;
   loadingAddress: boolean;
 }
@@ -66,6 +72,7 @@ const Address: React.FC = () => {
     name: "",
     mobile: "",
     address: "",
+    age: "",
 
     loadingInfo: false,
     loadingAddress: false
@@ -87,6 +94,21 @@ const Address: React.FC = () => {
     event.preventDefault();
   };
 
+  // const inputLabel = React.useRef<HTMLLabelElement>(null);
+  // const [labelWidth, setLabelWidth] = React.useState(0);
+  // React.useEffect(() => {
+  //   setLabelWidth(inputLabel.current!.offsetWidth);
+  // }, []);
+
+  const handleChange2 = (
+    event: React.ChangeEvent<{ name?: string; value: unknown }>
+  ) => {
+    setValues(oldValues => ({
+      ...oldValues,
+      [event.target.name as string]: event.target.value
+    }));
+  };
+
   return (
     <Container maxWidth="md">
       <Grid
@@ -97,7 +119,28 @@ const Address: React.FC = () => {
         alignItems="stretch"
       >
         <Grid item xs={12} sm={6}>
-          <FormControl className={clsx(classes.margin, classes.textField2)}>
+          <FormControl className={classes.formControl}>
+            <InputLabel htmlFor="age-helper">Age</InputLabel>
+            <Select
+              value={values.age}
+              onChange={handleChange2}
+              inputProps={{
+                name: "age",
+                id: "age-helper"
+              }}
+            >
+              <MenuItem value="">
+                <em>None</em>
+              </MenuItem>
+              <MenuItem value={10}>Ten</MenuItem>
+              <MenuItem value={20}>Twenty</MenuItem>
+              <MenuItem value={30}>Thirty</MenuItem>
+            </Select>
+            <FormHelperText>Some important helper text</FormHelperText>
+          </FormControl>
+        </Grid>
+        <Grid item xs={12} sm={6}>
+          <FormControl className={clsx(classes.margin, classes.textField)}>
             <InputLabel htmlFor="adornment-mobile">موبایل</InputLabel>
             <Input
               id="adornment-mobile"
@@ -128,7 +171,7 @@ const Address: React.FC = () => {
             id="standard-name"
             label="نام"
             fullWidth
-            className={classes.textField}
+            className={clsx(classes.margin, classes.textField)}
             value={values.name}
             onChange={handleChange("name")}
             margin="normal"
