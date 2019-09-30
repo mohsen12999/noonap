@@ -21,6 +21,20 @@ import NotListedLocationIcon from "@material-ui/icons/NotListedLocation";
 
 import Select from "@material-ui/core/Select";
 
+// import { MuiPickersUtilsProvider } from "@material-ui/pickers";
+// pick a date util library
+// import MomentUtils from "@date-io/moment";
+import DateFnsUtils from "@date-io/date-fns";
+// import LuxonUtils from "@date-io/luxon";
+import {
+  DateTimePicker,
+  KeyboardDateTimePicker,
+  KeyboardDatePicker,
+  DatePicker,
+  TimePicker,
+  MuiPickersUtilsProvider
+} from "@material-ui/pickers";
+
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     container: {
@@ -65,6 +79,7 @@ interface IAddressProp {
   address: string;
 
   age: string;
+  date: Date;
 
   loadingInfo: boolean;
   loadingAddress: boolean;
@@ -78,6 +93,7 @@ const Address: React.FC = () => {
     mobile: "",
     address: "",
     age: "",
+    date: new Date(),
 
     loadingInfo: false,
     loadingAddress: false
@@ -112,6 +128,13 @@ const Address: React.FC = () => {
       ...oldValues,
       [event.target.name as string]: event.target.value
     }));
+  };
+
+  const handleDateChange = (date: Date | null) => {
+    // setSelectedDate(date);
+    if (date !== null) {
+      setValues({ ...values, date: date });
+    }
   };
 
   return (
@@ -184,6 +207,36 @@ const Address: React.FC = () => {
             }}
           />
         </Grid>
+
+        <Grid item xs={12} sm={12}>
+          {/* <KeyboardDatePicker
+            margin="normal"
+            id="date-picker-dialog"
+            label="Date picker dialog"
+            format="MM/dd/yyyy"
+            value={selectedDate}
+            onChange={handleDateChange}
+            KeyboardButtonProps={{
+              "aria-label": "change date"
+            }}
+          /> */}
+          {/* <KeyboardDateTimePicker
+            variant="inline"
+            ampm={false}
+            label="With keyboard"
+            value={values.date}
+            onChange={handleDateChange}
+            onError={console.log}
+            disablePast
+            format="yyyy/MM/dd HH:mm"
+          /> */}
+          <MuiPickersUtilsProvider utils={DateFnsUtils}>
+            <DatePicker value={values.date} onChange={handleDateChange} />
+            <TimePicker value={values.date} onChange={handleDateChange} />
+            <DateTimePicker value={values.date} onChange={handleDateChange} />
+          </MuiPickersUtilsProvider>
+        </Grid>
+
         <Grid item xs={12} sm={6}>
           <FormControl className={clsx(classes.margin, classes.textField)}>
             <InputLabel htmlFor="adornment-mobile">موبایل</InputLabel>

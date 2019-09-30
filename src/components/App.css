@@ -84,3 +84,9 @@
   right: inherit !important;
   left: 0 !important;
 }
+
+.MuiSelect-select,
+.MuiMenuItem-root,
+.MuiFormHelperText-root {
+  font-family: "Yekan" !important;
+}
