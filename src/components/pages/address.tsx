@@ -170,6 +170,21 @@ const Address: React.FC = () => {
         </Grid>
 
         <Grid item xs={12} sm={6}>
+          <TextField
+            id="time"
+            label="ساعت دریافت"
+            type="time"
+            defaultValue="07:30"
+            className={classes.textField}
+            InputLabelProps={{
+              shrink: true
+            }}
+            inputProps={{
+              step: 300 // 5 min
+            }}
+          />
+        </Grid>
+        <Grid item xs={12} sm={6}>
           <FormControl className={clsx(classes.margin, classes.textField)}>
             <InputLabel htmlFor="adornment-mobile">موبایل</InputLabel>
             <Input
