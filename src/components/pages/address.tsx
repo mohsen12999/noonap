@@ -28,6 +28,10 @@ import DateFnsUtils from "@date-io/date-fns";
 
 // https://material-ui-pickers.dev/localization/calendar-systems
 
+import moment from "moment";
+import jMoment from "moment-jalaali";
+import JalaliUtils from "@date-io/jalaali";
+
 // import LuxonUtils from "@date-io/luxon";
 import {
   DateTimePicker,
@@ -37,6 +41,12 @@ import {
   TimePicker,
   MuiPickersUtilsProvider
 } from "@material-ui/pickers";
+
+declare global {
+  interface Date {
+    format(arg: any): string;
+  }
+}
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -72,6 +82,9 @@ const useStyles = makeStyles((theme: Theme) =>
       marginLeft: theme.spacing(1),
       marginRight: theme.spacing(1),
       width: "100%"
+    },
+    pickerGrid: {
+      direction: "ltr"
     }
   })
 );
@@ -237,6 +250,20 @@ const Address: React.FC = () => {
             <DatePicker value={values.date} onChange={handleDateChange} />
             <TimePicker value={values.date} onChange={handleDateChange} />
             <DateTimePicker value={values.date} onChange={handleDateChange} />
+          </MuiPickersUtilsProvider>
+        </Grid>
+
+        <Grid item xs={12} sm={12} className={classes.pickerGrid}>
+          <MuiPickersUtilsProvider utils={JalaliUtils} locale="fa">
+            <DateTimePicker
+              okLabel="تأیید"
+              cancelLabel="لغو"
+              labelFunc={date =>
+                date ? date.format("jYYYY/jMM/jDD hh:mm A") : ""
+              }
+              value={values.date}
+              onChange={handleDateChange}
+            />
           </MuiPickersUtilsProvider>
         </Grid>
 
