@@ -11,8 +11,6 @@ import FormHelperText from "@material-ui/core/FormHelperText";
 import FormControl from "@material-ui/core/FormControl";
 import TextField from "@material-ui/core/TextField";
 import MenuItem from "@material-ui/core/MenuItem";
-import Visibility from "@material-ui/icons/Visibility";
-import VisibilityOff from "@material-ui/icons/VisibilityOff";
 import Grid from "@material-ui/core/Grid";
 
 import RecentActorsIcon from "@material-ui/icons/RecentActors";
@@ -24,25 +22,15 @@ import ShoppingBasket from "@material-ui/icons/ShoppingBasket";
 
 import Select from "@material-ui/core/Select";
 
-// import { MuiPickersUtilsProvider } from "@material-ui/pickers";
-// pick a date util library
-// import MomentUtils from "@date-io/moment";
-import DateFnsUtils from "@date-io/date-fns";
-
-// https://material-ui-pickers.dev/localization/calendar-systems
-
 import moment from "moment";
-import jMoment from "moment-jalaali";
+import jMoment, { Moment } from "moment-jalaali";
 import JalaliUtils from "@date-io/jalaali";
 
 // import LuxonUtils from "@date-io/luxon";
 import {
   DateTimePicker,
-  KeyboardDateTimePicker,
-  KeyboardDatePicker,
-  DatePicker,
-  TimePicker,
-  MuiPickersUtilsProvider
+  MuiPickersUtilsProvider,
+  MaterialUiPickersDate
 } from "@material-ui/pickers";
 
 declare global {
@@ -109,7 +97,7 @@ interface IAddressProp {
   address: string;
 
   age: string;
-  date: Date;
+  date: Moment;
 
   loadingInfo: boolean;
   loadingAddress: boolean;
@@ -123,8 +111,8 @@ const Address: React.FC = () => {
     mobile: "",
     address: "",
     age: "",
-    date: new Date(),
-    // date:  moment(),
+    // date: new Date(),
+    date: moment(),
 
     loadingInfo: false,
     loadingAddress: false
@@ -161,10 +149,11 @@ const Address: React.FC = () => {
     }));
   };
 
-  const handleDateChange = (date: Date | null) => {
+  const handleDateChange = (date: MaterialUiPickersDate) => {
     // setSelectedDate(date);
     if (date !== null) {
       setValues({ ...values, date: date });
+      //setValues({ ...values, date: date.toDate() });
     }
   };
 
@@ -224,51 +213,6 @@ const Address: React.FC = () => {
             <FormHelperText>محدوده دریافت را انتخاب کنید</FormHelperText>
           </FormControl>
         </Grid>
-
-        {/* <Grid item xs={12} sm={6}>
-          <TextField
-            id="time"
-            label="ساعت دریافت"
-            type="time"
-            defaultValue="07:30"
-            className={classes.textField}
-            InputLabelProps={{
-              shrink: true
-            }}
-            inputProps={{
-              step: 300 // 5 min
-            }}
-          />
-        </Grid> */}
-
-        {/* <Grid item xs={12} sm={12}>
-          <KeyboardDatePicker
-            margin="normal"
-            id="date-picker-dialog"
-            label="Date picker dialog"
-            format="MM/dd/yyyy"
-            value={selectedDate}
-            onChange={handleDateChange}
-            KeyboardButtonProps={{
-              "aria-label": "change date"
-            }}
-          /> 
-          <KeyboardDateTimePicker
-            variant="inline"
-            ampm={false}
-            label="With keyboard"
-            value={values.date}
-            onChange={handleDateChange}
-            onError={console.log}
-            disablePast
-            format="yyyy/MM/dd HH:mm"
-          /> 
-          <MuiPickersUtilsProvider utils={DateFnsUtils}>
-            <DatePicker value={values.date} onChange={handleDateChange} />
-            <TimePicker value={values.date} onChange={handleDateChange} />
-            <DateTimePicker value={values.date} onChange={handleDateChange} />
-          </MuiPickersUtilsProvider>
-        </Grid>*/}
 
         <Grid item xs={12} sm={6} className={classes.pickerGrid}>
           <MuiPickersUtilsProvider utils={JalaliUtils} locale="fa">

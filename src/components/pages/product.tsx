@@ -15,16 +15,14 @@ import Fab from "@material-ui/core/Fab";
 import AddIcon from "@material-ui/icons/Add";
 import RemoveIcon from "@material-ui/icons/Remove";
 import ShoppingBasket from "@material-ui/icons/ShoppingBasket";
-import ViewModule from "@material-ui/icons/ViewModule";
 
 import { IAppState, AppPages } from "../../reducers/app";
 import { IShopState, ICartState } from "../../reducers/shop";
 
-import { PRODUCT_LIST, IProduct, Markets, IMarket } from "../../actions/shop";
+import {  IProduct, Markets, IMarket } from "../../actions/shop";
 import { addToCart, removeFromCart } from "../../actions/shopActions";
 
 import Button from "@material-ui/core/Button";
-import ButtonGroup from "@material-ui/core/ButtonGroup";
 
 import { push } from "connected-react-router";
 
