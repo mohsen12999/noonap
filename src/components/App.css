@@ -87,6 +87,14 @@
 
 .MuiSelect-select,
 .MuiMenuItem-root,
-.MuiFormHelperText-root {
+.MuiFormHelperText-root,
+.MuiInput-input {
+  font-family: "Yekan" !important;
+}
+.MuiPickerDTToolbar-toolbar {
+  direction: ltr !important;
+}
+
+.MuiDialog-container * {
   font-family: "Yekan" !important;
 }

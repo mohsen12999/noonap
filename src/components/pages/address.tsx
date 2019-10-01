@@ -19,6 +19,9 @@ import RecentActorsIcon from "@material-ui/icons/RecentActors";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import NotListedLocationIcon from "@material-ui/icons/NotListedLocation";
 
+import Button from "@material-ui/core/Button";
+import ShoppingBasket from "@material-ui/icons/ShoppingBasket";
+
 import Select from "@material-ui/core/Select";
 
 // import { MuiPickersUtilsProvider } from "@material-ui/pickers";
@@ -84,7 +87,18 @@ const useStyles = makeStyles((theme: Theme) =>
       width: "100%"
     },
     pickerGrid: {
-      direction: "ltr"
+      // direction: "ltr",
+      // width: "100%"
+      // fontFamily: "Yekan"
+    },
+    picker: {
+      direction: "ltr",
+      width: "100%",
+      textAlign: "right"
+      // fontFamily: "Yekan"
+    },
+    button: {
+      fontFamily: "Yekan"
     }
   })
 );
@@ -110,6 +124,7 @@ const Address: React.FC = () => {
     address: "",
     age: "",
     date: new Date(),
+    // date:  moment(),
 
     loadingInfo: false,
     loadingAddress: false
@@ -152,6 +167,8 @@ const Address: React.FC = () => {
       setValues({ ...values, date: date });
     }
   };
+
+  jMoment.loadPersian({ dialect: "persian-modern", usePersianDigits: false });
 
   return (
     <Container maxWidth="md">
@@ -208,7 +225,7 @@ const Address: React.FC = () => {
           </FormControl>
         </Grid>
 
-        <Grid item xs={12} sm={6}>
+        {/* <Grid item xs={12} sm={6}>
           <TextField
             id="time"
             label="ساعت دریافت"
@@ -222,10 +239,10 @@ const Address: React.FC = () => {
               step: 300 // 5 min
             }}
           />
-        </Grid>
+        </Grid> */}
 
-        <Grid item xs={12} sm={12}>
-          {/* <KeyboardDatePicker
+        {/* <Grid item xs={12} sm={12}>
+          <KeyboardDatePicker
             margin="normal"
             id="date-picker-dialog"
             label="Date picker dialog"
@@ -235,8 +252,8 @@ const Address: React.FC = () => {
             KeyboardButtonProps={{
               "aria-label": "change date"
             }}
-          /> */}
-          {/* <KeyboardDateTimePicker
+          /> 
+          <KeyboardDateTimePicker
             variant="inline"
             ampm={false}
             label="With keyboard"
@@ -245,17 +262,20 @@ const Address: React.FC = () => {
             onError={console.log}
             disablePast
             format="yyyy/MM/dd HH:mm"
-          /> */}
+          /> 
           <MuiPickersUtilsProvider utils={DateFnsUtils}>
             <DatePicker value={values.date} onChange={handleDateChange} />
             <TimePicker value={values.date} onChange={handleDateChange} />
             <DateTimePicker value={values.date} onChange={handleDateChange} />
           </MuiPickersUtilsProvider>
-        </Grid>
+        </Grid>*/}
 
-        <Grid item xs={12} sm={12} className={classes.pickerGrid}>
+        <Grid item xs={12} sm={6} className={classes.pickerGrid}>
           <MuiPickersUtilsProvider utils={JalaliUtils} locale="fa">
             <DateTimePicker
+              className={classes.picker}
+              label="زمان تحویل"
+              minDate={new Date()}
               okLabel="تأیید"
               cancelLabel="لغو"
               labelFunc={date =>
@@ -341,7 +361,17 @@ const Address: React.FC = () => {
         </Grid>
       </Grid>
 
-      <p>address page</p>
+      <Button
+        variant="contained"
+        color="primary"
+        className={classes.button}
+        // onClick={() =>
+        //   prop.changePage(process.env.PUBLIC_URL + "/" + AppPages.ADDRESS)
+        // }
+      >
+        تائید خرید
+        <ShoppingBasket className={classes.extendedIcon} />
+      </Button>
     </Container>
   );
 };
