@@ -1,7 +1,6 @@
 import { ActionTypes } from "../actions/actionTypes";
 import { Reducer } from "redux";
 import { IShopState, INITIAL_SHOPSTATE, ICartState } from "./shop";
-import { PRODUCT_LIST } from "../actions/shop";
 
 const ShopReducer: Reducer<IShopState, { type: any; payload: any }> = (
   state = INITIAL_SHOPSTATE,
