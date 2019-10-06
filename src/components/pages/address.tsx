@@ -110,8 +110,6 @@ interface IAddressState {
 
 interface IAddressProp {
   deliver: IDeliverState;
-  loadingInfo: false;
-  loadingAddress: false;
 }
 
 const Address: React.FC<IAddressProp> = (prop: IAddressProp) => {
@@ -193,10 +191,10 @@ const Address: React.FC<IAddressProp> = (prop: IAddressProp) => {
               <MenuItem value="">
                 <em>None</em>
               </MenuItem>
-              <MenuItem value={10}>ارسال فوری</MenuItem>
-              <MenuItem value={20}>ارسال در آینده</MenuItem>
-              <MenuItem value={30}>دریافت حضوری</MenuItem>
-              <MenuItem value={40}>رزرو مکان</MenuItem>
+              <MenuItem value={"expressSend"}>ارسال فوری</MenuItem>
+              <MenuItem value={"futureSend"}>ارسال در آینده</MenuItem>
+              <MenuItem value={"takeout"}>دریافت حضوری</MenuItem>
+              <MenuItem value={"reserve"}>رزرو مکان</MenuItem>
             </Select>
             <FormHelperText>شیوه دریافت را انتخاب کنید</FormHelperText>
           </FormControl>
@@ -216,10 +214,10 @@ const Address: React.FC<IAddressProp> = (prop: IAddressProp) => {
               <MenuItem value="">
                 <em>None</em>
               </MenuItem>
-              <MenuItem value={10}>ابریشم محله و بیست متری</MenuItem>
-              <MenuItem value={20}>کتالم و سادات شهر</MenuItem>
-              <MenuItem value={30}>رضی محله و میدان رجایی</MenuItem>
-              <MenuItem value={40}>تنگه دره و لات محله</MenuItem>
+              <MenuItem value={"abrisham"}>ابریشم محله و بیست متری</MenuItem>
+              <MenuItem value={"katalom"}>کتالم و سادات شهر</MenuItem>
+              <MenuItem value={"rejaee"}>رضی محله و میدان رجایی</MenuItem>
+              <MenuItem value={"latmahale"}>تنگه دره و لات محله</MenuItem>
             </Select>
             <FormHelperText>محدوده دریافت را انتخاب کنید</FormHelperText>
           </FormControl>
