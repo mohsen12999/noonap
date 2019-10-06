@@ -1,4 +1,9 @@
 import React from "react";
+
+import { connect } from "react-redux";
+import { IAppState } from "../../reducers/app";
+import { IShopState, IDeliverState } from "../../reducers/shop";
+
 import Container from "@material-ui/core/Container";
 import { makeStyles, createStyles, Theme } from "@material-ui/core/styles";
 import clsx from "clsx";
@@ -91,7 +96,7 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-interface IAddressProp {
+interface IAddressState {
   name: string;
   mobile: string;
   address: string;
@@ -103,10 +108,16 @@ interface IAddressProp {
   loadingAddress: boolean;
 }
 
-const Address: React.FC = () => {
+interface IAddressProp {
+  deliver: IDeliverState;
+  loadingInfo: false;
+  loadingAddress: false;
+}
+
+const Address: React.FC<IAddressProp> = (prop: IAddressProp) => {
   const classes: any = useStyles();
 
-  const [values, setValues] = React.useState<IAddressProp>({
+  const [values, setValues] = React.useState<IAddressState>({
     name: "",
     mobile: "",
     address: "",
@@ -118,7 +129,7 @@ const Address: React.FC = () => {
     loadingAddress: false
   });
 
-  const handleChange = (name: keyof IAddressProp) => (
+  const handleChange = (name: keyof IAddressState) => (
     event: React.ChangeEvent<HTMLInputElement>
   ) => {
     setValues({ ...values, [name]: event.target.value });
@@ -320,4 +331,19 @@ const Address: React.FC = () => {
   );
 };
 
-export default Address;
+const mapStateToProps: any = (State: { app: IAppState; shop: IShopState }) => ({
+  // cart: State.shop.cart,
+  deliver: State.shop.deliver
+});
+
+const mapDispatchToProps: any = {
+  // changePage: changePage
+  // addToCart: addToCart,
+  // removeFromCart: removeFromCart,
+  // changePage: (url: string) => push(url)
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Address);
