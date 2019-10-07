@@ -3,6 +3,14 @@ import React from "react";
 import { connect } from "react-redux";
 import { IAppState } from "../../reducers/app";
 import { IShopState, IDeliverState } from "../../reducers/shop";
+import {
+  ChangeDeliverKind,
+  ChangeDeliverDistrict,
+  ChangeMobile,
+  ChangeFullname,
+  ChangeAddress,
+  ChangeDate
+} from "../../actions/shopActions";
 
 import Container from "@material-ui/core/Container";
 import { makeStyles, createStyles, Theme } from "@material-ui/core/styles";
@@ -110,6 +118,13 @@ interface IAddressState {
 
 interface IAddressProp {
   deliver: IDeliverState;
+
+  ChangeDeliverKind: Function;
+  ChangeDeliverDistrict: Function;
+  ChangeMobile: Function;
+  ChangeFullname: Function;
+  ChangeAddress: Function;
+  ChangeDate: Function;
 }
 
 const Address: React.FC<IAddressProp> = (prop: IAddressProp) => {
@@ -149,14 +164,14 @@ const Address: React.FC<IAddressProp> = (prop: IAddressProp) => {
   //   setLabelWidth(inputLabel.current!.offsetWidth);
   // }, []);
 
-  const handleChange2 = (
-    event: React.ChangeEvent<{ name?: string; value: unknown }>
-  ) => {
-    setValues(oldValues => ({
-      ...oldValues,
-      [event.target.name as string]: event.target.value
-    }));
-  };
+  // const handleChange2 = (
+  //   event: React.ChangeEvent<{ name?: string; value: unknown }>
+  // ) => {
+  //   setValues(oldValues => ({
+  //     ...oldValues,
+  //     [event.target.name as string]: event.target.value
+  //   }));
+  // };
 
   const handleDateChange = (date: MaterialUiPickersDate) => {
     // setSelectedDate(date);
@@ -179,17 +194,20 @@ const Address: React.FC<IAddressProp> = (prop: IAddressProp) => {
       >
         <Grid item xs={12} sm={6}>
           <FormControl className={classes.selectFormControl}>
-            <InputLabel htmlFor="age-helper">شیوه دریافت</InputLabel>
+            <InputLabel htmlFor="deliverKind-helper">شیوه دریافت</InputLabel>
             <Select
-              value={values.age}
-              onChange={handleChange2}
+              value={prop.deliver.deliverKind}
+              // onChange={handleChange2}
+              onChange={event =>
+                prop.ChangeDeliverKind(event, event.target.value)
+              }
               inputProps={{
-                name: "age",
-                id: "age-helper"
+                name: "deliverKind",
+                id: "deliverKind-helper"
               }}
             >
               <MenuItem value="">
-                <em>None</em>
+                <em>هیچکدام</em>
               </MenuItem>
               <MenuItem value={"expressSend"}>ارسال فوری</MenuItem>
               <MenuItem value={"futureSend"}>ارسال در آینده</MenuItem>
@@ -197,29 +215,6 @@ const Address: React.FC<IAddressProp> = (prop: IAddressProp) => {
               <MenuItem value={"reserve"}>رزرو مکان</MenuItem>
             </Select>
             <FormHelperText>شیوه دریافت را انتخاب کنید</FormHelperText>
-          </FormControl>
-        </Grid>
-
-        <Grid item xs={12} sm={6}>
-          <FormControl className={classes.selectFormControl}>
-            <InputLabel htmlFor="age-helper">محدوده دریافت</InputLabel>
-            <Select
-              value={values.age}
-              onChange={handleChange2}
-              inputProps={{
-                name: "age",
-                id: "age-helper"
-              }}
-            >
-              <MenuItem value="">
-                <em>None</em>
-              </MenuItem>
-              <MenuItem value={"abrisham"}>ابریشم محله و بیست متری</MenuItem>
-              <MenuItem value={"katalom"}>کتالم و سادات شهر</MenuItem>
-              <MenuItem value={"rejaee"}>رضی محله و میدان رجایی</MenuItem>
-              <MenuItem value={"latmahale"}>تنگه دره و لات محله</MenuItem>
-            </Select>
-            <FormHelperText>محدوده دریافت را انتخاب کنید</FormHelperText>
           </FormControl>
         </Grid>
 
@@ -282,6 +277,100 @@ const Address: React.FC<IAddressProp> = (prop: IAddressProp) => {
           />
         </Grid>
 
+        {(prop.deliver.deliverKind === "expressSend" ||
+          prop.deliver.deliverKind === "futureSend") && (
+          <React.Fragment>
+            <Grid item xs={12} sm={6}>
+              <FormControl className={classes.selectFormControl}>
+                <InputLabel htmlFor="deliverDistrict-helper">
+                  محدوده دریافت
+                </InputLabel>
+                <Select
+                  value={prop.deliver.deliverDistrict}
+                  // onChange={handleChange2}
+                  onChange={event =>
+                    prop.ChangeDeliverDistrict(event, event.target.value)
+                  }
+                  inputProps={{
+                    name: "deliverDistrict",
+                    id: "deliverDistrict-helper"
+                  }}
+                >
+                  <MenuItem value="">
+                    <em>هیچکدام</em>
+                  </MenuItem>
+                  <MenuItem value={"abrisham"}>
+                    ابریشم محله و بیست متری
+                  </MenuItem>
+                  <MenuItem value={"katalom"}>کتالم و سادات شهر</MenuItem>
+                  <MenuItem value={"rejaee"}>رضی محله و میدان رجایی</MenuItem>
+                  <MenuItem value={"latmahale"}>تنگه دره و لات محله</MenuItem>
+                </Select>
+                <FormHelperText>محدوده دریافت را انتخاب کنید</FormHelperText>
+              </FormControl>
+            </Grid>
+
+            <Grid item xs={12} sm={6}>
+              <FormControl className={clsx(classes.margin, classes.textField2)}>
+                <InputLabel htmlFor="adornment-address">آدرس</InputLabel>
+                <Input
+                  id="adornment-address"
+                  value={values.address}
+                  multiline
+                  fullWidth
+                  onChange={handleChange("address")}
+                  endAdornment={
+                    <InputAdornment position="end">
+                      <IconButton
+                        aria-label="toggle address visibility"
+                        onClick={handleClickShowPassword}
+                        onMouseDown={handleMouseDownPassword}
+                      >
+                        {values.loadingAddress ? (
+                          <CircularProgress />
+                        ) : (
+                          <NotListedLocationIcon />
+                        )}
+                      </IconButton>
+                    </InputAdornment>
+                  }
+                />
+                <FormHelperText id="component-helper-text">
+                  برای تعیین موقعیت فعلی روی دکمه کلیک کنید
+                </FormHelperText>
+              </FormControl>
+            </Grid>
+          </React.Fragment>
+        )}
+
+        {/* <Grid item xs={12} sm={6}>
+          <FormControl className={classes.selectFormControl}>
+            <InputLabel htmlFor="deliverDistrict-helper">
+              محدوده دریافت
+            </InputLabel>
+            <Select
+              value={prop.deliver.deliverDistrict}
+              // onChange={handleChange2}
+              onChange={event =>
+                prop.ChangeDeliverDistrict(event, event.target.value)
+              }
+              inputProps={{
+                name: "deliverDistrict",
+                id: "deliverDistrict-helper"
+              }}
+            >
+              <MenuItem value="">
+                <em>هیچکدام</em>
+              </MenuItem>
+              <MenuItem value={"abrisham"}>ابریشم محله و بیست متری</MenuItem>
+              <MenuItem value={"katalom"}>کتالم و سادات شهر</MenuItem>
+              <MenuItem value={"rejaee"}>رضی محله و میدان رجایی</MenuItem>
+              <MenuItem value={"latmahale"}>تنگه دره و لات محله</MenuItem>
+            </Select>
+            <FormHelperText>محدوده دریافت را انتخاب کنید</FormHelperText>
+          </FormControl>
+        </Grid>
+
         <Grid item xs={12} sm={6}>
           <FormControl className={clsx(classes.margin, classes.textField2)}>
             <InputLabel htmlFor="adornment-address">آدرس</InputLabel>
@@ -311,7 +400,7 @@ const Address: React.FC<IAddressProp> = (prop: IAddressProp) => {
               برای تعیین موقعیت فعلی روی دکمه کلیک کنید
             </FormHelperText>
           </FormControl>
-        </Grid>
+        </Grid> */}
       </Grid>
 
       <Button
@@ -335,6 +424,12 @@ const mapStateToProps: any = (State: { app: IAppState; shop: IShopState }) => ({
 });
 
 const mapDispatchToProps: any = {
+  ChangeDeliverKind,
+  ChangeDeliverDistrict,
+  ChangeMobile,
+  ChangeFullname,
+  ChangeAddress,
+  ChangeDate
   // changePage: changePage
   // addToCart: addToCart,
   // removeFromCart: removeFromCart,

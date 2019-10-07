@@ -1,5 +1,118 @@
 import { ActionTypes } from "./actionTypes";
 import { Dispatch } from "redux";
+import { Moment } from "moment-jalaali";
+
+export const addToCart: any = (
+  event: React.MouseEvent<HTMLButtonElement>,
+  productId: number,
+  marketId: number
+) => (dispatch: Dispatch) => {
+  event.stopPropagation();
+  dispatch({
+    type: ActionTypes.ADD_TO_CART,
+    payload: { productId, marketId }
+  });
+};
+
+export const removeFromCart: any = (
+  event: React.MouseEvent<HTMLButtonElement>,
+  productId: number,
+  marketId: number
+) => (dispatch: Dispatch) => {
+  event.stopPropagation();
+  dispatch({
+    type: ActionTypes.REMOVE_FROM_CART,
+    payload: { productId, marketId }
+  });
+};
+
+export const ChangeDeliverKind: any = (
+  event: React.ChangeEvent<{ name?: string; value: unknown }>,
+  deliverKind: string
+) => (dispatch: Dispatch) => {
+  event.stopPropagation();
+  dispatch({
+    type: ActionTypes.CHANGE_DELIVERKIND,
+    payload: { deliverKind }
+  });
+};
+
+export const ChangeDeliverDistrict: any = (
+  event: React.ChangeEvent<{ name?: string; value: unknown }>,
+  deliverDistrict: string
+) => (dispatch: Dispatch) => {
+  event.stopPropagation();
+  dispatch({
+    type: ActionTypes.CHANGE_DELIVERDISTRICT,
+    payload: { deliverDistrict }
+  });
+};
+
+export const ChangeMobile: any = (
+  event: React.MouseEvent<HTMLButtonElement>,
+  mobile: string
+) => (dispatch: Dispatch) => {
+  event.stopPropagation();
+  dispatch({
+    type: ActionTypes.CHANGE_MOBILE,
+    payload: { mobile }
+  });
+};
+
+export const ChangeFullname: any = (
+  event: React.MouseEvent<HTMLButtonElement>,
+  fullname: string
+) => (dispatch: Dispatch) => {
+  event.stopPropagation();
+  dispatch({
+    type: ActionTypes.CHANGE_FULLNAME,
+    payload: { fullname }
+  });
+};
+
+export const ChangeAddress: any = (
+  event: React.MouseEvent<HTMLButtonElement>,
+  address: string
+) => (dispatch: Dispatch) => {
+  event.stopPropagation();
+  dispatch({
+    type: ActionTypes.CHANGE_ADDRESS,
+    payload: { address }
+  });
+};
+
+export const ChangeDate: any = (
+  event: React.MouseEvent<HTMLButtonElement>,
+  date: Moment
+) => (dispatch: Dispatch) => {
+  event.stopPropagation();
+  dispatch({
+    type: ActionTypes.CHANGE_DATE,
+    payload: { date }
+  });
+};
+
+export const ChangeTime: any = (
+  event: React.MouseEvent<HTMLButtonElement>,
+  time: string
+) => (dispatch: Dispatch) => {
+  event.stopPropagation();
+  dispatch({
+    type: ActionTypes.CHANGE_TIME,
+    payload: { time }
+  });
+};
+
+export const ChangeLocation: any = (
+  event: React.MouseEvent<HTMLButtonElement>,
+  location: Position
+) => (dispatch: Dispatch) => {
+  event.stopPropagation();
+  dispatch({
+    type: ActionTypes.CHANGE_LOCATION,
+    payload: { location }
+  });
+};
 
 // export const scorePage = () => dispatch => {
 //     //...
@@ -43,77 +156,11 @@ export const pauseGame = (event:React.MouseEvent<HTMLButtonElement>, show:boolea
     })
 }
 */
-
-export const addToCart = (
-  event: React.MouseEvent<HTMLButtonElement>,
-  productId: number,
-  marketId: number
-) => (dispatch: Dispatch) => {
-  event.stopPropagation();
-  dispatch({
-    type: ActionTypes.ADD_TO_CART,
-    payload: { productId, marketId }
-  });
-};
-
-export const removeFromCart = (
-  event: React.MouseEvent<HTMLButtonElement>,
-  productId: number,
-  marketId: number
-) => (dispatch: Dispatch) => {
-  event.stopPropagation();
-  dispatch({
-    type: ActionTypes.REMOVE_FROM_CART,
-    payload: { productId, marketId }
-  });
-};
-
-// export const removeFromCart = (
-//   event: React.MouseEvent<HTMLButtonElement>,
-//   productId: number
-// ) => (dispatch: Dispatch) => {
-//   event.stopPropagation();
-//   dispatch({
-//     type: ActionTypes.REMOVE_FROM_CART,
-//     payload: { productId }
-//   });
-// };
-
 /*
-export const ChangeFullname: ActionCreator<IChangeFullnameDeliver> = (productId) => {
-  return {
-    type: CHANGE_FULLNAME,
-    productId
-  };
-};
-
 export const ChangeMobile: ActionCreator<IChangeMobileDeliver> = (productId) => {
   return {
     type: CHANGE_MOBILE,
     productId
-  };
-};
-
-export const ChangeAddress: ActionCreator<IChangeAddressDeliver> = (productId) => {
-  return {
-    type: CHANGE_ADDRESS,
-    productId
-  };
-};
-
-export const ChangeTime: ActionCreator<IChangeTimeDeliver> = (productId) => {
-  return {
-    type: CHANGE_TIME,
-    productId
-  };
-};
-
-export const ChangeLocation: ActionCreator<IChangeDeliverLocation> = (location, address) => {
-  console.log("actions", location, address);
-  return {
-    type: CHANGE_LOCATION,
-    location,
-    address
   };
 };
 
