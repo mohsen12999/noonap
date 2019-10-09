@@ -92,27 +92,63 @@ export const ChangeDate: any = (
   });
 };
 
-export const ChangeTime: any = (
-  event: React.MouseEvent<HTMLButtonElement>,
-  time: string
-) => (dispatch: Dispatch) => {
-  event.stopPropagation();
+export const LoadUserInfo: any = (mobile: string) => (dispatch: Dispatch) => {
+  const url: string = "http://apdr.ir/api/customers/" + mobile;
+  
   dispatch({
-    type: ActionTypes.CHANGE_TIME,
-    payload: { time }
+    type: ActionTypes.TRY_LOADING_USER_INFO
   });
+
+  fetch(url, { method: "GET" })
+    .then(res => res.json())
+    .then(res => {
+      if (res.error) {
+        //throw res.error;
+        dispatch({
+          type: ActionTypes.FAILED_LOAD_USER_INFO,
+          payload: { error:res.error }
+        });
+      }
+      dispatch({
+        type: ActionTypes.SUCCESS_LOAD_USER_INFO,
+        payload: { res }
+      });
+    })
+    .catch(error => {
+      dispatch({
+        type: ActionTypes.FAILED_LOAD_USER_INFO,
+        payload: { error }
+      });
+    });
+  // dispatch({
+  //   type: ActionTypes.CHANGE_DATE,
+  //   payload: { date }
+  // });
 };
 
-export const ChangeLocation: any = (
-  event: React.MouseEvent<HTMLButtonElement>,
-  location: Position
-) => (dispatch: Dispatch) => {
-  event.stopPropagation();
-  dispatch({
-    type: ActionTypes.CHANGE_LOCATION,
-    payload: { location }
-  });
-};
+// export const ChangeTime: any = (
+//   event: React.MouseEvent<HTMLButtonElement>,
+//   time: string
+// ) => (dispatch: Dispatch) => {
+//   event.stopPropagation();
+//   dispatch({
+//     type: ActionTypes.CHANGE_TIME,
+//     payload: { time }
+//   });
+// };
+
+// export const ChangeLocation: any = (
+//   event: React.MouseEvent<HTMLButtonElement>,
+//   location: Position
+// ) => (dispatch: Dispatch) => {
+//   event.stopPropagation();
+//   dispatch({
+//     type: ActionTypes.CHANGE_LOCATION,
+//     payload: { location }
+//   });
+// };
+
+//////////////////////////////////////////////////////
 
 // export const scorePage = () => dispatch => {
 //     //...

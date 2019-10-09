@@ -9,7 +9,8 @@ import {
   ChangeMobile,
   ChangeFullname,
   ChangeAddress,
-  ChangeDate
+  ChangeDate,
+  LoadUserInfo
 } from "../../actions/shopActions";
 
 import Container from "@material-ui/core/Container";
@@ -112,7 +113,7 @@ interface IAddressState {
   // age: string;
   // date: Moment;
 
-  loadingInfo: boolean;
+  // loadingInfo: boolean;
   loadingAddress: boolean;
 }
 
@@ -125,6 +126,7 @@ interface IAddressProp {
   ChangeFullname: Function;
   ChangeAddress: Function;
   ChangeDate: Function;
+  LoadUserInfo: Function;
 }
 
 const Address: React.FC<IAddressProp> = (prop: IAddressProp) => {
@@ -138,52 +140,17 @@ const Address: React.FC<IAddressProp> = (prop: IAddressProp) => {
     // // date: new Date(),
     // date: moment(),
 
-    loadingInfo: false,
+    // loadingInfo: false,
     loadingAddress: false
   });
 
-  // const handleChange = (name: keyof IAddressState) => (
-  //   event: React.ChangeEvent<HTMLInputElement>
-  // ) => {
-  //   setValues({ ...values, [name]: event.target.value });
+  // const handleClickLoadingInfo = () => {
+  //   // setValues({ ...values, loadingInfo: !values.loadingInfo });
   // };
-
-  const handleClickLoadingInfo = () => {
-    setValues({ ...values, loadingInfo: !values.loadingInfo });
-  };
 
   const handleClickLoadingAddress = () => {
     setValues({ ...values, loadingAddress: !values.loadingAddress });
   };
-
-  // const handleMouseDownPassword = (
-  //   event: React.MouseEvent<HTMLButtonElement>
-  // ) => {
-  //   event.preventDefault();
-  // };
-
-  // const inputLabel = React.useRef<HTMLLabelElement>(null);
-  // const [labelWidth, setLabelWidth] = React.useState(0);
-  // React.useEffect(() => {
-  //   setLabelWidth(inputLabel.current!.offsetWidth);
-  // }, []);
-
-  // const handleChange2 = (
-  //   event: React.ChangeEvent<{ name?: string; value: unknown }>
-  // ) => {
-  //   setValues(oldValues => ({
-  //     ...oldValues,
-  //     [event.target.name as string]: event.target.value
-  //   }));
-  // };
-
-  // const handleDateChange = (date: MaterialUiPickersDate) => {
-  //   // setSelectedDate(date);
-  //   if (date !== null) {
-  //     setValues({ ...values, date: date });
-  //     //setValues({ ...values, date: date.toDate() });
-  //   }
-  // };
 
   jMoment.loadPersian({ dialect: "persian-modern", usePersianDigits: false });
 
@@ -217,6 +184,7 @@ const Address: React.FC<IAddressProp> = (prop: IAddressProp) => {
               <MenuItem value={"futureSend"}>ارسال در آینده</MenuItem>
               <MenuItem value={"takeout"}>دریافت حضوری</MenuItem>
               <MenuItem value={"reserve"}>رزرو مکان</MenuItem>
+              <MenuItem value={"futureTakeout"}>تحویل حضوری در آینده</MenuItem>
             </Select>
             <FormHelperText>شیوه دریافت را انتخاب کنید</FormHelperText>
           </FormControl>
@@ -238,10 +206,13 @@ const Address: React.FC<IAddressProp> = (prop: IAddressProp) => {
                     <InputAdornment position="end">
                       <IconButton
                         aria-label="toggle mobile visibility"
-                        onClick={handleClickLoadingInfo}
+                        //onClick={handleClickLoadingInfo}
+
+                        // onClick={prop.LoadUserInfo(prop.deliver.mobile)}
+                        
                         onMouseDown={event => event.preventDefault()}
                       >
-                        {values.loadingInfo ? (
+                        {prop.deliver.loadingInfo ? (
                           <CircularProgress />
                         ) : (
                           <RecentActorsIcon />
@@ -263,7 +234,7 @@ const Address: React.FC<IAddressProp> = (prop: IAddressProp) => {
                 label="نام"
                 fullWidth
                 className={clsx(classes.margin, classes.textField)}
-                value={prop.deliver.fullName}
+                value={prop.deliver.fullname}
                 onChange={event =>
                   prop.ChangeFullname(event, event.target.value)
                 }
@@ -274,7 +245,8 @@ const Address: React.FC<IAddressProp> = (prop: IAddressProp) => {
         )}
 
         {(prop.deliver.deliverKind === "futureSend" ||
-          prop.deliver.deliverKind === "reserve") && (
+          prop.deliver.deliverKind === "reserve" ||
+          prop.deliver.deliverKind === "futureTakeout") && (
           <Grid item xs={12} sm={6} className={classes.pickerGrid}>
             <MuiPickersUtilsProvider utils={JalaliUtils} locale="fa">
               <DateTimePicker
@@ -366,19 +338,23 @@ const Address: React.FC<IAddressProp> = (prop: IAddressProp) => {
             </Grid>
           </React.Fragment>
         )}
-      </Grid>
 
-      {/* <Button
-        variant="contained"
-        color="primary"
-        className={classes.button}
-        // onClick={() =>
-        //   prop.changePage(process.env.PUBLIC_URL + "/" + AppPages.ADDRESS)
-        // }
-      >
-        تائید خرید
-        <ShoppingBasket className={classes.extendedIcon} />
-      </Button> */}
+        {prop.deliver.deliverKind !== "" && (
+          <Grid item xs={12} sm={8}>
+            <Button
+              variant="contained"
+              color="primary"
+              className={classes.button}
+              // onClick={() =>
+              //   prop.changePage(process.env.PUBLIC_URL + "/" + AppPages.ADDRESS)
+              // }
+            >
+              تائید خرید
+              <ShoppingBasket className={classes.extendedIcon} />
+            </Button>
+          </Grid>
+        )}
+      </Grid>
     </Container>
   );
 };
@@ -394,7 +370,8 @@ const mapDispatchToProps: any = {
   ChangeMobile,
   ChangeFullname,
   ChangeAddress,
-  ChangeDate
+  ChangeDate,
+  LoadUserInfo
   // changePage: changePage
   // addToCart: addToCart,
   // removeFromCart: removeFromCart,

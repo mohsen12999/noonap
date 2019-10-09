@@ -10,15 +10,16 @@
 - [ ] product page
   - [ ] product list
   - [x] add product
-  - [ ] remove product
+  - [x] remove product
   - [ ] product cart count
   - [ ] page title
 - [ ] address page
-  - [ ] make page
+  - [x] make page
   - [ ] load address
   - [ ] enable/disable load address btn
   - [ ] load current location
   - [ ] load times
+  - [ ] show btn condition
 - [x] soon page -> product group == false
 - [ ] cart page -> see what you buy
 - [ ] checkout page -> after address & before go to bank

@@ -38,14 +38,14 @@ export interface IDeliverState {
   deliverDistrict: string;
 
   mobile: string;
-  fullName: string;
+  fullname: string;
   address: string;
 
   location?: Position;
   date: Moment;
   time: string;
 
-  // loadingInfo: boolean;
+  loadingInfo: boolean;
   // loadingAddress: boolean;
   // sendingCart:boolean;
 }
@@ -56,14 +56,14 @@ export const INITIAL_SHOPSTATE: IShopState = {
   deliver: {
     deliverKind: "",
     deliverDistrict: "",
-    fullName: "",
+    fullname: "",
     address: "",
     mobile: "",
     date: moment(),
-    time: ""
-    // loadingInfo: false,
-    // loadingAddress: false,
-    // sendingCart:false
+    time: "",
+    loadingInfo: false
+    // , loadingAddress: false
+    // , sendingCart:false
   },
   error: ""
 };

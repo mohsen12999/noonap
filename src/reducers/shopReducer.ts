@@ -42,6 +42,9 @@ const ShopReducer: Reducer<IShopState, { type: any; payload: any }> = (
     case ActionTypes.CHANGE_MOBILE:
     case ActionTypes.CHANGE_FULLNAME:
     case ActionTypes.CHANGE_ADDRESS:
+    case ActionTypes.TRY_LOADING_USER_INFO:
+    case ActionTypes.SUCCESS_LOAD_USER_INFO:
+    case ActionTypes.FAILED_LOAD_USER_INFO:
       return {
         ...state,
         // lastMarketId:MarketId(action),
@@ -134,6 +137,12 @@ const deliver: any = (
       return {
         ...state,
         address: address
+      };
+
+    case ActionTypes.TRY_LOADING_USER_INFO:
+      return {
+        ...state,
+        loadingInfo: true
       };
 
     default:
