@@ -101,40 +101,6 @@ const deliver: any = (
   action: { type: any; payload: any }
 ) => {
   switch (action.type) {
-    // case ActionTypes.ADD_TO_CART:
-    //   const addId: string = action.payload.productId;
-    // check max
-    // const quant = (state[addId] || 0);
-    // const prod = PRODUCT_LIST.find(x=>x.id === addId);
-    // const max = prod!==undefined ? prod.max : undefined;
-    // if(max !== undefined && quant>=max){
-    //   return {
-    //     ...state,
-    //     [addId]: max
-    //   };
-    // }
-    // return {
-    //   ...state,
-    //   [addId]: (state[addId] || 0) + 1
-    // };
-
-    // case ActionTypes.REMOVE_FROM_CART:
-    //   const removeId: string = action.payload.productId;
-    //   const quantity: number = (state[removeId] || 0) - 1;
-    //   if (quantity <= 0) {
-    //     const newState: ICartState = { ...state };
-    //     delete newState[removeId];
-    //     return newState;
-    //   } else {
-    //     return {
-    //       ...state,
-    //       [removeId]: quantity
-    //     };
-    //   }
-
-    // case CHECKOUT_SUCCESS:
-    //   return {};
-
     case ActionTypes.CHANGE_DELIVERKIND:
       var deliverKind: string = action.payload.deliverKind;
       return {

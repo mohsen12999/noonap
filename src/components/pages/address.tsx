@@ -105,12 +105,12 @@ const useStyles = makeStyles((theme: Theme) =>
 );
 
 interface IAddressState {
-  name: string;
-  mobile: string;
-  address: string;
+  // name: string;
+  // mobile: string;
+  // address: string;
 
-  age: string;
-  date: Moment;
+  // age: string;
+  // date: Moment;
 
   loadingInfo: boolean;
   loadingAddress: boolean;
@@ -131,32 +131,36 @@ const Address: React.FC<IAddressProp> = (prop: IAddressProp) => {
   const classes: any = useStyles();
 
   const [values, setValues] = React.useState<IAddressState>({
-    name: "",
-    mobile: "",
-    address: "",
-    age: "",
-    // date: new Date(),
-    date: moment(),
+    // name: "",
+    // mobile: "",
+    // address: "",
+    // age: "",
+    // // date: new Date(),
+    // date: moment(),
 
     loadingInfo: false,
     loadingAddress: false
   });
 
-  const handleChange = (name: keyof IAddressState) => (
-    event: React.ChangeEvent<HTMLInputElement>
-  ) => {
-    setValues({ ...values, [name]: event.target.value });
-  };
+  // const handleChange = (name: keyof IAddressState) => (
+  //   event: React.ChangeEvent<HTMLInputElement>
+  // ) => {
+  //   setValues({ ...values, [name]: event.target.value });
+  // };
 
-  const handleClickShowPassword = () => {
+  const handleClickLoadingInfo = () => {
     setValues({ ...values, loadingInfo: !values.loadingInfo });
   };
 
-  const handleMouseDownPassword = (
-    event: React.MouseEvent<HTMLButtonElement>
-  ) => {
-    event.preventDefault();
+  const handleClickLoadingAddress = () => {
+    setValues({ ...values, loadingAddress: !values.loadingAddress });
   };
+
+  // const handleMouseDownPassword = (
+  //   event: React.MouseEvent<HTMLButtonElement>
+  // ) => {
+  //   event.preventDefault();
+  // };
 
   // const inputLabel = React.useRef<HTMLLabelElement>(null);
   // const [labelWidth, setLabelWidth] = React.useState(0);
@@ -173,13 +177,13 @@ const Address: React.FC<IAddressProp> = (prop: IAddressProp) => {
   //   }));
   // };
 
-  const handleDateChange = (date: MaterialUiPickersDate) => {
-    // setSelectedDate(date);
-    if (date !== null) {
-      setValues({ ...values, date: date });
-      //setValues({ ...values, date: date.toDate() });
-    }
-  };
+  // const handleDateChange = (date: MaterialUiPickersDate) => {
+  //   // setSelectedDate(date);
+  //   if (date !== null) {
+  //     setValues({ ...values, date: date });
+  //     //setValues({ ...values, date: date.toDate() });
+  //   }
+  // };
 
   jMoment.loadPersian({ dialect: "persian-modern", usePersianDigits: false });
 
@@ -192,7 +196,7 @@ const Address: React.FC<IAddressProp> = (prop: IAddressProp) => {
         justify="space-around"
         alignItems="stretch"
       >
-        <Grid item xs={12} sm={6}>
+        <Grid item xs={12} sm={8}>
           <FormControl className={classes.selectFormControl}>
             <InputLabel htmlFor="deliverKind-helper">شیوه دریافت</InputLabel>
             <Select
@@ -218,69 +222,86 @@ const Address: React.FC<IAddressProp> = (prop: IAddressProp) => {
           </FormControl>
         </Grid>
 
-        <Grid item xs={12} sm={6} className={classes.pickerGrid}>
-          <MuiPickersUtilsProvider utils={JalaliUtils} locale="fa">
-            <DateTimePicker
-              className={classes.picker}
-              label="زمان تحویل"
-              minDate={new Date()}
-              okLabel="تأیید"
-              cancelLabel="لغو"
-              labelFunc={date =>
-                date ? date.format("jYYYY/jMM/jDD hh:mm A") : ""
-              }
-              value={values.date}
-              onChange={handleDateChange}
-            />
-          </MuiPickersUtilsProvider>
-        </Grid>
+        {prop.deliver.deliverKind !== "" && (
+          <React.Fragment>
+            <Grid item xs={12} sm={8}>
+              <FormControl className={clsx(classes.margin, classes.textField)}>
+                <InputLabel htmlFor="adornment-mobile">موبایل</InputLabel>
+                <Input
+                  id="adornment-mobile"
+                  value={prop.deliver.mobile}
+                  fullWidth
+                  onChange={event =>
+                    prop.ChangeMobile(event, event.target.value)
+                  }
+                  endAdornment={
+                    <InputAdornment position="end">
+                      <IconButton
+                        aria-label="toggle mobile visibility"
+                        onClick={handleClickLoadingInfo}
+                        onMouseDown={event => event.preventDefault()}
+                      >
+                        {values.loadingInfo ? (
+                          <CircularProgress />
+                        ) : (
+                          <RecentActorsIcon />
+                        )}
+                      </IconButton>
+                    </InputAdornment>
+                  }
+                />
+                <FormHelperText id="component-helper-text">
+                  اگر قبلا مشتری بودید بعد از وارد کردن موبایل، روی دکمه کلیک
+                  کنید
+                </FormHelperText>
+              </FormControl>
+            </Grid>
 
-        <Grid item xs={12} sm={6}>
-          <FormControl className={clsx(classes.margin, classes.textField)}>
-            <InputLabel htmlFor="adornment-mobile">موبایل</InputLabel>
-            <Input
-              id="adornment-mobile"
-              value={values.mobile}
-              fullWidth
-              onChange={handleChange("mobile")}
-              endAdornment={
-                <InputAdornment position="end">
-                  <IconButton
-                    aria-label="toggle mobile visibility"
-                    onClick={handleClickShowPassword}
-                    onMouseDown={handleMouseDownPassword}
-                  >
-                    {values.loadingInfo ? (
-                      <CircularProgress />
-                    ) : (
-                      <RecentActorsIcon />
-                    )}
-                  </IconButton>
-                </InputAdornment>
-              }
-            />
-            <FormHelperText id="component-helper-text">
-              اگر قبلا مشتری بودید روی دکمه کلیک کنید
-            </FormHelperText>
-          </FormControl>
-        </Grid>
+            <Grid item xs={12} sm={8}>
+              <TextField
+                id="standard-name"
+                label="نام"
+                fullWidth
+                className={clsx(classes.margin, classes.textField)}
+                value={prop.deliver.fullName}
+                onChange={event =>
+                  prop.ChangeFullname(event, event.target.value)
+                }
+                margin="normal"
+              />
+            </Grid>
+          </React.Fragment>
+        )}
 
-        <Grid item xs={12} sm={6}>
-          <TextField
-            id="standard-name"
-            label="نام"
-            fullWidth
-            className={clsx(classes.margin, classes.textField)}
-            value={values.name}
-            onChange={handleChange("name")}
-            margin="normal"
-          />
-        </Grid>
+        {(prop.deliver.deliverKind === "futureSend" ||
+          prop.deliver.deliverKind === "reserve") && (
+          <Grid item xs={12} sm={6} className={classes.pickerGrid}>
+            <MuiPickersUtilsProvider utils={JalaliUtils} locale="fa">
+              <DateTimePicker
+                className={classes.picker}
+                label="زمان تحویل یا دریافت"
+                minDate={new Date()}
+                okLabel="تأیید"
+                cancelLabel="لغو"
+                labelFunc={date =>
+                  date ? date.format("jYYYY/jMM/jDD hh:mm A") : ""
+                }
+                value={prop.deliver.date}
+                //onChange={handleDateChange}
+                onChange={date => {
+                  if (date != null) {
+                    prop.ChangeDate(date);
+                  }
+                }}
+              />
+            </MuiPickersUtilsProvider>
+          </Grid>
+        )}
 
         {(prop.deliver.deliverKind === "expressSend" ||
           prop.deliver.deliverKind === "futureSend") && (
           <React.Fragment>
-            <Grid item xs={12} sm={6}>
+            <Grid item xs={12} sm={8}>
               <FormControl className={classes.selectFormControl}>
                 <InputLabel htmlFor="deliverDistrict-helper">
                   محدوده دریافت
@@ -310,21 +331,24 @@ const Address: React.FC<IAddressProp> = (prop: IAddressProp) => {
               </FormControl>
             </Grid>
 
-            <Grid item xs={12} sm={6}>
+            <Grid item xs={12} sm={8}>
               <FormControl className={clsx(classes.margin, classes.textField2)}>
                 <InputLabel htmlFor="adornment-address">آدرس</InputLabel>
                 <Input
                   id="adornment-address"
-                  value={values.address}
+                  value={prop.deliver.address}
                   multiline
                   fullWidth
-                  onChange={handleChange("address")}
+                  // onChange={handleChange("address")}
+                  onChange={event =>
+                    prop.ChangeAddress(event, event.target.value)
+                  }
                   endAdornment={
                     <InputAdornment position="end">
                       <IconButton
                         aria-label="toggle address visibility"
-                        onClick={handleClickShowPassword}
-                        onMouseDown={handleMouseDownPassword}
+                        onClick={handleClickLoadingAddress}
+                        onMouseDown={event => event.preventDefault()}
                       >
                         {values.loadingAddress ? (
                           <CircularProgress />
@@ -342,68 +366,9 @@ const Address: React.FC<IAddressProp> = (prop: IAddressProp) => {
             </Grid>
           </React.Fragment>
         )}
-
-        {/* <Grid item xs={12} sm={6}>
-          <FormControl className={classes.selectFormControl}>
-            <InputLabel htmlFor="deliverDistrict-helper">
-              محدوده دریافت
-            </InputLabel>
-            <Select
-              value={prop.deliver.deliverDistrict}
-              // onChange={handleChange2}
-              onChange={event =>
-                prop.ChangeDeliverDistrict(event, event.target.value)
-              }
-              inputProps={{
-                name: "deliverDistrict",
-                id: "deliverDistrict-helper"
-              }}
-            >
-              <MenuItem value="">
-                <em>هیچکدام</em>
-              </MenuItem>
-              <MenuItem value={"abrisham"}>ابریشم محله و بیست متری</MenuItem>
-              <MenuItem value={"katalom"}>کتالم و سادات شهر</MenuItem>
-              <MenuItem value={"rejaee"}>رضی محله و میدان رجایی</MenuItem>
-              <MenuItem value={"latmahale"}>تنگه دره و لات محله</MenuItem>
-            </Select>
-            <FormHelperText>محدوده دریافت را انتخاب کنید</FormHelperText>
-          </FormControl>
-        </Grid>
-
-        <Grid item xs={12} sm={6}>
-          <FormControl className={clsx(classes.margin, classes.textField2)}>
-            <InputLabel htmlFor="adornment-address">آدرس</InputLabel>
-            <Input
-              id="adornment-address"
-              value={values.address}
-              multiline
-              fullWidth
-              onChange={handleChange("address")}
-              endAdornment={
-                <InputAdornment position="end">
-                  <IconButton
-                    aria-label="toggle address visibility"
-                    onClick={handleClickShowPassword}
-                    onMouseDown={handleMouseDownPassword}
-                  >
-                    {values.loadingAddress ? (
-                      <CircularProgress />
-                    ) : (
-                      <NotListedLocationIcon />
-                    )}
-                  </IconButton>
-                </InputAdornment>
-              }
-            />
-            <FormHelperText id="component-helper-text">
-              برای تعیین موقعیت فعلی روی دکمه کلیک کنید
-            </FormHelperText>
-          </FormControl>
-        </Grid> */}
       </Grid>
 
-      <Button
+      {/* <Button
         variant="contained"
         color="primary"
         className={classes.button}
@@ -413,7 +378,7 @@ const Address: React.FC<IAddressProp> = (prop: IAddressProp) => {
       >
         تائید خرید
         <ShoppingBasket className={classes.extendedIcon} />
-      </Button>
+      </Button> */}
     </Container>
   );
 };

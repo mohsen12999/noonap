@@ -49,7 +49,7 @@ export const ChangeDeliverDistrict: any = (
 };
 
 export const ChangeMobile: any = (
-  event: React.MouseEvent<HTMLButtonElement>,
+  event: React.ChangeEvent<HTMLInputElement>,
   mobile: string
 ) => (dispatch: Dispatch) => {
   event.stopPropagation();
@@ -82,10 +82,10 @@ export const ChangeAddress: any = (
 };
 
 export const ChangeDate: any = (
-  event: React.MouseEvent<HTMLButtonElement>,
+  // event: React.MouseEvent<HTMLButtonElement>,
   date: Moment
 ) => (dispatch: Dispatch) => {
-  event.stopPropagation();
+  // event.stopPropagation();
   dispatch({
     type: ActionTypes.CHANGE_DATE,
     payload: { date }
