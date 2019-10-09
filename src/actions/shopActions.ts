@@ -60,7 +60,7 @@ export const ChangeMobile: any = (
 };
 
 export const ChangeFullname: any = (
-  event: React.MouseEvent<HTMLButtonElement>,
+  event: React.ChangeEvent<HTMLButtonElement>,
   fullname: string
 ) => (dispatch: Dispatch) => {
   event.stopPropagation();
@@ -71,7 +71,7 @@ export const ChangeFullname: any = (
 };
 
 export const ChangeAddress: any = (
-  event: React.MouseEvent<HTMLButtonElement>,
+  event: React.ChangeEvent<HTMLButtonElement>,
   address: string
 ) => (dispatch: Dispatch) => {
   event.stopPropagation();
