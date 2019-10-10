@@ -94,7 +94,8 @@ export const ChangeDate: any = (
 
 export const LoadUserInfo: any = (mobile: string) => (dispatch: Dispatch) => {
   const url: string = "http://apdr.ir/api/customers/" + mobile;
-  
+
+  console.log(mobile, url);
   dispatch({
     type: ActionTypes.TRY_LOADING_USER_INFO
   });
@@ -106,7 +107,7 @@ export const LoadUserInfo: any = (mobile: string) => (dispatch: Dispatch) => {
         //throw res.error;
         dispatch({
           type: ActionTypes.FAILED_LOAD_USER_INFO,
-          payload: { error:res.error }
+          payload: { error: res.error }
         });
       }
       dispatch({
@@ -120,10 +121,6 @@ export const LoadUserInfo: any = (mobile: string) => (dispatch: Dispatch) => {
         payload: { error }
       });
     });
-  // dispatch({
-  //   type: ActionTypes.CHANGE_DATE,
-  //   payload: { date }
-  // });
 };
 
 // export const ChangeTime: any = (

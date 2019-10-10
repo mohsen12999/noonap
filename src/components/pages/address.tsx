@@ -144,9 +144,10 @@ const Address: React.FC<IAddressProp> = (prop: IAddressProp) => {
     loadingAddress: false
   });
 
-  // const handleClickLoadingInfo = () => {
-  //   // setValues({ ...values, loadingInfo: !values.loadingInfo });
-  // };
+  const handleClickLoadingInfo = () => {
+    const mobile: string = prop.deliver.mobile;
+    prop.LoadUserInfo(mobile);
+  };
 
   const handleClickLoadingAddress = () => {
     setValues({ ...values, loadingAddress: !values.loadingAddress });
@@ -206,10 +207,8 @@ const Address: React.FC<IAddressProp> = (prop: IAddressProp) => {
                     <InputAdornment position="end">
                       <IconButton
                         aria-label="toggle mobile visibility"
-                        //onClick={handleClickLoadingInfo}
-
+                        onClick={handleClickLoadingInfo}
                         // onClick={prop.LoadUserInfo(prop.deliver.mobile)}
-                        
                         onMouseDown={event => event.preventDefault()}
                       >
                         {prop.deliver.loadingInfo ? (

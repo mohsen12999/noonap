@@ -25,6 +25,7 @@
 - [ ] checkout page -> after address & before go to bank
 - [ ] come back from bank page
 - [ ] rating page
+- [ ] persian install message
 
 - [ ] install btn ->isAppInstallable && !isAppInstalled,deferredPrompt.prompt()
 - [ ] router, title, active enable
