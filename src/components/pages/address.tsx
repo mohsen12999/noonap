@@ -106,17 +106,17 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-interface IAddressState {
-  // name: string;
-  // mobile: string;
-  // address: string;
+// interface IAddressState {
+//   // name: string;
+//   // mobile: string;
+//   // address: string;
 
-  // age: string;
-  // date: Moment;
+//   // age: string;
+//   // date: Moment;
 
-  // loadingInfo: boolean;
-  loadingAddress: boolean;
-}
+//   // loadingInfo: boolean;
+//   //loadingAddress: boolean;
+// }
 
 interface IAddressProp {
   deliver: IDeliverState;
@@ -134,17 +134,17 @@ interface IAddressProp {
 const Address: React.FC<IAddressProp> = (prop: IAddressProp) => {
   const classes: any = useStyles();
 
-  const [values, setValues] = React.useState<IAddressState>({
-    // name: "",
-    // mobile: "",
-    // address: "",
-    // age: "",
-    // // date: new Date(),
-    // date: moment(),
+  // const [values, setValues] = React.useState<IAddressState>({
+  //   // name: "",
+  //   // mobile: "",
+  //   // address: "",
+  //   // age: "",
+  //   // // date: new Date(),
+  //   // date: moment(),
 
-    // loadingInfo: false,
-    loadingAddress: false
-  });
+  //   // loadingInfo: false,
+  //   //loadingAddress: false
+  // });
 
   const handleClickLoadingInfo = () => {
     const mobile: string = prop.deliver.mobile;
@@ -340,8 +340,15 @@ const Address: React.FC<IAddressProp> = (prop: IAddressProp) => {
             </Grid>
           </React.Fragment>
         )}
-
-        {prop.deliver.deliverKind !== "" && (
+{/* <MenuItem value={"expressSend"}>ارسال فوری</MenuItem>
+              <MenuItem value={"futureSend"}>ارسال در آینده</MenuItem>
+              <MenuItem value={"takeout"}>دریافت حضوری</MenuItem>
+              <MenuItem value={"reserve"}>رزرو مکان</MenuItem>
+              <MenuItem value={"futureTakeout"}>تحویل حضوری در آینده</MenuItem> */}
+        {(prop.deliver.deliverKind !== "" && prop.deliver.mobile.length>9 && prop.deliver.fullname.length>3 &&
+        (prop.deliver.deliverKind ==="expressSend" || prop.deliver.deliverKind ==="takeout" || prop.deliver.date!=null) &&
+        ((prop.deliver.deliverKind !=="expressSend" && prop.deliver.deliverKind !=="futureSend") || (prop.deliver.address.length>3 && (prop.deliver.deliverDistrict!=="" || prop.deliver.location!=null)) )
+        )  && (
           <Grid item xs={12} sm={8}>
             <Button
               variant="contained"

@@ -171,11 +171,11 @@ const deliver: any = (
       };
     case ActionTypes.SUCCESS_LOAD_LOCATION:
       const address2: string = action.payload.address;
-      const location: string = action.payload.location;
+      const location: Position = action.payload.location;
       return {
         ...state,
         address: address2,
-        location:null,
+        location: location,
         loadinglocation: false
       };
     case ActionTypes.FAILED_LOAD_LOCATION:
