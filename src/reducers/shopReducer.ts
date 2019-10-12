@@ -45,6 +45,9 @@ const ShopReducer: Reducer<IShopState, { type: any; payload: any }> = (
     case ActionTypes.TRY_LOADING_USER_INFO:
     case ActionTypes.SUCCESS_LOAD_USER_INFO:
     case ActionTypes.FAILED_LOAD_USER_INFO:
+    case ActionTypes.TRY_LOADING_LOCATION:
+    case ActionTypes.SUCCESS_LOAD_LOCATION:
+    case ActionTypes.FAILED_LOAD_LOCATION:
       return {
         ...state,
         // lastMarketId:MarketId(action),
@@ -147,16 +150,39 @@ const deliver: any = (
     case ActionTypes.SUCCESS_LOAD_USER_INFO:
       const fullname1: string = action.payload.fullname;
       const address1: string = action.payload.address;
+      const district1: string = action.payload.district;
       return {
         ...state,
         fullname: fullname1,
         address: address1,
+        deliverDistrict: district1,
         loadingInfo: false
       };
     case ActionTypes.FAILED_LOAD_USER_INFO:
+      console.log(action.payload.error);
       return {
         ...state,
         loadingInfo: false
+      };
+    case ActionTypes.TRY_LOADING_LOCATION:
+      return {
+        ...state,
+        loadinglocation: true
+      };
+    case ActionTypes.SUCCESS_LOAD_LOCATION:
+      const address2: string = action.payload.address;
+      const location: string = action.payload.location;
+      return {
+        ...state,
+        address: address2,
+        location:null,
+        loadinglocation: false
+      };
+    case ActionTypes.FAILED_LOAD_LOCATION:
+      console.log(action.payload.error);
+      return {
+        ...state,
+        loadinglocation: false
       };
     default:
       return state;

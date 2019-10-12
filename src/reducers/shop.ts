@@ -46,7 +46,7 @@ export interface IDeliverState {
   time: string;
 
   loadingInfo: boolean;
-  // loadingAddress: boolean;
+  loadingLocation: boolean;
   // sendingCart:boolean;
 }
 
@@ -61,8 +61,8 @@ export const INITIAL_SHOPSTATE: IShopState = {
     mobile: "",
     date: moment(),
     time: "",
-    loadingInfo: false
-    // , loadingAddress: false
+    loadingInfo: false,
+    loadingLocation: false
     // , sendingCart:false
   },
   error: ""

@@ -1,6 +1,7 @@
 import { ActionTypes } from "./actionTypes";
 import { Dispatch } from "redux";
 import { Moment } from "moment-jalaali";
+import { ICustomer } from "./shop";
 
 export const addToCart: any = (
   event: React.MouseEvent<HTMLButtonElement>,
@@ -108,10 +109,14 @@ export const LoadUserInfo: any = (mobile: string) => (dispatch: Dispatch) => {
           payload: { error: res.error }
         });
       }
-      const customer: any = res.customer;
+      const customer: ICustomer = res.customer;
       dispatch({
         type: ActionTypes.SUCCESS_LOAD_USER_INFO,
-        payload: { fullname: customer["name"], address: customer["address"] }
+        payload: {
+          fullname: customer.name,
+          district: customer.district,
+          address: customer.address
+        }
       });
     })
     .catch(error => {
@@ -120,6 +125,108 @@ export const LoadUserInfo: any = (mobile: string) => (dispatch: Dispatch) => {
         payload: { error }
       });
     });
+};
+
+export const LoadLocation: any = () => (dispatch: Dispatch) => {
+  dispatch({
+    type: ActionTypes.TRY_LOADING_LOCATION
+  });
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(position => {
+      if (position && position !== undefined) {
+        const crd: Coordinates = position.coords;
+        const url: string =
+          "https://api.neshan.org/v2/reverse?lat=" +
+          crd.latitude +
+          "&lng=" +
+          crd.longitude;
+
+        fetch(url, {
+          method: "GET",
+          headers: {
+            "Api-Key": "service.idR8Yra0Ji4A4DHlaIj54K0VUl7kX7DglvojWyjG"
+          }
+        })
+          .then(res => res.json())
+          .then(res => {
+            // console.log(res);
+            const status: string = res["status"];
+            const address: string = res["formatted_address"];
+            if (
+              status !== undefined &&
+              status === "OK" &&
+              address !== undefined
+            ) {
+              dispatch({
+                type: ActionTypes.SUCCESS_LOAD_LOCATION,
+                payload: {
+                  address: address,
+                  location: position
+                }
+              });
+            } else {
+              dispatch({
+                type: ActionTypes.FAILED_LOAD_LOCATION,
+                payload: { error: status }
+              });
+            }
+          })
+          .catch(error => {
+            dispatch({
+              type: ActionTypes.FAILED_LOAD_LOCATION,
+              payload: { error }
+            });
+          });
+      } else {
+        dispatch({
+          type: ActionTypes.FAILED_LOAD_LOCATION,
+          payload: { error: "position " + position }
+        });
+      }
+    });
+  } else {
+    dispatch({
+      type: ActionTypes.FAILED_LOAD_LOCATION,
+      payload: { error: "navigator.geolocation " + navigator.geolocation }
+    });
+  }
+
+  // if (navigator.geolocation) {
+  //   navigator.geolocation.getCurrentPosition((position)=> {
+  //     if(position && position !== undefined) {
+  //       const crd:Coordinates = position.coords;
+  //       const url: string = "https://api.neshan.org/v2/reverse?lat=" + crd.latitude + "&lng=" + crd.longitude;
+  //       fetch(url, {
+  //         method: "GET",
+  //         headers: { "Api-Key": "service.idR8Yra0Ji4A4DHlaIj54K0VUl7kX7DglvojWyjG" }
+  //     }).then(res => res.json()).then((res:any)=>{
+  //       const status: string = res["status"];
+  //       const address: string = res["formatted_address"];
+  //       if(status !== undefined && status === "OK" && address !== undefined) {
+  //         // store.dispatch(ChangeLocation(position,address));
+  //         dispatch({
+  //           type: ActionTypes.SUCCESS_LOAD_LOCATION,
+  //           payload: {
+  //             address:address,
+  //             latitude:crd.latitude,
+  //             longitude:crd.longitude
+  //           }
+  //         });
+  //         return;
+  //       }
+  //     }).catch(error=>{
+  //       dispatch({
+  //         type: ActionTypes.FAILED_LOAD_LOCATION,
+  //         payload: { error }
+  //       });
+  //     }
+  //       );
+  //     }
+  //   }
+
+  //   dispatch({
+  //     type: ActionTypes.FAILED_LOAD_LOCATION
+  //   });
 };
 
 // export const ChangeTime: any = (

@@ -10,7 +10,8 @@ import {
   ChangeFullname,
   ChangeAddress,
   ChangeDate,
-  LoadUserInfo
+  LoadUserInfo,
+  LoadLocation
 } from "../../actions/shopActions";
 
 import Container from "@material-ui/core/Container";
@@ -127,6 +128,7 @@ interface IAddressProp {
   ChangeAddress: Function;
   ChangeDate: Function;
   LoadUserInfo: Function;
+  LoadLocation: Function;
 }
 
 const Address: React.FC<IAddressProp> = (prop: IAddressProp) => {
@@ -150,7 +152,8 @@ const Address: React.FC<IAddressProp> = (prop: IAddressProp) => {
   };
 
   const handleClickLoadingAddress = () => {
-    setValues({ ...values, loadingAddress: !values.loadingAddress });
+    prop.LoadLocation();
+    //setValues({ ...values, loadingAddress: !values.loadingAddress });
   };
 
   jMoment.loadPersian({ dialect: "persian-modern", usePersianDigits: false });
@@ -321,7 +324,7 @@ const Address: React.FC<IAddressProp> = (prop: IAddressProp) => {
                         onClick={handleClickLoadingAddress}
                         onMouseDown={event => event.preventDefault()}
                       >
-                        {values.loadingAddress ? (
+                        {prop.deliver.loadingLocation ? (
                           <CircularProgress />
                         ) : (
                           <NotListedLocationIcon />
@@ -370,7 +373,8 @@ const mapDispatchToProps: any = {
   ChangeFullname,
   ChangeAddress,
   ChangeDate,
-  LoadUserInfo
+  LoadUserInfo,
+  LoadLocation
   // changePage: changePage
   // addToCart: addToCart,
   // removeFromCart: removeFromCart,

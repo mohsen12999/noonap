@@ -33,7 +33,7 @@ export interface IProduct {
   title: string;
   subtitle?: string;
   price: number;
-  discount?:number;
+  discount?: number;
   img: string;
   enable: boolean;
   max?: number;
@@ -62,6 +62,20 @@ export interface IDeliverTime {
   title: string;
   start: number;
   end: number;
+}
+
+// database
+
+export interface ICustomer {
+  id: number;
+  mobile: string;
+  name: string;
+  district: string;
+  address: string;
+  latitude: number;
+  longitude: number;
+  created_at: any;
+  updated_at: any;
 }
 
 // mock values -> read from server at last
