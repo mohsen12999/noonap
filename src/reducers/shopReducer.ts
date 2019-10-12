@@ -105,35 +105,35 @@ const deliver: any = (
 ) => {
   switch (action.type) {
     case ActionTypes.CHANGE_DELIVERKIND:
-      var deliverKind: string = action.payload.deliverKind;
+      const deliverKind: string = action.payload.deliverKind;
       return {
         ...state,
         deliverKind: deliverKind
       };
 
     case ActionTypes.CHANGE_DELIVERDISTRICT:
-      var deliverDistrict: string = action.payload.deliverDistrict;
+      const deliverDistrict: string = action.payload.deliverDistrict;
       return {
         ...state,
         deliverDistrict: deliverDistrict
       };
 
     case ActionTypes.CHANGE_MOBILE:
-      var mobile: string = action.payload.mobile;
+      const mobile: string = action.payload.mobile;
       return {
         ...state,
         mobile: mobile
       };
 
     case ActionTypes.CHANGE_FULLNAME:
-      var fullname: string = action.payload.fullname;
+      const fullname: string = action.payload.fullname;
       return {
         ...state,
         fullname: fullname
       };
 
     case ActionTypes.CHANGE_ADDRESS:
-      var address: string = action.payload.address;
+      const address: string = action.payload.address;
       return {
         ...state,
         address: address
@@ -144,7 +144,20 @@ const deliver: any = (
         ...state,
         loadingInfo: true
       };
-
+    case ActionTypes.SUCCESS_LOAD_USER_INFO:
+      const fullname1: string = action.payload.fullname;
+      const address1: string = action.payload.address;
+      return {
+        ...state,
+        fullname: fullname1,
+        address: address1,
+        loadingInfo: false
+      };
+    case ActionTypes.FAILED_LOAD_USER_INFO:
+      return {
+        ...state,
+        loadingInfo: false
+      };
     default:
       return state;
   }

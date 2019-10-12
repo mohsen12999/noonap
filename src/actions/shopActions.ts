@@ -95,7 +95,6 @@ export const ChangeDate: any = (
 export const LoadUserInfo: any = (mobile: string) => (dispatch: Dispatch) => {
   const url: string = "http://apdr.ir/api/customers/" + mobile;
 
-  console.log(mobile, url);
   dispatch({
     type: ActionTypes.TRY_LOADING_USER_INFO
   });
@@ -103,16 +102,16 @@ export const LoadUserInfo: any = (mobile: string) => (dispatch: Dispatch) => {
   fetch(url, { method: "GET" })
     .then(res => res.json())
     .then(res => {
-      if (res.error) {
-        //throw res.error;
+      if (res.error || res.result === false) {
         dispatch({
           type: ActionTypes.FAILED_LOAD_USER_INFO,
           payload: { error: res.error }
         });
       }
+      const customer: any = res.customer;
       dispatch({
         type: ActionTypes.SUCCESS_LOAD_USER_INFO,
-        payload: { res }
+        payload: { fullname: customer["name"], address: customer["address"] }
       });
     })
     .catch(error => {
