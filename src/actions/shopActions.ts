@@ -1,7 +1,7 @@
 import { ActionTypes } from "./actionTypes";
 import { Dispatch } from "redux";
 import { Moment } from "moment-jalaali";
-import { ICustomer } from "./shop";
+import { IDbCustomer } from "./shop";
 
 export const addToCart: any = (
   event: React.MouseEvent<HTMLButtonElement>,
@@ -94,7 +94,7 @@ export const ChangeDate: any = (
 };
 
 export const LoadUserInfo: any = (mobile: string) => (dispatch: Dispatch) => {
-  const url: string = "http://apdr.ir/api/customers/" + mobile;
+  const url: string = "https://apdr.ir/api/customers/" + mobile;
 
   dispatch({
     type: ActionTypes.TRY_LOADING_USER_INFO
@@ -109,7 +109,7 @@ export const LoadUserInfo: any = (mobile: string) => (dispatch: Dispatch) => {
           payload: { error: res.error }
         });
       }
-      const customer: ICustomer = res.customer;
+      const customer: IDbCustomer = res.customer;
       dispatch({
         type: ActionTypes.SUCCESS_LOAD_USER_INFO,
         payload: {

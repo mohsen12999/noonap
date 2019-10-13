@@ -1,7 +1,7 @@
 import React from "react";
 
 import { connect } from "react-redux";
-import { IAppState } from "../../reducers/app";
+import { IAppState, AppPages } from "../../reducers/app";
 import { IShopState, IDeliverState } from "../../reducers/shop";
 import {
   ChangeDeliverKind,
@@ -34,6 +34,8 @@ import NotListedLocationIcon from "@material-ui/icons/NotListedLocation";
 
 import Button from "@material-ui/core/Button";
 import ShoppingBasket from "@material-ui/icons/ShoppingBasket";
+
+import { push } from "connected-react-router";
 
 import Select from "@material-ui/core/Select";
 
@@ -129,6 +131,7 @@ interface IAddressProp {
   ChangeDate: Function;
   LoadUserInfo: Function;
   LoadLocation: Function;
+  changePage: Function;
 }
 
 const Address: React.FC<IAddressProp> = (prop: IAddressProp) => {
@@ -340,29 +343,34 @@ const Address: React.FC<IAddressProp> = (prop: IAddressProp) => {
             </Grid>
           </React.Fragment>
         )}
-{/* <MenuItem value={"expressSend"}>ارسال فوری</MenuItem>
-              <MenuItem value={"futureSend"}>ارسال در آینده</MenuItem>
-              <MenuItem value={"takeout"}>دریافت حضوری</MenuItem>
-              <MenuItem value={"reserve"}>رزرو مکان</MenuItem>
-              <MenuItem value={"futureTakeout"}>تحویل حضوری در آینده</MenuItem> */}
-        {(prop.deliver.deliverKind !== "" && prop.deliver.mobile.length>9 && prop.deliver.fullname.length>3 &&
-        (prop.deliver.deliverKind ==="expressSend" || prop.deliver.deliverKind ==="takeout" || prop.deliver.date!=null) &&
-        ((prop.deliver.deliverKind !=="expressSend" && prop.deliver.deliverKind !=="futureSend") || (prop.deliver.address.length>3 && (prop.deliver.deliverDistrict!=="" || prop.deliver.location!=null)) )
-        )  && (
-          <Grid item xs={12} sm={8}>
-            <Button
-              variant="contained"
-              color="primary"
-              className={classes.button}
-              // onClick={() =>
-              //   prop.changePage(process.env.PUBLIC_URL + "/" + AppPages.ADDRESS)
-              // }
-            >
-              تائید خرید
-              <ShoppingBasket className={classes.extendedIcon} />
-            </Button>
-          </Grid>
-        )}
+
+        {prop.deliver.deliverKind !== "" &&
+          prop.deliver.mobile.length > 9 &&
+          prop.deliver.fullname.length > 3 &&
+          (prop.deliver.deliverKind === "expressSend" ||
+            prop.deliver.deliverKind === "takeout" ||
+            prop.deliver.date != null) &&
+          ((prop.deliver.deliverKind !== "expressSend" &&
+            prop.deliver.deliverKind !== "futureSend") ||
+            (prop.deliver.address.length > 3 &&
+              (prop.deliver.deliverDistrict !== "" ||
+                prop.deliver.location != null))) && (
+            <Grid item xs={12} sm={8}>
+              <Button
+                variant="contained"
+                color="primary"
+                className={classes.button}
+                onClick={() =>
+                  prop.changePage(
+                    process.env.PUBLIC_URL + "/" + AppPages.CHECKOUT
+                  )
+                }
+              >
+                تائید خرید
+                <ShoppingBasket className={classes.extendedIcon} />
+              </Button>
+            </Grid>
+          )}
       </Grid>
     </Container>
   );
@@ -381,11 +389,11 @@ const mapDispatchToProps: any = {
   ChangeAddress,
   ChangeDate,
   LoadUserInfo,
-  LoadLocation
+  LoadLocation,
   // changePage: changePage
   // addToCart: addToCart,
   // removeFromCart: removeFromCart,
-  // changePage: (url: string) => push(url)
+  changePage: (url: string) => push(url)
 };
 
 export default connect(

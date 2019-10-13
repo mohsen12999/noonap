@@ -38,6 +38,7 @@ export interface IProduct {
   enable: boolean;
   max?: number;
   count: number;
+
   MarketId?: number;
 }
 
@@ -66,7 +67,7 @@ export interface IDeliverTime {
 
 // database
 
-export interface ICustomer {
+export interface IDbCustomer {
   id: number;
   mobile: string;
   name: string;
@@ -74,6 +75,72 @@ export interface ICustomer {
   address: string;
   latitude: number;
   longitude: number;
+
+  created_at: any;
+  updated_at: any;
+}
+
+export interface IDbGroup {
+  id: number;
+  title: string;
+  persianTitle: string;
+  persianSubTitle?: string;
+  img: string;
+  enable: boolean;
+
+  MarketId: number;
+
+  created_at: any;
+  updated_at: any;
+}
+
+export interface IDbMarket {
+  id: number;
+  title: string;
+  persianTitle: string;
+  persianSubTitle?: string;
+  img: string;
+  discount?: number;
+
+  address?: string;
+  description?: string;
+
+  freeDeliver: boolean;
+  enable: boolean;
+
+  groups_Id: number;
+
+  created_at: any;
+  updated_at: any;
+}
+
+export interface IDbOpenTime {
+  id: number;
+  dayName?: string;
+
+  dayNumber: number;
+  startTime: number;
+  endTime: number;
+
+  markets_Id: number;
+
+  created_at: any;
+  updated_at: any;
+}
+
+export interface IDbProduct {
+  id: number;
+  title: string;
+  persianTitle: string;
+  persianSubTitle?: string;
+  price: number;
+  discount?: number;
+  img: string;
+  enable: boolean;
+  max?: number;
+
+  markets_Id: number;
+
   created_at: any;
   updated_at: any;
 }
