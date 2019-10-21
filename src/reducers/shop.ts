@@ -2,11 +2,13 @@ import moment from "moment";
 import { Moment } from "moment-jalaali";
 
 export interface IShopState {
-  lastMarketId?: number;
   products: IProductsState;
   cart: ICartState;
   deliver: IDeliverState;
   error: string;
+
+  lastMarketId?: number;
+  loadingDbInfo: boolean;
 }
 
 export interface IProductsState {
@@ -65,5 +67,8 @@ export const INITIAL_SHOPSTATE: IShopState = {
     loadingLocation: false
     // , sendingCart:false
   },
-  error: ""
+  error: "",
+
+  lastMarketId: undefined,
+  loadingDbInfo: false
 };

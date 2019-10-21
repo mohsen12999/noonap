@@ -37,6 +37,19 @@ const ShopReducer: Reducer<IShopState, { type: any; payload: any }> = (
         // deliver: state.deliver,
         // error: state.error
       };
+
+    case ActionTypes.TRY_LOADING_INIT:
+      return {
+        ...state,
+        loadingDbInfo: true
+      };
+    case ActionTypes.SUCCESS_LOAD_INIT:
+    case ActionTypes.FAILED_LOAD_INIT:
+      return {
+        ...state,
+        loadingDbInfo: false
+      };
+
     case ActionTypes.CHANGE_DELIVERKIND:
     case ActionTypes.CHANGE_DELIVERDISTRICT:
     case ActionTypes.CHANGE_MOBILE:

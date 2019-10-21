@@ -65,6 +65,8 @@ export interface IDeliverTime {
   end: number;
 }
 
+// -------------------------------------------------------------------------------------
+
 // database
 
 export interface IDbCustomer {
@@ -143,6 +145,13 @@ export interface IDbProduct {
 
   created_at: any;
   updated_at: any;
+}
+
+export interface IDBInfo {
+  groups: IDbGroup[];
+  markets: IDbMarket[];
+  openTimes: IDbOpenTime[];
+  product: IDbProduct[];
 }
 
 // mock values -> read from server at last

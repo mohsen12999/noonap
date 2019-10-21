@@ -11,6 +11,8 @@ import { push } from "connected-react-router";
 
 import { MarketsGroups, IMarketGroup } from "../../../actions/shop";
 
+import { loadData } from "../../../actions/shopActions";
+
 const useStyles: any = makeStyles(theme => ({
   root: {
     flexGrow: 1
@@ -32,6 +34,8 @@ const useStyles: any = makeStyles(theme => ({
 interface IMainProps {
   // tabId?: number;
   // changeTabId: Function;
+  loadingDbInfo: boolean;
+  loadData: Function;
   changePage: Function;
 }
 
@@ -41,6 +45,12 @@ const Main: React.FC<IMainProps> = (prop: IMainProps) => {
   // useEffect(() => {
   //   prop.changeTabId(0);
   // });
+
+  React.useEffect(() => {
+    //fetchData
+    // if market & market.lenght==0
+    prop.loadData();
+  }, []);
 
   // console.log(prop.tabId);
 
@@ -95,12 +105,14 @@ const Main: React.FC<IMainProps> = (prop: IMainProps) => {
 
 const mapStateToProps = (State: { app: IAppState; shop: IShopState }) => ({
   // cart: State.shop.cart
-  tabId: State.app.tabId
+  tabId: State.app.tabId,
+  loadingDbInfo: State.shop.loadingDbInfo
 });
 
 const mapDispatchToProps = {
   // changePage: changePage
   // changeTabId: changeTabId
+  loadData,
   changePage: (url: string) => push(url)
 };
 

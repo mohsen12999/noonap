@@ -1,9 +1,10 @@
 import { ActionTypes } from "./actionTypes";
 import { Dispatch } from "redux";
 import { Moment } from "moment-jalaali";
-import { IDbCustomer } from "./shop";
+import { IDbCustomer, IDBInfo } from "./shop";
+import axios from "axios";
 
-export const addToCart: any = (
+export const addToCart: Function = (
   event: React.MouseEvent<HTMLButtonElement>,
   productId: number,
   marketId: number
@@ -15,7 +16,7 @@ export const addToCart: any = (
   });
 };
 
-export const removeFromCart: any = (
+export const removeFromCart: Function = (
   event: React.MouseEvent<HTMLButtonElement>,
   productId: number,
   marketId: number
@@ -27,7 +28,7 @@ export const removeFromCart: any = (
   });
 };
 
-export const ChangeDeliverKind: any = (
+export const ChangeDeliverKind: Function = (
   event: React.ChangeEvent<{ name?: string; value: unknown }>,
   deliverKind: string
 ) => (dispatch: Dispatch) => {
@@ -38,7 +39,7 @@ export const ChangeDeliverKind: any = (
   });
 };
 
-export const ChangeDeliverDistrict: any = (
+export const ChangeDeliverDistrict: Function = (
   event: React.ChangeEvent<{ name?: string; value: unknown }>,
   deliverDistrict: string
 ) => (dispatch: Dispatch) => {
@@ -49,7 +50,7 @@ export const ChangeDeliverDistrict: any = (
   });
 };
 
-export const ChangeMobile: any = (
+export const ChangeMobile: Function = (
   event: React.ChangeEvent<HTMLInputElement>,
   mobile: string
 ) => (dispatch: Dispatch) => {
@@ -60,7 +61,7 @@ export const ChangeMobile: any = (
   });
 };
 
-export const ChangeFullname: any = (
+export const ChangeFullname: Function = (
   event: React.ChangeEvent<HTMLButtonElement>,
   fullname: string
 ) => (dispatch: Dispatch) => {
@@ -71,7 +72,7 @@ export const ChangeFullname: any = (
   });
 };
 
-export const ChangeAddress: any = (
+export const ChangeAddress: Function = (
   event: React.ChangeEvent<HTMLButtonElement>,
   address: string
 ) => (dispatch: Dispatch) => {
@@ -82,7 +83,7 @@ export const ChangeAddress: any = (
   });
 };
 
-export const ChangeDate: any = (
+export const ChangeDate: Function = (
   // event: React.MouseEvent<HTMLButtonElement>,
   date: Moment
 ) => (dispatch: Dispatch) => {
@@ -91,6 +92,43 @@ export const ChangeDate: any = (
     type: ActionTypes.CHANGE_DATE,
     payload: { date }
   });
+};
+
+export const loadData: Function = () => (dispatch: Dispatch) => {
+  // const url: string = "https://apdr.ir/api/markets/";
+  const url: string = "http://localhost/laravel_api/public/api/markets";
+  console.log("loadData");
+  dispatch({
+    type: ActionTypes.TRY_LOADING_INIT
+  });
+
+  fetch(url, { method: "GET" })
+    .then(res => res.json())
+    .then(res => {
+      if (res.error || res.result === false) {
+        dispatch({
+          type: ActionTypes.FAILED_LOAD_INIT,
+          payload: { error: res.error }
+        });
+      }
+      console.log(res);
+      const info: IDBInfo = res;
+      console.log(info);
+      dispatch({
+        type: ActionTypes.SUCCESS_LOAD_INIT,
+        payload: {
+          //   fullname: customer.name,
+          //   district: customer.district,
+          //   address: customer.address
+        }
+      });
+    })
+    .catch(error => {
+      dispatch({
+        type: ActionTypes.FAILED_LOAD_INIT,
+        payload: { error }
+      });
+    });
 };
 
 export const LoadUserInfo: any = (mobile: string) => (dispatch: Dispatch) => {

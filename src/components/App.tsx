@@ -24,7 +24,7 @@ interface IAppProps {
 }
 
 const App: React.FC<IAppProps> = (prop: IAppProps) => {
-  console.log("app:", prop.tabId);
+  // console.log("app:", prop.tabId);
   return (
     <div className="App">
       <MainHeader />
