@@ -1,8 +1,11 @@
 import moment from "moment";
 import { Moment } from "moment-jalaali";
+import { IDbInfo } from "../actions/shop";
 
 export interface IShopState {
-  products: IProductsState;
+  dbInfo?: IDbInfo;
+
+  // products: IProductsState;
   cart: ICartState;
   deliver: IDeliverState;
   error: string;
@@ -53,7 +56,8 @@ export interface IDeliverState {
 }
 
 export const INITIAL_SHOPSTATE: IShopState = {
-  products: {},
+  dbInfo: undefined,
+  // products: {},
   cart: {},
   deliver: {
     deliverKind: "",

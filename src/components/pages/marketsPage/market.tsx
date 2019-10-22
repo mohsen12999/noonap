@@ -10,7 +10,16 @@ import { IShopState } from "../../../reducers/shop";
 import { connect } from "react-redux";
 import { push } from "connected-react-router";
 
-import { Markets, IMarket, IOpenTime } from "../../../actions/shop";
+import { loadData } from "../../../actions/shopActions";
+
+import {
+  Markets,
+  IMarket,
+  IOpenTime,
+  IDbOpenTime,
+  IDbMarket,
+  IDbInfo
+} from "../../../actions/shop";
 
 const useStyles: any = makeStyles(theme => ({
   root: {
@@ -38,7 +47,11 @@ interface IMatchParams {
 interface IMarketProps extends RouteComponentProps<IMatchParams> {
   // tabId?: number;
   // changeTabId: Function;
+  dbInfo?: IDbInfo;
+  markets?: IDbMarket[];
+  openTimes?: IDbOpenTime[];
   changePage: Function;
+  loadData: Function;
 }
 
 const Market: React.FC<IMarketProps> = (prop: IMarketProps) => {
@@ -51,12 +64,39 @@ const Market: React.FC<IMarketProps> = (prop: IMarketProps) => {
 
   // console.log(prop.tabId);
 
+  React.useEffect(() => {
+    // prop.changeTabId(0);
+    if (prop.dbInfo === undefined) {
+      prop.loadData();
+    }
+  }, []);
+
   const markets: IMarket[] = Markets.filter(
     m => m.marketGroupId === Number(groupId)
   );
 
+  const dbMarkets: IDbMarket[] | undefined =
+    prop.markets && prop.markets.filter(m => m.groups_id === Number(groupId));
+
   const date: Date = new Date();
-  const hour: number = date.getHours() + date.getMinutes() / 60;
+  const dayofweek: number = date.getDay();
+  const hour: number = date.getHours() + date.getMinutes() / 100;
+
+  const dbMarketsExtended =
+    dbMarkets &&
+    dbMarkets.map(m => {
+      const openTimes =
+        prop.openTimes &&
+        prop.openTimes.filter(
+          t =>
+            t.markets_id === m.id &&
+            t.dayNumber === dayofweek &&
+            t.startTime <= hour &&
+            hour <= t.endTime
+        );
+      const isOpen = openTimes !== undefined && openTimes.length > 0;
+      return { ...m, isOpen };
+    });
 
   return (
     <Container maxWidth="md">
@@ -67,7 +107,39 @@ const Market: React.FC<IMarketProps> = (prop: IMarketProps) => {
         justify="space-around"
         alignItems="stretch"
       >
-        {markets.map(market => {
+        {dbMarketsExtended !== undefined &&
+          dbMarketsExtended.map(market => (
+            <Grid
+              className={classes.littleGrid}
+              key={market.id}
+              item
+              xs={12}
+              sm={6}
+              onClick={() =>
+                prop.changePage(
+                  market.enable
+                    ? "/" +
+                        AppPages.PRODUCT +
+                        "/" +
+                        market.id +
+                        "/" +
+                        market.title
+                    : "/" + AppPages.SOON
+                )
+              }
+            >
+              <MarketCart
+                title={market.persianTitle}
+                subtitle={market.persianSubtitle}
+                img={market.img}
+                open={market.isOpen}
+                address={market.address}
+                discount={market.discount}
+                freeDeliver={market.freeDeliver}
+              />
+            </Grid>
+          ))}
+        {/* {markets.map(market => {
           const openTimes: IOpenTime | undefined =
             market.openTime[date.getDate()];
           const isOpen: boolean =
@@ -109,7 +181,7 @@ const Market: React.FC<IMarketProps> = (prop: IMarketProps) => {
               />
             </Grid>
           );
-        })}
+        })} */}
       </Grid>
     </Container>
   );
@@ -117,12 +189,16 @@ const Market: React.FC<IMarketProps> = (prop: IMarketProps) => {
 
 const mapStateToProps = (State: { app: IAppState; shop: IShopState }) => ({
   // cart: State.shop.cart
-  tabId: State.app.tabId
+  tabId: State.app.tabId,
+  dbInfo: State.shop.dbInfo,
+  markets: State.shop.dbInfo && State.shop.dbInfo.markets,
+  openTimes: State.shop.dbInfo && State.shop.dbInfo.openTimes
 });
 
 const mapDispatchToProps = {
   // changePage: changePage
   // changeTabId: changeTabId
+  loadData,
   changePage: (url: string) => push(url)
 };
 

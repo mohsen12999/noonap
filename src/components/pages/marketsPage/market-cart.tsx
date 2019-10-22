@@ -131,7 +131,7 @@ const MarketCart: React.FC<IMarketCartProp> = ({
               // variant="outlined"
             />
           )}
-          {freeDeliver !== undefined && freeDeliver && (
+          {freeDeliver !== undefined && freeDeliver === true && (
             <Chip
               icon={<LocalShippingIcon />}
               label="تحویل رایگان"

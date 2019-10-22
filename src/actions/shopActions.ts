@@ -1,8 +1,7 @@
 import { ActionTypes } from "./actionTypes";
 import { Dispatch } from "redux";
 import { Moment } from "moment-jalaali";
-import { IDbCustomer, IDBInfo } from "./shop";
-import axios from "axios";
+import { IDbCustomer, IDbInfo } from "./shop";
 
 export const addToCart: Function = (
   event: React.MouseEvent<HTMLButtonElement>,
@@ -95,9 +94,9 @@ export const ChangeDate: Function = (
 };
 
 export const loadData: Function = () => (dispatch: Dispatch) => {
-  // const url: string = "https://apdr.ir/api/markets/";
-  const url: string = "http://localhost/laravel_api/public/api/markets";
-  console.log("loadData");
+  const url: string = "https://apdr.ir/api/markets/";
+  // const url: string = "http://localhost/laravel_api/public/api/markets";
+
   dispatch({
     type: ActionTypes.TRY_LOADING_INIT
   });
@@ -111,15 +110,12 @@ export const loadData: Function = () => (dispatch: Dispatch) => {
           payload: { error: res.error }
         });
       }
-      console.log(res);
-      const info: IDBInfo = res;
+      const info: IDbInfo = res;
       console.log(info);
       dispatch({
         type: ActionTypes.SUCCESS_LOAD_INIT,
         payload: {
-          //   fullname: customer.name,
-          //   district: customer.district,
-          //   address: customer.address
+          info: info
         }
       });
     })

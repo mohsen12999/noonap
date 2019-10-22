@@ -86,9 +86,9 @@ export interface IDbGroup {
   id: number;
   title: string;
   persianTitle: string;
-  persianSubTitle?: string;
+  persianSubtitle?: string;
   img: string;
-  enable: boolean;
+  enabled: boolean;
 
   MarketId: number;
 
@@ -100,7 +100,7 @@ export interface IDbMarket {
   id: number;
   title: string;
   persianTitle: string;
-  persianSubTitle?: string;
+  persianSubtitle?: string;
   img: string;
   discount?: number;
 
@@ -110,7 +110,7 @@ export interface IDbMarket {
   freeDeliver: boolean;
   enable: boolean;
 
-  groups_Id: number;
+  groups_id: number;
 
   created_at: any;
   updated_at: any;
@@ -124,7 +124,7 @@ export interface IDbOpenTime {
   startTime: number;
   endTime: number;
 
-  markets_Id: number;
+  markets_id: number;
 
   created_at: any;
   updated_at: any;
@@ -145,9 +145,10 @@ export interface IDbProduct {
 
   created_at: any;
   updated_at: any;
+  // count?: number;
 }
 
-export interface IDBInfo {
+export interface IDbInfo {
   groups: IDbGroup[];
   markets: IDbMarket[];
   openTimes: IDbOpenTime[];
@@ -156,56 +157,56 @@ export interface IDBInfo {
 
 // mock values -> read from server at last
 // market groups
-export const MarketsGroups: IMarketGroup[] = [
-  {
-    id: 1,
-    title: "Breads",
-    persianTitle: "نان تازه",
-    persianSubtitle: "خرید نان تازه و گرم",
-    img: "/images/group/bread.png",
-    enable: true
-  },
-  {
-    id: 2,
-    title: "Market",
-    persianTitle: "سوپر مارکت",
-    persianSubtitle: "انتخاب و خرید مواد غذایی",
-    img: "/images/group/shopping-cart.png",
-    enable: false
-  },
-  {
-    id: 3,
-    title: "FastFoods",
-    persianTitle: "فست فود",
-    persianSubtitle: "سفارش غذا از فست فود و کافه",
-    img: "/images/group/fast-food.png",
-    enable: false
-  },
-  {
-    id: 4,
-    title: "Restaurants",
-    persianTitle: "رستوران",
-    persianSubtitle: "سفارش غذاهای ایرانی و محلی",
-    img: "/images/group/resturant.png",
-    enable: false
-  },
-  {
-    id: 5,
-    title: "Souvenir",
-    persianTitle: "سوغات",
-    persianSubtitle: "صنایع دستی محلی و بومی",
-    img: "/images/group/souvenir.png",
-    enable: false
-  },
-  {
-    id: 6,
-    title: "Discount",
-    persianTitle: "تخفیفان رامسر",
-    persianSubtitle: "تخفیف های باورنکردنی از همه چیز",
-    img: "/images/group/discount.png",
-    enable: false
-  }
-];
+// export const MarketsGroups: IMarketGroup[] = [
+//   {
+//     id: 1,
+//     title: "Breads",
+//     persianTitle: "نان تازه",
+//     persianSubtitle: "خرید نان تازه و گرم",
+//     img: "/images/group/bread.png",
+//     enable: true
+//   },
+//   {
+//     id: 2,
+//     title: "Market",
+//     persianTitle: "سوپر مارکت",
+//     persianSubtitle: "انتخاب و خرید مواد غذایی",
+//     img: "/images/group/shopping-cart.png",
+//     enable: false
+//   },
+//   {
+//     id: 3,
+//     title: "FastFoods",
+//     persianTitle: "فست فود",
+//     persianSubtitle: "سفارش غذا از فست فود و کافه",
+//     img: "/images/group/fast-food.png",
+//     enable: false
+//   },
+//   {
+//     id: 4,
+//     title: "Restaurants",
+//     persianTitle: "رستوران",
+//     persianSubtitle: "سفارش غذاهای ایرانی و محلی",
+//     img: "/images/group/resturant.png",
+//     enable: false
+//   },
+//   {
+//     id: 5,
+//     title: "Souvenir",
+//     persianTitle: "سوغات",
+//     persianSubtitle: "صنایع دستی محلی و بومی",
+//     img: "/images/group/souvenir.png",
+//     enable: false
+//   },
+//   {
+//     id: 6,
+//     title: "Discount",
+//     persianTitle: "تخفیفان رامسر",
+//     persianSubtitle: "تخفیف های باورنکردنی از همه چیز",
+//     img: "/images/group/discount.png",
+//     enable: false
+//   }
+// ];
 
 export const Markets: IMarket[] = [
   {
