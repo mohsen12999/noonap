@@ -108,7 +108,7 @@ export interface IDbMarket {
   description?: string;
 
   freeDeliver: boolean;
-  enable: boolean;
+  enabled: boolean;
 
   groups_id: number;
 
@@ -152,7 +152,7 @@ export interface IDbInfo {
   groups: IDbGroup[];
   markets: IDbMarket[];
   openTimes: IDbOpenTime[];
-  product: IDbProduct[];
+  products: IDbProduct[];
 }
 
 // mock values -> read from server at last

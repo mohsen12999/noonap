@@ -62,7 +62,7 @@ const Main: React.FC<IMainProps> = (prop: IMainProps) => {
     if (prop.dbInfo === undefined) {
       prop.loadData();
     }
-  },[]);
+  },[prop]);
 
   // console.log(prop.tabId);
 

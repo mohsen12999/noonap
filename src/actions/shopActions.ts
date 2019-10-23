@@ -94,7 +94,7 @@ export const ChangeDate: Function = (
 };
 
 export const loadData: Function = () => (dispatch: Dispatch) => {
-  const url: string = "https://apdr.ir/api/markets/";
+  const url: string = "https://apdr.ir/api/markets";
   // const url: string = "http://localhost/laravel_api/public/api/markets";
 
   dispatch({
@@ -105,6 +105,7 @@ export const loadData: Function = () => (dispatch: Dispatch) => {
     .then(res => res.json())
     .then(res => {
       if (res.error || res.result === false) {
+        console.log(res.error);
         dispatch({
           type: ActionTypes.FAILED_LOAD_INIT,
           payload: { error: res.error }
@@ -120,6 +121,7 @@ export const loadData: Function = () => (dispatch: Dispatch) => {
       });
     })
     .catch(error => {
+      console.log(error);
       dispatch({
         type: ActionTypes.FAILED_LOAD_INIT,
         payload: { error }

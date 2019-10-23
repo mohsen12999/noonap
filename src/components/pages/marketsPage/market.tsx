@@ -12,14 +12,7 @@ import { push } from "connected-react-router";
 
 import { loadData } from "../../../actions/shopActions";
 
-import {
-  Markets,
-  IMarket,
-  IOpenTime,
-  IDbOpenTime,
-  IDbMarket,
-  IDbInfo
-} from "../../../actions/shop";
+import { IDbOpenTime, IDbMarket, IDbInfo } from "../../../actions/shop";
 
 const useStyles: any = makeStyles(theme => ({
   root: {
@@ -71,12 +64,15 @@ const Market: React.FC<IMarketProps> = (prop: IMarketProps) => {
     }
   }, []);
 
-  const markets: IMarket[] = Markets.filter(
-    m => m.marketGroupId === Number(groupId)
-  );
+  // const markets: IMarket[] = Markets.filter(
+  //   m => m.marketGroupId === Number(groupId)
+  // );
 
   const dbMarkets: IDbMarket[] | undefined =
-    prop.markets && prop.markets.filter(m => m.groups_id === Number(groupId));
+    prop.markets &&
+    prop.markets.filter(
+      (m: IDbMarket) => Number(m.groups_id) === Number(groupId)
+    );
 
   const date: Date = new Date();
   const dayofweek: number = date.getDay();
@@ -85,16 +81,16 @@ const Market: React.FC<IMarketProps> = (prop: IMarketProps) => {
   const dbMarketsExtended =
     dbMarkets &&
     dbMarkets.map(m => {
-      const openTimes =
+      const openTimes: IDbOpenTime[] | undefined =
         prop.openTimes &&
         prop.openTimes.filter(
-          t =>
-            t.markets_id === m.id &&
-            t.dayNumber === dayofweek &&
-            t.startTime <= hour &&
+          (t: IDbOpenTime) =>
+            Number(t.markets_id) === Number(m.id) &&
+            Number(t.dayNumber) === dayofweek &&
+            Number(t.startTime) <= hour &&
             hour <= t.endTime
         );
-      const isOpen = openTimes !== undefined && openTimes.length > 0;
+      const isOpen: boolean = openTimes !== undefined && openTimes.length > 0;
       return { ...m, isOpen };
     });
 
@@ -117,7 +113,7 @@ const Market: React.FC<IMarketProps> = (prop: IMarketProps) => {
               sm={6}
               onClick={() =>
                 prop.changePage(
-                  market.enable
+                  market.enabled
                     ? "/" +
                         AppPages.PRODUCT +
                         "/" +
@@ -139,49 +135,6 @@ const Market: React.FC<IMarketProps> = (prop: IMarketProps) => {
               />
             </Grid>
           ))}
-        {/* {markets.map(market => {
-          const openTimes: IOpenTime | undefined =
-            market.openTime[date.getDate()];
-          const isOpen: boolean =
-            openTimes === undefined
-              ? false
-              : (openTimes.firstTime.start >= hour &&
-                  hour <= openTimes.firstTime.end) ||
-                (openTimes.secoundTime !== undefined &&
-                  openTimes.secoundTime.start >= hour &&
-                  hour <= openTimes.secoundTime.end);
-          return (
-            <Grid
-              className={classes.littleGrid}
-              key={market.id}
-              item
-              xs={12}
-              sm={6}
-              onClick={() =>
-                prop.changePage(
-                  market.enable
-                    ? "/" +
-                        AppPages.PRODUCT +
-                        "/" +
-                        market.id +
-                        "/" +
-                        market.title
-                    : "/" + AppPages.SOON
-                )
-              }
-            >
-              <MarketCart
-                title={market.persianTitle}
-                subtitle={market.persianSubtitle}
-                img={market.img}
-                open={isOpen}
-                address={market.address}
-                discount={market.discount}
-                freeDeliver={market.freeDeliver}
-              />
-            </Grid>
-          );
-        })} */}
       </Grid>
     </Container>
   );
