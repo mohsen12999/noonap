@@ -12,7 +12,12 @@ import { push } from "connected-react-router";
 
 import { loadData } from "../../../actions/shopActions";
 
-import { IDbOpenTime, IDbMarket, IDbInfo } from "../../../actions/shop";
+import {
+  IDbOpenTime,
+  IDbMarket,
+  IDbInfo,
+  IDbMarketPlus
+} from "../../../actions/shop";
 
 const useStyles: any = makeStyles(theme => ({
   root: {
@@ -62,7 +67,7 @@ const Market: React.FC<IMarketProps> = (prop: IMarketProps) => {
     if (prop.dbInfo === undefined) {
       prop.loadData();
     }
-  }, []);
+  }, [prop]);
 
   // const markets: IMarket[] = Markets.filter(
   //   m => m.marketGroupId === Number(groupId)
@@ -78,9 +83,10 @@ const Market: React.FC<IMarketProps> = (prop: IMarketProps) => {
   const dayofweek: number = date.getDay();
   const hour: number = date.getHours() + date.getMinutes() / 100;
 
-  const dbMarketsExtended =
+  const dbMarketsPlus: IDbMarketPlus[] | undefined =
     dbMarkets &&
     dbMarkets.map(m => {
+      const mp: IDbMarketPlus = m as IDbMarketPlus;
       const openTimes: IDbOpenTime[] | undefined =
         prop.openTimes &&
         prop.openTimes.filter(
@@ -90,8 +96,8 @@ const Market: React.FC<IMarketProps> = (prop: IMarketProps) => {
             Number(t.startTime) <= hour &&
             hour <= t.endTime
         );
-      const isOpen: boolean = openTimes !== undefined && openTimes.length > 0;
-      return { ...m, isOpen };
+      const isOpen = openTimes !== undefined && openTimes.length > 0;
+      return { ...mp, isOpen: isOpen };
     });
 
   return (
@@ -103,8 +109,8 @@ const Market: React.FC<IMarketProps> = (prop: IMarketProps) => {
         justify="space-around"
         alignItems="stretch"
       >
-        {dbMarketsExtended !== undefined &&
-          dbMarketsExtended.map(market => (
+        {dbMarketsPlus !== undefined &&
+          dbMarketsPlus.map((market: IDbMarketPlus) => (
             <Grid
               className={classes.littleGrid}
               key={market.id}

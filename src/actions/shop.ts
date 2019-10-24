@@ -116,6 +116,10 @@ export interface IDbMarket {
   updated_at: any;
 }
 
+export interface IDbMarketPlus extends IDbMarket {
+  isOpen: boolean;
+}
+
 export interface IDbOpenTime {
   id: number;
   dayName?: string;
@@ -141,11 +145,15 @@ export interface IDbProduct {
   enable: boolean;
   max?: number;
 
-  markets_Id: number;
+  markets_id: number;
 
   created_at: any;
   updated_at: any;
   // count?: number;
+}
+
+export interface IDbProductPlus extends IDbProduct {
+  count?: number;
 }
 
 export interface IDbInfo {

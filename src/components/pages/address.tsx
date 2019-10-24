@@ -39,16 +39,11 @@ import { push } from "connected-react-router";
 
 import Select from "@material-ui/core/Select";
 
-import moment from "moment";
-import jMoment, { Moment } from "moment-jalaali";
+import jMoment from "moment-jalaali";
 import JalaliUtils from "@date-io/jalaali";
 
 // import LuxonUtils from "@date-io/luxon";
-import {
-  DateTimePicker,
-  MuiPickersUtilsProvider,
-  MaterialUiPickersDate
-} from "@material-ui/pickers";
+import { DateTimePicker, MuiPickersUtilsProvider } from "@material-ui/pickers";
 
 declare global {
   interface Date {
@@ -156,7 +151,7 @@ const Address: React.FC<IAddressProp> = (prop: IAddressProp) => {
 
   const handleClickLoadingAddress = () => {
     prop.LoadLocation();
-    //setValues({ ...values, loadingAddress: !values.loadingAddress });
+    // setValues({ ...values, loadingAddress: !values.loadingAddress });
   };
 
   jMoment.loadPersian({ dialect: "persian-modern", usePersianDigits: false });
@@ -188,7 +183,9 @@ const Address: React.FC<IAddressProp> = (prop: IAddressProp) => {
                 <em>هیچکدام</em>
               </MenuItem>
               <MenuItem value={"expressSend"}>ارسال فوری</MenuItem>
-              <MenuItem value={"futureSend"}>ارسال در آینده</MenuItem>
+              <MenuItem value={"futureSend"} disabled>
+                ارسال در آینده
+              </MenuItem>
               <MenuItem value={"takeout"}>دریافت حضوری</MenuItem>
               <MenuItem value={"reserve"}>رزرو مکان</MenuItem>
               <MenuItem value={"futureTakeout"}>تحویل حضوری در آینده</MenuItem>

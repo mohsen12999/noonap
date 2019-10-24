@@ -19,8 +19,8 @@ import ShoppingBasket from "@material-ui/icons/ShoppingBasket";
 import { IAppState, AppPages } from "../../reducers/app";
 import { IShopState, ICartState } from "../../reducers/shop";
 
-import {  IProduct, Markets, IMarket } from "../../actions/shop";
-import { addToCart, removeFromCart } from "../../actions/shopActions";
+import { IDbInfo, IDbProduct, IDbProductPlus } from "../../actions/shop";
+import { addToCart, removeFromCart, loadData } from "../../actions/shopActions";
 
 import Button from "@material-ui/core/Button";
 
@@ -67,35 +67,66 @@ interface IProductProps extends RouteComponentProps<IMatchParams> {
   removeFromCart: Function;
 
   changePage: Function;
+
+  dbInfo?: IDbInfo;
+  products?: IDbProduct[];
+  loadData: Function;
 }
 
 const Product: React.FC<IProductProps> = (prop: IProductProps) => {
   const classes: any = useStyles();
 
   const marketId: string | undefined = prop.match.params.id;
-  const market: IMarket | undefined =
-    marketId === undefined
-      ? undefined
-      : Markets.find(m => m.id === Number(marketId));
-  const products: IProduct[] =
-    market === undefined
-      ? []
-      : market.products.map(pCart => {
-          pCart.count =
-            prop.cart === undefined || prop.cart[pCart.id] === undefined
-              ? 0
-              : prop.cart[pCart.id];
-          return pCart;
-        });
+
+  React.useEffect(() => {
+    // prop.changeTabId(0);
+    if (prop.dbInfo === undefined) {
+      prop.loadData();
+    }
+  }, [prop]);
+
+  // const market: IMarket | undefined =
+  //   marketId === undefined
+  //     ? undefined
+  //     : Markets.find(m => m.id === Number(marketId));
+  // const products: IProduct[] =
+  //   market === undefined
+  //     ? []
+  //     : market.products.map(pCart => {
+  //         pCart.count =
+  //           prop.cart === undefined || prop.cart[pCart.id] === undefined
+  //             ? 0
+  //             : prop.cart[pCart.id];
+  //         return pCart;
+  //       });
 
   // console.log(marketId, market, products);
+  const products: IDbProduct[] | undefined =
+    prop.products &&
+    prop.products.filter(
+      (p: IDbProduct) => Number(p.markets_id) === Number(marketId)
+    );
 
-  const totalPrice: number = products.reduce(
-    (sum, p) => sum + p.count * p.price,
-    0
-  );
+  const productsPlus: IDbProductPlus[] | undefined =
+    products &&
+    products.map((p: IDbProduct) => {
+      const pplus: IDbProductPlus = p as IDbProductPlus;
+      const count: number =
+        prop.cart === undefined || prop.cart[p.id] === undefined
+          ? 0
+          : prop.cart[p.id];
+      return { ...pplus, count: count };
+    });
 
-  // if products=0 => به زودی
+  const totalPrice: number =
+    productsPlus === undefined
+      ? 0
+      : productsPlus.reduce(
+          (sum, p) => sum + (p.count === undefined ? 0 : p.count) * p.price,
+          0
+        );
+
+  // -- TODO: if products=0 => به زودی
 
   return (
     <Container maxWidth="md">
@@ -118,91 +149,96 @@ const Product: React.FC<IProductProps> = (prop: IProductProps) => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {products.map(product => (
-              <TableRow key={product.id}>
-                <TableCell className={classes.imgCell} align="center">
-                  <img
-                    className={classes.cellImg}
-                    src={process.env.PUBLIC_URL + product.img}
-                    alt={product.title}
-                  />
-                </TableCell>
-                <TableCell
-                  className={classes.tableCell}
-                  component="td"
-                  scope="row"
-                  align="center"
-                >
-                  {product.title}
-                  <br />
-                  {product.price} تومان
-                </TableCell>
-                <TableCell
-                  className={classes.tableCell}
-                  component="td"
-                  scope="row"
-                  align="center"
-                >
-                  {product.max !== undefined && product.count >= product.max ? (
-                    <Fab
-                      size="small"
-                      // color="secondary"
-                      aria-label="add"
-                      className={classes.margin}
-                      // onClick={event => prop.addToCart(event, product.id)}
-                    >
-                      <AddIcon />
-                    </Fab>
-                  ) : (
-                    <Fab
-                      size="small"
-                      color="secondary"
-                      aria-label="add"
-                      className={classes.margin}
-                      onClick={event =>
-                        prop.addToCart(event, product.id, marketId)
-                      }
-                    >
-                      <AddIcon />
-                    </Fab>
-                  )}
+            {productsPlus &&
+              productsPlus.map((product: IDbProductPlus) => (
+                <TableRow key={product.id}>
+                  <TableCell className={classes.imgCell} align="center">
+                    <img
+                      className={classes.cellImg}
+                      src={process.env.PUBLIC_URL + product.img}
+                      alt={product.title}
+                    />
+                  </TableCell>
+                  <TableCell
+                    className={classes.tableCell}
+                    component="td"
+                    scope="row"
+                    align="center"
+                  >
+                    {product.persianTitle}
+                    <br />
+                    {Math.trunc(product.price)} تومان
+                  </TableCell>
+                  <TableCell
+                    className={classes.tableCell}
+                    component="td"
+                    scope="row"
+                    align="center"
+                  >
+                    {product.max !== undefined &&
+                    product.count !== undefined &&
+                    product.count >= product.max ? (
+                      <Fab
+                        size="small"
+                        // color="secondary"
+                        aria-label="add"
+                        className={classes.margin}
+                        // onClick={event => prop.addToCart(event, product.id)}
+                      >
+                        <AddIcon />
+                      </Fab>
+                    ) : (
+                      <Fab
+                        size="small"
+                        color="secondary"
+                        aria-label="add"
+                        className={classes.margin}
+                        onClick={event =>
+                          prop.addToCart(event, product.id, marketId)
+                        }
+                      >
+                        <AddIcon />
+                      </Fab>
+                    )}
 
-                  {product.count}
+                    {product.count}
 
-                  {product.count > 0 ? (
-                    <Fab
-                      size="small"
-                      color="secondary"
-                      aria-label="add"
-                      className={classes.margin}
-                      onClick={event =>
-                        prop.removeFromCart(event, product.id, marketId)
-                      }
-                    >
-                      <RemoveIcon />
-                    </Fab>
-                  ) : (
-                    <Fab
-                      size="small"
-                      // color="secondary"
-                      aria-label="add"
-                      className={classes.margin}
-                      // onClick={event => prop.removeFromCart(event, product.id)}
-                    >
-                      <RemoveIcon />
-                    </Fab>
-                  )}
-                </TableCell>
-                <TableCell
-                  className={classes.tableCell}
-                  component="td"
-                  scope="row"
-                  align="center"
-                >
-                  {product.count * product.price} تومان
-                </TableCell>
-              </TableRow>
-            ))}
+                    {product.count !== undefined && product.count > 0 ? (
+                      <Fab
+                        size="small"
+                        color="secondary"
+                        aria-label="add"
+                        className={classes.margin}
+                        onClick={event =>
+                          prop.removeFromCart(event, product.id, marketId)
+                        }
+                      >
+                        <RemoveIcon />
+                      </Fab>
+                    ) : (
+                      <Fab
+                        size="small"
+                        // color="secondary"
+                        aria-label="add"
+                        className={classes.margin}
+                        // onClick={event => prop.removeFromCart(event, product.id)}
+                      >
+                        <RemoveIcon />
+                      </Fab>
+                    )}
+                  </TableCell>
+                  <TableCell
+                    className={classes.tableCell}
+                    component="td"
+                    scope="row"
+                    align="center"
+                  >
+                    {(product.count === undefined ? 0 : product.count) *
+                      product.price}{" "}
+                    تومان
+                  </TableCell>
+                </TableRow>
+              ))}
             <TableRow>
               <TableCell className={classes.tableCell} colSpan={3}>
                 مجموع قیمت ها
@@ -258,13 +294,16 @@ const Product: React.FC<IProductProps> = (prop: IProductProps) => {
 };
 
 const mapStateToProps: any = (State: { app: IAppState; shop: IShopState }) => ({
-  cart: State.shop.cart
+  cart: State.shop.cart,
+  dbInfo: State.shop.dbInfo,
+  products: State.shop.dbInfo && State.shop.dbInfo.products
 });
 
 const mapDispatchToProps: any = {
   // changePage: changePage
-  addToCart: addToCart,
-  removeFromCart: removeFromCart,
+  addToCart,
+  removeFromCart,
+  loadData,
   changePage: (url: string) => push(url)
 };
 
