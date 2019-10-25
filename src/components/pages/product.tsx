@@ -85,22 +85,6 @@ const Product: React.FC<IProductProps> = (prop: IProductProps) => {
     }
   }, [prop]);
 
-  // const market: IMarket | undefined =
-  //   marketId === undefined
-  //     ? undefined
-  //     : Markets.find(m => m.id === Number(marketId));
-  // const products: IProduct[] =
-  //   market === undefined
-  //     ? []
-  //     : market.products.map(pCart => {
-  //         pCart.count =
-  //           prop.cart === undefined || prop.cart[pCart.id] === undefined
-  //             ? 0
-  //             : prop.cart[pCart.id];
-  //         return pCart;
-  //       });
-
-  // console.log(marketId, market, products);
   const products: IDbProduct[] | undefined =
     prop.products &&
     prop.products.filter(
@@ -256,39 +240,15 @@ const Product: React.FC<IProductProps> = (prop: IProductProps) => {
           color="primary"
           className={classes.button}
           onClick={() =>
-            prop.changePage(process.env.PUBLIC_URL + "/" + AppPages.ADDRESS)
+            prop.changePage(
+              process.env.PUBLIC_URL + "/" + AppPages.ADDRESS + "/" + marketId
+            )
           }
         >
           تکمیل خرید
           <ShoppingBasket className={classes.extendedIcon} />
         </Button>
       )}
-      {/* <ButtonGroup
-        className={classes.btnGroup}
-        fullWidth
-        aria-label="full width contained button group"
-      >
-        <Button
-          color="secondary"
-          className={classes.btnGroup}
-          // href={process.env.PUBLIC_URL + "/checkout"}
-          onClick={() =>
-            prop.changePage(process.env.PUBLIC_URL + "/" + AppPages.CHECKOUT)
-          }
-        >
-          <ShoppingBasket className={classes.extendedIcon} />
-          <h4 className={classes.btnText}>سبد خرید</h4>
-        </Button>
-        <Button
-          color="primary"
-          className={classes.btnGroup}
-          // href={process.env.PUBLIC_URL + "/"}
-          onClick={() => prop.changePage(process.env.PUBLIC_URL + "/")}
-        >
-          <ViewModule className={classes.extendedIcon} />
-          <h4 className={classes.btnText}>ادامه خرید</h4>
-        </Button>
-      </ButtonGroup> */}
     </Container>
   );
 };

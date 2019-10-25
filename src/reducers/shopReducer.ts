@@ -46,13 +46,20 @@ const ShopReducer: Reducer<IShopState, { type: any; payload: any }> = (
     case ActionTypes.SUCCESS_LOAD_INIT:
       return {
         ...state,
-        dbInfo: action.payload.info,
-        loadingDbInfo: false
+        // dbInfo: action.payload.info,
+        groups: action.payload.groups,
+        markets: action.payload.markets,
+        openTimes: action.payload.openTimes,
+        products: action.payload.products,
+
+        loadingDbInfo: false,
+        loadDbInfo: true
       };
     case ActionTypes.FAILED_LOAD_INIT:
       return {
         ...state,
-        loadingDbInfo: false
+        loadingDbInfo: false,
+        loadDbInfo: false
       };
 
     case ActionTypes.CHANGE_DELIVERKIND:

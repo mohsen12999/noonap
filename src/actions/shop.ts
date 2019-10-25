@@ -110,6 +110,12 @@ export interface IDbMarket {
   freeDeliver: boolean;
   enabled: boolean;
 
+  express_send: boolean;
+  future_send: boolean;
+  takeout: boolean;
+  reserve: boolean;
+  future_takeout: boolean;
+
   groups_id: number;
 
   created_at: any;
@@ -162,6 +168,31 @@ export interface IDbInfo {
   openTimes: IDbOpenTime[];
   products: IDbProduct[];
 }
+
+export const MakeMarketPlus: (
+  markets: IDbMarket[],
+  opentimes: IDbOpenTime[]
+) => IDbMarketPlus[] = (
+  markets: IDbMarket[],
+  opentimes: IDbOpenTime[]
+): IDbMarketPlus[] => {
+  const date: Date = new Date();
+  const dayofweek: number = date.getDay();
+  const hour: number = date.getHours() + date.getMinutes() / 100;
+
+  return markets.map(m => {
+    const mp: IDbMarketPlus = m as IDbMarketPlus;
+    const ot: IDbOpenTime[] = opentimes.filter(
+      (t: IDbOpenTime) =>
+        Number(t.markets_id) === Number(m.id) &&
+        Number(t.dayNumber) === dayofweek &&
+        Number(t.startTime) <= hour &&
+        hour <= t.endTime
+    );
+    const isOpen: boolean = ot !== undefined && ot.length > 0;
+    return { ...mp, isOpen: isOpen };
+  });
+};
 
 // mock values -> read from server at last
 // market groups

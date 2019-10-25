@@ -1,4 +1,5 @@
 import React from "react";
+import { RouteComponentProps } from "react-router-dom";
 
 import { connect } from "react-redux";
 import { IAppState, AppPages } from "../../reducers/app";
@@ -11,7 +12,8 @@ import {
   ChangeAddress,
   ChangeDate,
   LoadUserInfo,
-  LoadLocation
+  LoadLocation,
+  loadData
 } from "../../actions/shopActions";
 
 import Container from "@material-ui/core/Container";
@@ -44,6 +46,7 @@ import JalaliUtils from "@date-io/jalaali";
 
 // import LuxonUtils from "@date-io/luxon";
 import { DateTimePicker, MuiPickersUtilsProvider } from "@material-ui/pickers";
+import { IDbInfo, IDbMarket, IDbOpenTime } from "../../actions/shop";
 
 declare global {
   interface Date {
@@ -103,20 +106,16 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-// interface IAddressState {
-//   // name: string;
-//   // mobile: string;
-//   // address: string;
+interface IMatchParams {
+  id?: string;
+}
 
-//   // age: string;
-//   // date: Moment;
-
-//   // loadingInfo: boolean;
-//   //loadingAddress: boolean;
-// }
-
-interface IAddressProp {
+interface IAddressProp extends RouteComponentProps<IMatchParams> {
   deliver: IDeliverState;
+  //--
+  dbInfo?: IDbInfo;
+  markets?: IDbMarket[];
+  openTimes?: IDbOpenTime[];
 
   ChangeDeliverKind: Function;
   ChangeDeliverDistrict: Function;
@@ -127,22 +126,24 @@ interface IAddressProp {
   LoadUserInfo: Function;
   LoadLocation: Function;
   changePage: Function;
+  loadData: Function;
 }
 
 const Address: React.FC<IAddressProp> = (prop: IAddressProp) => {
   const classes: any = useStyles();
+  const groupId: string | undefined = prop.match.params.id;
 
-  // const [values, setValues] = React.useState<IAddressState>({
-  //   // name: "",
-  //   // mobile: "",
-  //   // address: "",
-  //   // age: "",
-  //   // // date: new Date(),
-  //   // date: moment(),
+  React.useEffect(() => {
+    if (prop.dbInfo === undefined) {
+      prop.loadData();
+    }
+  }, [prop]);
 
-  //   // loadingInfo: false,
-  //   //loadingAddress: false
-  // });
+  const dbMarkets: IDbMarket[] | undefined =
+    prop.markets &&
+    prop.markets.filter(
+      (m: IDbMarket) => Number(m.groups_id) === Number(groupId)
+    );
 
   const handleClickLoadingInfo = () => {
     const mobile: string = prop.deliver.mobile;
@@ -375,7 +376,11 @@ const Address: React.FC<IAddressProp> = (prop: IAddressProp) => {
 
 const mapStateToProps: any = (State: { app: IAppState; shop: IShopState }) => ({
   // cart: State.shop.cart,
-  deliver: State.shop.deliver
+  deliver: State.shop.deliver,
+  //--
+  dbInfo: State.shop.dbInfo,
+  markets: State.shop.dbInfo && State.shop.dbInfo.markets,
+  openTimes: State.shop.dbInfo && State.shop.dbInfo.openTimes
 });
 
 const mapDispatchToProps: any = {
@@ -390,6 +395,7 @@ const mapDispatchToProps: any = {
   // changePage: changePage
   // addToCart: addToCart,
   // removeFromCart: removeFromCart,
+  loadData,
   changePage: (url: string) => push(url)
 };
 

@@ -1,9 +1,18 @@
 import moment from "moment";
 import { Moment } from "moment-jalaali";
-import { IDbInfo } from "../actions/shop";
+import {
+  IDbGroup,
+  IDbMarketPlus,
+  IDbOpenTime,
+  IDbProduct
+} from "../actions/shop";
 
 export interface IShopState {
-  dbInfo?: IDbInfo;
+  // dbInfo?: IDbInfo;
+  groups: IDbGroup[];
+  markets: IDbMarketPlus[];
+  openTimes: IDbOpenTime[];
+  products: IDbProduct[];
 
   // products: IProductsState;
   cart: ICartState;
@@ -12,6 +21,7 @@ export interface IShopState {
 
   lastMarketId?: number;
   loadingDbInfo: boolean;
+  loadDbInfo: boolean;
 }
 
 export interface IProductsState {
@@ -56,8 +66,13 @@ export interface IDeliverState {
 }
 
 export const INITIAL_SHOPSTATE: IShopState = {
-  dbInfo: undefined,
+  //dbInfo: undefined,
   // products: {},
+  groups: [],
+  markets: [],
+  openTimes: [],
+  products: [],
+
   cart: {},
   deliver: {
     deliverKind: "",
@@ -74,5 +89,6 @@ export const INITIAL_SHOPSTATE: IShopState = {
   error: "",
 
   lastMarketId: undefined,
-  loadingDbInfo: false
+  loadingDbInfo: false,
+  loadDbInfo: false
 };
