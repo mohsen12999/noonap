@@ -12,7 +12,7 @@ import { push } from "connected-react-router";
 
 import { loadData } from "../../../actions/shopActions";
 
-import { IDbMarketPlus } from "../../../actions/shop";
+import { IMarketPlus } from "../../../actions/shop";
 
 const useStyles: any = makeStyles(theme => ({
   root: {
@@ -42,7 +42,7 @@ interface IMarketProps extends RouteComponentProps<IMatchParams> {
   // changeTabId: Function;
   // dbInfo?: IDbInfo;
   loadDbInfo: boolean;
-  markets: IDbMarketPlus[];
+  markets: IMarketPlus[];
 
   changePage: Function;
   loadData: Function;
@@ -74,7 +74,7 @@ const Market: React.FC<IMarketProps> = (prop: IMarketProps) => {
         justify="space-around"
         alignItems="stretch"
       >
-        {prop.markets.map((market: IDbMarketPlus) => (
+        {prop.markets.map((market: IMarketPlus) => (
           <Grid
             className={classes.littleGrid}
             key={market.id}

@@ -19,7 +19,7 @@ import ShoppingBasket from "@material-ui/icons/ShoppingBasket";
 import { IAppState, AppPages } from "../../reducers/app";
 import { IShopState, ICartState } from "../../reducers/shop";
 
-import { IDbProduct, IDbProductPlus } from "../../actions/shop";
+import { IProduct, IProductPlus } from "../../actions/shop";
 import { addToCart, removeFromCart, loadData } from "../../actions/shopActions";
 
 import Button from "@material-ui/core/Button";
@@ -70,7 +70,7 @@ interface IProductProps extends RouteComponentProps<IMatchParams> {
 
   // dbInfo?: IDbInfo;
   loadDbInfo: boolean;
-  products: IDbProduct[];
+  products: IProduct[];
   loadData: Function;
 }
 
@@ -86,22 +86,18 @@ const Product: React.FC<IProductProps> = (prop: IProductProps) => {
     }
   }, [prop]);
 
-  const products: IDbProduct[] | undefined =
-    prop.products &&
-    prop.products.filter(
-      (p: IDbProduct) => Number(p.markets_id) === Number(marketId)
-    );
+  const products: IProduct[] = prop.products.filter(
+    (p: IProduct) => Number(p.markets_id) === Number(marketId)
+  );
 
-  const productsPlus: IDbProductPlus[] | undefined =
-    products &&
-    products.map((p: IDbProduct) => {
-      const pplus: IDbProductPlus = p as IDbProductPlus;
-      const count: number =
-        prop.cart === undefined || prop.cart[p.id] === undefined
-          ? 0
-          : prop.cart[p.id];
-      return { ...pplus, count: count };
-    });
+  const productsPlus: IProductPlus[] = products.map((p: IProduct) => {
+    const pplus: IProductPlus = p as IProductPlus;
+    const count: number =
+      prop.cart === undefined || prop.cart[p.id] === undefined
+        ? 0
+        : prop.cart[p.id];
+    return { ...pplus, count: count };
+  });
 
   const totalPrice: number =
     productsPlus === undefined
@@ -135,7 +131,7 @@ const Product: React.FC<IProductProps> = (prop: IProductProps) => {
           </TableHead>
           <TableBody>
             {productsPlus &&
-              productsPlus.map((product: IDbProductPlus) => (
+              productsPlus.map((product: IProductPlus) => (
                 <TableRow key={product.id}>
                   <TableCell className={classes.imgCell} align="center">
                     <img

@@ -12,7 +12,7 @@ import { IShopState } from "../../../reducers/shop";
 import { connect } from "react-redux";
 import { push } from "connected-react-router";
 
-import { IDbGroup } from "../../../actions/shop";
+import { IGroup } from "../../../actions/shop";
 import { loadData } from "../../../actions/shopActions";
 
 const useStyles: any = makeStyles(theme => ({
@@ -50,7 +50,7 @@ interface IMainProps {
   loadingDbInfo: boolean;
 
   loadDbInfo: boolean;
-  groups: IDbGroup[];
+  groups: IGroup[];
 
   //dbInfo?: IDbInfo;
 
@@ -96,7 +96,7 @@ const Main: React.FC<IMainProps> = (prop: IMainProps) => {
           justify="space-around"
           alignItems="stretch"
         >
-          {prop.groups.map((group: IDbGroup) => (
+          {prop.groups.map((group: IGroup) => (
             <Grid
               className={classes.littleGrid}
               key={group.id}

@@ -1,18 +1,13 @@
 import moment from "moment";
 import { Moment } from "moment-jalaali";
-import {
-  IDbGroup,
-  IDbMarketPlus,
-  IDbOpenTime,
-  IDbProduct
-} from "../actions/shop";
+import { IGroup, IMarketPlus, IOpenTime, IProduct } from "../actions/shop";
 
 export interface IShopState {
   // dbInfo?: IDbInfo;
-  groups: IDbGroup[];
-  markets: IDbMarketPlus[];
-  openTimes: IDbOpenTime[];
-  products: IDbProduct[];
+  groups: IGroup[];
+  markets: IMarketPlus[];
+  openTimes: IOpenTime[];
+  products: IProduct[];
 
   // products: IProductsState;
   cart: ICartState;

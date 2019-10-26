@@ -46,7 +46,7 @@ import JalaliUtils from "@date-io/jalaali";
 
 // import LuxonUtils from "@date-io/luxon";
 import { DateTimePicker, MuiPickersUtilsProvider } from "@material-ui/pickers";
-import { IDbInfo, IDbMarketPlus } from "../../actions/shop";
+import { IMarketPlus } from "../../actions/shop";
 
 declare global {
   interface Date {
@@ -117,7 +117,7 @@ interface IAddressProp extends RouteComponentProps<IMatchParams> {
   deliver: IDeliverState;
   // dbInfo?: IDbInfo;
   loadDbInfo: boolean;
-  markets: IDbMarketPlus[];
+  markets: IMarketPlus[];
 
   ChangeDeliverKind: Function;
   ChangeDeliverDistrict: Function;
@@ -141,10 +141,9 @@ const Address: React.FC<IAddressProp> = (prop: IAddressProp) => {
     }
   }, [prop]);
 
-  const market: IDbMarketPlus | undefined = prop.markets.find(
-    (m: IDbMarketPlus) => Number(m.id) === Number(marketId)
+  const market: IMarketPlus | undefined = prop.markets.find(
+    (m: IMarketPlus) => Number(m.id) === Number(marketId)
   );
-  console.log(market);
 
   const handleClickLoadingInfo = () => {
     const mobile: string = prop.deliver.mobile;

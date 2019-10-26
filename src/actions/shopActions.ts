@@ -1,14 +1,7 @@
 import { ActionTypes } from "./actionTypes";
 import { Dispatch } from "redux";
 import { Moment } from "moment-jalaali";
-import {
-  IDbCustomer,
-  IDbInfo,
-  IDbMarket,
-  IDbOpenTime,
-  IDbMarketPlus,
-  MakeMarketPlus
-} from "./shop";
+import { ICustomer, IDbInfo, IMarketPlus, MakeMarketPlus } from "./shop";
 
 export const addToCart: Function = (
   event: React.MouseEvent<HTMLButtonElement>,
@@ -120,9 +113,9 @@ export const loadData: Function = () => (dispatch: Dispatch) => {
       }
       const info: IDbInfo = res;
       // console.log(info);
-      // const markets: IDbMarket[] = info.markets;
-      // const openTimes: IDbOpenTime[] = info.openTimes;
-      const marketPlus: IDbMarketPlus[] = MakeMarketPlus(
+      // const markets: IMarket[] = info.markets;
+      // const openTimes: IOpenTime[] = info.openTimes;
+      const marketPlus: IMarketPlus[] = MakeMarketPlus(
         info.markets,
         info.openTimes
       );
@@ -163,7 +156,7 @@ export const LoadUserInfo: any = (mobile: string) => (dispatch: Dispatch) => {
           payload: { error: res.error }
         });
       }
-      const customer: IDbCustomer = res.customer;
+      const customer: ICustomer = res.customer;
       dispatch({
         type: ActionTypes.SUCCESS_LOAD_USER_INFO,
         payload: {

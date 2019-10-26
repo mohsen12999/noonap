@@ -11,7 +11,7 @@ import { push } from "connected-react-router";
 
 import { Theme, createStyles, makeStyles } from "@material-ui/core/styles";
 
-import { PRODUCT_LIST, IProduct } from "../../actions/shop";
+import { IProduct, IProductPlus } from "../../actions/shop";
 
 const useStyles: any = makeStyles((theme: Theme) =>
   createStyles({
@@ -38,25 +38,42 @@ const useStyles: any = makeStyles((theme: Theme) =>
 );
 
 interface ICheckoutProps {
+  products: IProduct[];
   cart: ICartState;
+  marketId?: number;
   changePage: Function;
 }
 
 const Checkout: React.FC<ICheckoutProps> = (prop: ICheckoutProps) => {
   const classes = useStyles();
 
-  const products: IProduct[] = PRODUCT_LIST.map(pCart => {
-    pCart.count =
-      prop.cart === undefined || prop.cart[pCart.id] === undefined
-        ? 0
-        : prop.cart[pCart.id];
-    return pCart;
-  }).filter(p => p.count !== 0);
+  const products: IProduct[] = prop.products.filter(
+    (p: IProduct) => Number(p.markets_id) === Number(prop.marketId)
+  );
+
+  const productsPlus: IProductPlus[] = products
+    .map((p: IProduct) => {
+      const pplus: IProductPlus = p as IProductPlus;
+      const count: number =
+        prop.cart === undefined || prop.cart[p.id] === undefined
+          ? 0
+          : prop.cart[p.id];
+      return { ...pplus, count: count };
+    })
+    .filter(p => p.count !== 0);
+
+  // const products: IProductPlus[] = prop.products.map(pCart => {
+  //   pCart.count =
+  //     prop.cart === undefined || prop.cart[pCart.id] === undefined
+  //       ? 0
+  //       : prop.cart[pCart.id];
+  //   return pCart;
+  // }).filter(p => p.count !== 0);
 
   return (
     <Container maxWidth="md">
       <h3 className={classes.mainTitle}>لیست سفارش ها</h3>
-      {products.length === 0 ? (
+      {productsPlus.length === 0 ? (
         <Paper className={classes.root}>
           <Typography className={classes.myFont} variant="h5" component="h3">
             سبد خرید خالی هست!
@@ -75,7 +92,7 @@ const Checkout: React.FC<ICheckoutProps> = (prop: ICheckoutProps) => {
         </Paper>
       ) : (
         <>
-          {products.map(p => (
+          {productsPlus.map(p => (
             <h4>
               {p.count} * {p.title}
             </h4>
@@ -88,7 +105,9 @@ const Checkout: React.FC<ICheckoutProps> = (prop: ICheckoutProps) => {
 };
 
 const mapStateToProps = (State: { app: IAppState; shop: IShopState }) => ({
-  cart: State.shop.cart
+  cart: State.shop.cart,
+  products: State.shop.products,
+  marketId: State.shop.lastMarketId
 });
 
 const mapDispatchToProps = {
