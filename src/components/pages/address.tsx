@@ -45,7 +45,11 @@ import jMoment from "moment-jalaali";
 import JalaliUtils from "@date-io/jalaali";
 
 // import LuxonUtils from "@date-io/luxon";
-import { DateTimePicker, MuiPickersUtilsProvider } from "@material-ui/pickers";
+import {
+  KeyboardDatePicker,
+  KeyboardTimePicker,
+  MuiPickersUtilsProvider
+} from "@material-ui/pickers";
 import { IMarketPlus } from "../../actions/shop";
 
 declare global {
@@ -144,6 +148,8 @@ const Address: React.FC<IAddressProp> = (prop: IAddressProp) => {
   const market: IMarketPlus | undefined = prop.markets.find(
     (m: IMarketPlus) => Number(m.id) === Number(marketId)
   );
+
+  console.log(market);
 
   const handleClickLoadingInfo = () => {
     const mobile: string = prop.deliver.mobile;
@@ -279,27 +285,60 @@ const Address: React.FC<IAddressProp> = (prop: IAddressProp) => {
         {(prop.deliver.deliverKind === "future_send" ||
           prop.deliver.deliverKind === "reserve" ||
           prop.deliver.deliverKind === "future_takeout") && (
-          <Grid item xs={12} sm={6} className={classes.pickerGrid}>
-            <MuiPickersUtilsProvider utils={JalaliUtils} locale="fa">
-              <DateTimePicker
-                className={classes.picker}
+          <React.Fragment>
+            <Grid item xs={12} sm={5} className={classes.pickerGrid}>
+              <MuiPickersUtilsProvider utils={JalaliUtils} locale="fa">
+                <KeyboardDatePicker
+                  className={classes.picker}
+                  label="تاریخ تحویل یا دریافت"
+                  minDate={new Date()}
+                  okLabel="تأیید"
+                  cancelLabel="لغو"
+                  labelFunc={date => (date ? date.format("jYYYY/jMM/jDD") : "")}
+                  value={prop.deliver.date}
+                  // onChange={handleDateChange}
+                  onChange={date => {
+                    if (date != null) {
+                      prop.ChangeDate(date);
+                    }
+                  }}
+                />
+              </MuiPickersUtilsProvider>
+            </Grid>
+
+            <Grid item xs={12} sm={5} className={classes.pickerGrid}>
+              <MuiPickersUtilsProvider utils={JalaliUtils} locale="fa">
+                <KeyboardTimePicker
+                  className={classes.picker}
+                  label="زمان تحویل یا دریافت"
+                  // minDate={new Date()}
+                  // okLabel="تأیید"
+                  // cancelLabel="لغو"
+                  // labelFunc={date => (date ? date.format("jYYYY/jMM/jDD") : "")}
+                  value={prop.deliver.date}
+                  // onChange={handleDateChange}
+                  onChange={date => {
+                    if (date != null) {
+                      // prop.ChangeDate(date);
+                    }
+                  }}
+                />
+              </MuiPickersUtilsProvider>
+              {/* <TextField
+                id="time"
                 label="زمان تحویل یا دریافت"
-                minDate={new Date()}
-                okLabel="تأیید"
-                cancelLabel="لغو"
-                labelFunc={date =>
-                  date ? date.format("jYYYY/jMM/jDD hh:mm A") : ""
-                }
-                value={prop.deliver.date}
-                // onChange={handleDateChange}
-                onChange={date => {
-                  if (date != null) {
-                    prop.ChangeDate(date);
-                  }
+                type="time"
+                defaultValue={prop.deliver.date.format("HH:mm")}
+                className={classes.picker}
+                InputLabelProps={{
+                  shrink: true
                 }}
-              />
-            </MuiPickersUtilsProvider>
-          </Grid>
+                inputProps={{
+                  step: 300 // 5 min
+                }}
+              /> */}
+            </Grid>
+          </React.Fragment>
         )}
 
         {(prop.deliver.deliverKind === "express_send" ||

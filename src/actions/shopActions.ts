@@ -94,8 +94,8 @@ export const ChangeDate: Function = (
 };
 
 export const loadData: Function = () => (dispatch: Dispatch) => {
-  const url: string = "https://apdr.ir/api/markets";
-  // const url: string = "http://localhost/laravel_api/public/api/markets";
+  // const url: string = "https://apdr.ir/api/markets";
+  const url: string = "http://localhost/laravel_api/public/api/markets";
 
   dispatch({
     type: ActionTypes.TRY_LOADING_INIT

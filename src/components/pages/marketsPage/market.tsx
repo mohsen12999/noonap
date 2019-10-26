@@ -57,6 +57,9 @@ const Market: React.FC<IMarketProps> = (prop: IMarketProps) => {
   // });
 
   // console.log(prop.tabId);
+  const markets: IMarketPlus[] = prop.markets.filter(
+    (m: IMarketPlus) => Number(m.groups_id) === Number(groupId)
+  );
 
   React.useEffect(() => {
     // prop.changeTabId(0);
@@ -74,7 +77,7 @@ const Market: React.FC<IMarketProps> = (prop: IMarketProps) => {
         justify="space-around"
         alignItems="stretch"
       >
-        {prop.markets.map((market: IMarketPlus) => (
+        {markets.map((market: IMarketPlus) => (
           <Grid
             className={classes.littleGrid}
             key={market.id}
