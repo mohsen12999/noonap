@@ -19,7 +19,7 @@ import ShoppingBasket from "@material-ui/icons/ShoppingBasket";
 import { IAppState, AppPages } from "../../reducers/app";
 import { IShopState, ICartState } from "../../reducers/shop";
 
-import { IDbInfo, IDbProduct, IDbProductPlus } from "../../actions/shop";
+import { IDbProduct, IDbProductPlus } from "../../actions/shop";
 import { addToCart, removeFromCart, loadData } from "../../actions/shopActions";
 
 import Button from "@material-ui/core/Button";
@@ -68,8 +68,9 @@ interface IProductProps extends RouteComponentProps<IMatchParams> {
 
   changePage: Function;
 
-  dbInfo?: IDbInfo;
-  products?: IDbProduct[];
+  // dbInfo?: IDbInfo;
+  loadDbInfo: boolean;
+  products: IDbProduct[];
   loadData: Function;
 }
 
@@ -80,7 +81,7 @@ const Product: React.FC<IProductProps> = (prop: IProductProps) => {
 
   React.useEffect(() => {
     // prop.changeTabId(0);
-    if (prop.dbInfo === undefined) {
+    if (prop.loadDbInfo === false) {
       prop.loadData();
     }
   }, [prop]);
@@ -255,8 +256,9 @@ const Product: React.FC<IProductProps> = (prop: IProductProps) => {
 
 const mapStateToProps: any = (State: { app: IAppState; shop: IShopState }) => ({
   cart: State.shop.cart,
-  dbInfo: State.shop.dbInfo,
-  products: State.shop.dbInfo && State.shop.dbInfo.products
+  // dbInfo: State.shop.dbInfo,
+  products: State.shop.products,
+  loadDbInfo: State.shop.loadDbInfo
 });
 
 const mapDispatchToProps: any = {

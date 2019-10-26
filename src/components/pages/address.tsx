@@ -46,7 +46,7 @@ import JalaliUtils from "@date-io/jalaali";
 
 // import LuxonUtils from "@date-io/luxon";
 import { DateTimePicker, MuiPickersUtilsProvider } from "@material-ui/pickers";
-import { IDbInfo, IDbMarket, IDbOpenTime } from "../../actions/shop";
+import { IDbInfo, IDbMarketPlus } from "../../actions/shop";
 
 declare global {
   interface Date {
@@ -102,6 +102,9 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     button: {
       fontFamily: "Yekan"
+    },
+    closeSpan: {
+      color: "green"
     }
   })
 );
@@ -112,10 +115,9 @@ interface IMatchParams {
 
 interface IAddressProp extends RouteComponentProps<IMatchParams> {
   deliver: IDeliverState;
-  //--
-  dbInfo?: IDbInfo;
-  markets?: IDbMarket[];
-  openTimes?: IDbOpenTime[];
+  // dbInfo?: IDbInfo;
+  loadDbInfo: boolean;
+  markets: IDbMarketPlus[];
 
   ChangeDeliverKind: Function;
   ChangeDeliverDistrict: Function;
@@ -131,19 +133,18 @@ interface IAddressProp extends RouteComponentProps<IMatchParams> {
 
 const Address: React.FC<IAddressProp> = (prop: IAddressProp) => {
   const classes: any = useStyles();
-  const groupId: string | undefined = prop.match.params.id;
+  const marketId: string | undefined = prop.match.params.id;
 
   React.useEffect(() => {
-    if (prop.dbInfo === undefined) {
+    if (prop.loadDbInfo === false) {
       prop.loadData();
     }
   }, [prop]);
 
-  const dbMarkets: IDbMarket[] | undefined =
-    prop.markets &&
-    prop.markets.filter(
-      (m: IDbMarket) => Number(m.groups_id) === Number(groupId)
-    );
+  const market: IDbMarketPlus | undefined = prop.markets.find(
+    (m: IDbMarketPlus) => Number(m.id) === Number(marketId)
+  );
+  console.log(market);
 
   const handleClickLoadingInfo = () => {
     const mobile: string = prop.deliver.mobile;
@@ -183,13 +184,42 @@ const Address: React.FC<IAddressProp> = (prop: IAddressProp) => {
               <MenuItem value="">
                 <em>هیچکدام</em>
               </MenuItem>
-              <MenuItem value={"expressSend"}>ارسال فوری</MenuItem>
-              <MenuItem value={"futureSend"} disabled>
-                ارسال در آینده
-              </MenuItem>
-              <MenuItem value={"takeout"}>دریافت حضوری</MenuItem>
-              <MenuItem value={"reserve"}>رزرو مکان</MenuItem>
-              <MenuItem value={"futureTakeout"}>تحویل حضوری در آینده</MenuItem>
+
+              {market !== undefined &&
+                market.express_send &&
+                (market.isOpen ? (
+                  <MenuItem value={"express_send"}>ارسال فوری</MenuItem>
+                ) : (
+                  <MenuItem value={"express_send"} disabled>
+                    ارسال فوری{" "}
+                    <span className={classes.closeSpan}>(بسته است)</span>
+                  </MenuItem>
+                ))}
+
+              {market !== undefined && market.future_send && (
+                <MenuItem value={"future_send"}>ارسال در آینده</MenuItem>
+              )}
+
+              {market !== undefined &&
+                market.takeout &&
+                (market.isOpen ? (
+                  <MenuItem value={"takeout"}>دریافت حضوری</MenuItem>
+                ) : (
+                  <MenuItem value={"takeout"} disabled>
+                    دریافت حضوری{" "}
+                    <span className={classes.closeSpan}>(بسته است)</span>
+                  </MenuItem>
+                ))}
+
+              {market !== undefined && market.reserve && (
+                <MenuItem value={"reserve"}>رزرو مکان</MenuItem>
+              )}
+
+              {market !== undefined && market.future_takeout && (
+                <MenuItem value={"future_takeout"}>
+                  تحویل حضوری در آینده
+                </MenuItem>
+              )}
             </Select>
             <FormHelperText>شیوه دریافت را انتخاب کنید</FormHelperText>
           </FormControl>
@@ -247,9 +277,9 @@ const Address: React.FC<IAddressProp> = (prop: IAddressProp) => {
           </React.Fragment>
         )}
 
-        {(prop.deliver.deliverKind === "futureSend" ||
+        {(prop.deliver.deliverKind === "future_send" ||
           prop.deliver.deliverKind === "reserve" ||
-          prop.deliver.deliverKind === "futureTakeout") && (
+          prop.deliver.deliverKind === "future_takeout") && (
           <Grid item xs={12} sm={6} className={classes.pickerGrid}>
             <MuiPickersUtilsProvider utils={JalaliUtils} locale="fa">
               <DateTimePicker
@@ -262,7 +292,7 @@ const Address: React.FC<IAddressProp> = (prop: IAddressProp) => {
                   date ? date.format("jYYYY/jMM/jDD hh:mm A") : ""
                 }
                 value={prop.deliver.date}
-                //onChange={handleDateChange}
+                // onChange={handleDateChange}
                 onChange={date => {
                   if (date != null) {
                     prop.ChangeDate(date);
@@ -273,8 +303,8 @@ const Address: React.FC<IAddressProp> = (prop: IAddressProp) => {
           </Grid>
         )}
 
-        {(prop.deliver.deliverKind === "expressSend" ||
-          prop.deliver.deliverKind === "futureSend") && (
+        {(prop.deliver.deliverKind === "express_send" ||
+          prop.deliver.deliverKind === "future_send") && (
           <React.Fragment>
             <Grid item xs={12} sm={8}>
               <FormControl className={classes.selectFormControl}>
@@ -345,11 +375,11 @@ const Address: React.FC<IAddressProp> = (prop: IAddressProp) => {
         {prop.deliver.deliverKind !== "" &&
           prop.deliver.mobile.length > 9 &&
           prop.deliver.fullname.length > 3 &&
-          (prop.deliver.deliverKind === "expressSend" ||
+          (prop.deliver.deliverKind === "express_send" ||
             prop.deliver.deliverKind === "takeout" ||
             prop.deliver.date != null) &&
-          ((prop.deliver.deliverKind !== "expressSend" &&
-            prop.deliver.deliverKind !== "futureSend") ||
+          ((prop.deliver.deliverKind !== "express_send" &&
+            prop.deliver.deliverKind !== "future_send") ||
             (prop.deliver.address.length > 3 &&
               (prop.deliver.deliverDistrict !== "" ||
                 prop.deliver.location != null))) && (
@@ -377,10 +407,8 @@ const Address: React.FC<IAddressProp> = (prop: IAddressProp) => {
 const mapStateToProps: any = (State: { app: IAppState; shop: IShopState }) => ({
   // cart: State.shop.cart,
   deliver: State.shop.deliver,
-  //--
-  dbInfo: State.shop.dbInfo,
-  markets: State.shop.dbInfo && State.shop.dbInfo.markets,
-  openTimes: State.shop.dbInfo && State.shop.dbInfo.openTimes
+  markets: State.shop.markets,
+  loadDbInfo: State.shop.loadDbInfo
 });
 
 const mapDispatchToProps: any = {

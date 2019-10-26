@@ -66,7 +66,7 @@ export interface IDeliverState {
 }
 
 export const INITIAL_SHOPSTATE: IShopState = {
-  //dbInfo: undefined,
+  // dbInfo: undefined,
   // products: {},
   groups: [],
   markets: [],

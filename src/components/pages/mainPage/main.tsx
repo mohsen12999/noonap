@@ -12,7 +12,7 @@ import { IShopState } from "../../../reducers/shop";
 import { connect } from "react-redux";
 import { push } from "connected-react-router";
 
-import { IDbInfo } from "../../../actions/shop";
+import { IDbGroup } from "../../../actions/shop";
 import { loadData } from "../../../actions/shopActions";
 
 const useStyles: any = makeStyles(theme => ({
@@ -48,7 +48,11 @@ interface IMainProps {
   // changeTabId: Function;
 
   loadingDbInfo: boolean;
-  dbInfo?: IDbInfo;
+
+  loadDbInfo: boolean;
+  groups: IDbGroup[];
+
+  //dbInfo?: IDbInfo;
 
   loadData: Function;
   changePage: Function;
@@ -59,10 +63,10 @@ const Main: React.FC<IMainProps> = (prop: IMainProps) => {
 
   React.useEffect(() => {
     // prop.changeTabId(0);
-    if (prop.dbInfo === undefined) {
+    if (prop.loadDbInfo === false) {
       prop.loadData();
     }
-  },[prop]);
+  }, [prop]);
 
   // console.log(prop.tabId);
 
@@ -72,7 +76,7 @@ const Main: React.FC<IMainProps> = (prop: IMainProps) => {
         <div className={classes.progressDiv}>
           <CircularProgress className={classes.progress} />
         </div>
-      ) : prop.dbInfo === undefined ? (
+      ) : prop.loadDbInfo === false ? (
         <div className={classes.progressDiv}>
           <h4 className={classes.yekanFont}>خطا در بارگذاری اطلاعات</h4>
           <Button
@@ -92,7 +96,7 @@ const Main: React.FC<IMainProps> = (prop: IMainProps) => {
           justify="space-around"
           alignItems="stretch"
         >
-          {prop.dbInfo.groups.map(group => (
+          {prop.groups.map((group: IDbGroup) => (
             <Grid
               className={classes.littleGrid}
               key={group.id}
@@ -129,7 +133,9 @@ const mapStateToProps = (State: { app: IAppState; shop: IShopState }) => ({
   // cart: State.shop.cart
   tabId: State.app.tabId,
   loadingDbInfo: State.shop.loadingDbInfo,
-  dbInfo: State.shop.dbInfo
+  // dbInfo: State.shop.dbInfo
+  groups: State.shop.groups,
+  loadDbInfo: State.shop.loadDbInfo
 });
 
 const mapDispatchToProps = {

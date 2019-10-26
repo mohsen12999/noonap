@@ -12,12 +12,7 @@ import { push } from "connected-react-router";
 
 import { loadData } from "../../../actions/shopActions";
 
-import {
-  IDbOpenTime,
-  IDbMarket,
-  IDbInfo,
-  IDbMarketPlus
-} from "../../../actions/shop";
+import { IDbMarketPlus } from "../../../actions/shop";
 
 const useStyles: any = makeStyles(theme => ({
   root: {
@@ -45,9 +40,10 @@ interface IMatchParams {
 interface IMarketProps extends RouteComponentProps<IMatchParams> {
   // tabId?: number;
   // changeTabId: Function;
-  dbInfo?: IDbInfo;
-  markets?: IDbMarket[];
-  openTimes?: IDbOpenTime[];
+  // dbInfo?: IDbInfo;
+  loadDbInfo: boolean;
+  markets: IDbMarketPlus[];
+
   changePage: Function;
   loadData: Function;
 }
@@ -64,41 +60,10 @@ const Market: React.FC<IMarketProps> = (prop: IMarketProps) => {
 
   React.useEffect(() => {
     // prop.changeTabId(0);
-    if (prop.dbInfo === undefined) {
+    if (prop.loadDbInfo === false) {
       prop.loadData();
     }
   }, [prop]);
-
-  // const markets: IMarket[] = Markets.filter(
-  //   m => m.marketGroupId === Number(groupId)
-  // );
-
-  const dbMarkets: IDbMarket[] | undefined =
-    prop.markets &&
-    prop.markets.filter(
-      (m: IDbMarket) => Number(m.groups_id) === Number(groupId)
-    );
-
-  const date: Date = new Date();
-  const dayofweek: number = date.getDay();
-  const hour: number = date.getHours() + date.getMinutes() / 100;
-
-  const dbMarketsPlus: IDbMarketPlus[] | undefined =
-    dbMarkets &&
-    dbMarkets.map(m => {
-      const mp: IDbMarketPlus = m as IDbMarketPlus;
-      const openTimes: IDbOpenTime[] | undefined =
-        prop.openTimes &&
-        prop.openTimes.filter(
-          (t: IDbOpenTime) =>
-            Number(t.markets_id) === Number(m.id) &&
-            Number(t.dayNumber) === dayofweek &&
-            Number(t.startTime) <= hour &&
-            hour <= t.endTime
-        );
-      const isOpen = openTimes !== undefined && openTimes.length > 0;
-      return { ...mp, isOpen: isOpen };
-    });
 
   return (
     <Container maxWidth="md">
@@ -109,38 +74,37 @@ const Market: React.FC<IMarketProps> = (prop: IMarketProps) => {
         justify="space-around"
         alignItems="stretch"
       >
-        {dbMarketsPlus !== undefined &&
-          dbMarketsPlus.map((market: IDbMarketPlus) => (
-            <Grid
-              className={classes.littleGrid}
-              key={market.id}
-              item
-              xs={12}
-              sm={6}
-              onClick={() =>
-                prop.changePage(
-                  market.enabled
-                    ? "/" +
-                        AppPages.PRODUCT +
-                        "/" +
-                        market.id +
-                        "/" +
-                        market.title
-                    : "/" + AppPages.SOON
-                )
-              }
-            >
-              <MarketCart
-                title={market.persianTitle}
-                subtitle={market.persianSubtitle}
-                img={market.img}
-                open={market.isOpen}
-                address={market.address}
-                discount={market.discount}
-                freeDeliver={market.freeDeliver}
-              />
-            </Grid>
-          ))}
+        {prop.markets.map((market: IDbMarketPlus) => (
+          <Grid
+            className={classes.littleGrid}
+            key={market.id}
+            item
+            xs={12}
+            sm={6}
+            onClick={() =>
+              prop.changePage(
+                market.enabled
+                  ? "/" +
+                      AppPages.PRODUCT +
+                      "/" +
+                      market.id +
+                      "/" +
+                      market.title
+                  : "/" + AppPages.SOON
+              )
+            }
+          >
+            <MarketCart
+              title={market.persianTitle}
+              subtitle={market.persianSubtitle}
+              img={market.img}
+              open={market.isOpen}
+              address={market.address}
+              discount={market.discount}
+              freeDeliver={market.freeDeliver}
+            />
+          </Grid>
+        ))}
       </Grid>
     </Container>
   );
@@ -148,10 +112,10 @@ const Market: React.FC<IMarketProps> = (prop: IMarketProps) => {
 
 const mapStateToProps = (State: { app: IAppState; shop: IShopState }) => ({
   // cart: State.shop.cart
-  tabId: State.app.tabId,
-  dbInfo: State.shop.dbInfo,
-  markets: State.shop.dbInfo && State.shop.dbInfo.markets,
-  openTimes: State.shop.dbInfo && State.shop.dbInfo.openTimes
+  // tabId: State.app.tabId,
+  // dbInfo: State.shop.dbInfo,
+  markets: State.shop.markets,
+  loadDbInfo: State.shop.loadDbInfo
 });
 
 const mapDispatchToProps = {

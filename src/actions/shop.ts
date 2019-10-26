@@ -247,178 +247,178 @@ export const MakeMarketPlus: (
 //   }
 // ];
 
-export const Markets: IMarket[] = [
-  {
-    id: 1,
-    title: "Ebrahimi",
-    persianTitle: "نانوایی ابراهیمی",
-    persianSubtitle: "ابریشم محله",
-    img: "/images/market/bakery-logo.png",
-    enable: true,
-    discount: 10,
-    freeDeliver: true,
-    marketGroupId: 1,
-    products: [
-      {
-        id: 1,
-        title: "بربری آزاد ساده",
-        price: 1500,
-        max: 30,
-        img: "/images/product/barbari-192.png",
-        enable: true,
-        MarketId: 1,
-        count: 0
-      },
-      {
-        id: 2,
-        title: "بربری آزاد کنجدی",
-        price: 2000,
-        max: 30,
-        img: "/images/product/barbari-konjedi-192.png",
-        enable: false,
-        MarketId: 1,
-        count: 0
-      }
-    ],
-    openTime: {
-      "6": {
-        day: "شنبه",
-        firstTime: {
-          title: "6 تا 11",
-          start: 6,
-          end: 11
-        }
-      }
-    },
+// export const Markets: IMarket[] = [
+//   {
+//     id: 1,
+//     title: "Ebrahimi",
+//     persianTitle: "نانوایی ابراهیمی",
+//     persianSubtitle: "ابریشم محله",
+//     img: "/images/market/bakery-logo.png",
+//     enable: true,
+//     discount: 10,
+//     freeDeliver: true,
+//     marketGroupId: 1,
+//     products: [
+//       {
+//         id: 1,
+//         title: "بربری آزاد ساده",
+//         price: 1500,
+//         max: 30,
+//         img: "/images/product/barbari-192.png",
+//         enable: true,
+//         MarketId: 1,
+//         count: 0
+//       },
+//       {
+//         id: 2,
+//         title: "بربری آزاد کنجدی",
+//         price: 2000,
+//         max: 30,
+//         img: "/images/product/barbari-konjedi-192.png",
+//         enable: false,
+//         MarketId: 1,
+//         count: 0
+//       }
+//     ],
+//     openTime: {
+//       "6": {
+//         day: "شنبه",
+//         firstTime: {
+//           title: "6 تا 11",
+//           start: 6,
+//           end: 11
+//         }
+//       }
+//     },
 
-    address: "رامسر - ابریشم محله",
-    description: ""
-  },
-  {
-    id: 2,
-    title: "hayat",
-    persianTitle: "نگارخانه حیاط حیات",
-    img: "/images/market/florist-bakery-cafe.png",
-    enable: true,
-    discount: 0,
-    marketGroupId: 1,
-    products: [
-      {
-        id: 1,
-        title: "دیتاکس کیوی",
-        price: 15000,
-        max: 5,
-        img: "/images/product/water-kiwi.png",
-        enable: true,
-        MarketId: 1,
-        count: 0
-      },
-      {
-        id: 2,
-        title: "دیتاکس خیار",
-        price: 20000,
-        max: 5,
-        img: "/images/product/StrawberryCucumber.png",
-        enable: false,
-        MarketId: 1,
-        count: 0
-      },
-      {
-        id: 3,
-        title: "دیتاکس لیمو",
-        price: 20000,
-        max: 5,
-        img: "/images/product/lemon.png",
-        enable: false,
-        MarketId: 1,
-        count: 0
-      },
-      {
-        id: 4,
-        title: "دیتاکس مخصوص",
-        price: 20000,
-        max: 5,
-        img: "/images/product/detox-water-.png",
-        enable: false,
-        MarketId: 1,
-        count: 0
-      }
-    ],
-    openTime: {
-      "6": {
-        day: "شنبه",
-        firstTime: {
-          title: "6 تا 11",
-          start: 6,
-          end: 11
-        }
-      }
-    },
-    address: "رامسر - ابریشم محله",
-    description: ""
-  }
-];
+//     address: "رامسر - ابریشم محله",
+//     description: ""
+//   },
+//   {
+//     id: 2,
+//     title: "hayat",
+//     persianTitle: "نگارخانه حیاط حیات",
+//     img: "/images/market/florist-bakery-cafe.png",
+//     enable: true,
+//     discount: 0,
+//     marketGroupId: 1,
+//     products: [
+//       {
+//         id: 1,
+//         title: "دیتاکس کیوی",
+//         price: 15000,
+//         max: 5,
+//         img: "/images/product/water-kiwi.png",
+//         enable: true,
+//         MarketId: 1,
+//         count: 0
+//       },
+//       {
+//         id: 2,
+//         title: "دیتاکس خیار",
+//         price: 20000,
+//         max: 5,
+//         img: "/images/product/StrawberryCucumber.png",
+//         enable: false,
+//         MarketId: 1,
+//         count: 0
+//       },
+//       {
+//         id: 3,
+//         title: "دیتاکس لیمو",
+//         price: 20000,
+//         max: 5,
+//         img: "/images/product/lemon.png",
+//         enable: false,
+//         MarketId: 1,
+//         count: 0
+//       },
+//       {
+//         id: 4,
+//         title: "دیتاکس مخصوص",
+//         price: 20000,
+//         max: 5,
+//         img: "/images/product/detox-water-.png",
+//         enable: false,
+//         MarketId: 1,
+//         count: 0
+//       }
+//     ],
+//     openTime: {
+//       "6": {
+//         day: "شنبه",
+//         firstTime: {
+//           title: "6 تا 11",
+//           start: 6,
+//           end: 11
+//         }
+//       }
+//     },
+//     address: "رامسر - ابریشم محله",
+//     description: ""
+//   }
+// ];
 
-export const PRODUCT_LIST: IProduct[] = [
-  // - Breads
-  {
-    id: 1,
-    title: "بربری آزاد ساده",
-    price: 1500,
-    max: 30,
-    img: "/images/noon/barbari-192.png",
-    enable: true,
-    MarketId: 1,
-    count: 0
-  },
-  {
-    id: 2,
-    title: "بربری آزاد کنجدی",
-    price: 2000,
-    max: 30,
-    img: "/images/noon/barbari-konjedi-192.png",
-    enable: false,
-    MarketId: 1,
-    count: 0
-  },
-  {
-    id: 3,
-    title: "سنگک آزاد ساده",
-    price: 1500,
-    max: 30,
-    img: "/images/noon/sangak-192.png",
-    enable: false,
-    MarketId: 1,
-    count: 0
-  },
-  {
-    id: 4,
-    title: "سنگک آزاد کنجدی",
-    price: 2000,
-    max: 30,
-    img: "/images/noon/sangak-konjedi-192.png",
-    enable: false,
-    MarketId: 1,
-    count: 0
-  },
-  {
-    id: 5,
-    title: "لواش",
-    price: 250,
-    max: 100,
-    img: "/images/noon/lavash-192.png",
-    enable: false,
-    MarketId: 1,
-    count: 0
-  }
-];
+// export const PRODUCT_LIST: IProduct[] = [
+//   // - Breads
+//   {
+//     id: 1,
+//     title: "بربری آزاد ساده",
+//     price: 1500,
+//     max: 30,
+//     img: "/images/noon/barbari-192.png",
+//     enable: true,
+//     MarketId: 1,
+//     count: 0
+//   },
+//   {
+//     id: 2,
+//     title: "بربری آزاد کنجدی",
+//     price: 2000,
+//     max: 30,
+//     img: "/images/noon/barbari-konjedi-192.png",
+//     enable: false,
+//     MarketId: 1,
+//     count: 0
+//   },
+//   {
+//     id: 3,
+//     title: "سنگک آزاد ساده",
+//     price: 1500,
+//     max: 30,
+//     img: "/images/noon/sangak-192.png",
+//     enable: false,
+//     MarketId: 1,
+//     count: 0
+//   },
+//   {
+//     id: 4,
+//     title: "سنگک آزاد کنجدی",
+//     price: 2000,
+//     max: 30,
+//     img: "/images/noon/sangak-konjedi-192.png",
+//     enable: false,
+//     MarketId: 1,
+//     count: 0
+//   },
+//   {
+//     id: 5,
+//     title: "لواش",
+//     price: 250,
+//     max: 100,
+//     img: "/images/noon/lavash-192.png",
+//     enable: false,
+//     MarketId: 1,
+//     count: 0
+//   }
+// ];
 
-export const TIME_LIST: IDeliverTime[] = [
-  { id: 1, title: "6:00 تا 7:00 صبح", start: 6, end: 7 },
-  { id: 2, title: "7:00 تا 8:00 صبح", start: 7, end: 8 },
-  { id: 3, title: "8:00 تا 10:00 صبح", start: 8, end: 10 },
-  { id: 4, title: "17:00 تا 19:00 عصر", start: 17, end: 19 },
-  { id: 5, title: "19:00 تا 22:00 شب", start: 19, end: 22 }
-];
+// export const TIME_LIST: IDeliverTime[] = [
+//   { id: 1, title: "6:00 تا 7:00 صبح", start: 6, end: 7 },
+//   { id: 2, title: "7:00 تا 8:00 صبح", start: 7, end: 8 },
+//   { id: 3, title: "8:00 تا 10:00 صبح", start: 8, end: 10 },
+//   { id: 4, title: "17:00 تا 19:00 عصر", start: 17, end: 19 },
+//   { id: 5, title: "19:00 تا 22:00 شب", start: 19, end: 22 }
+// ];
 
 // - Todo: 3 title
