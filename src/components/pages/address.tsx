@@ -11,9 +11,11 @@ import {
   ChangeFullname,
   ChangeAddress,
   ChangeDate,
+  ChangeTime,
   LoadUserInfo,
   LoadLocation,
-  loadData
+  loadData,
+  MakeOrder
 } from "../../actions/shopActions";
 
 import Container from "@material-ui/core/Container";
@@ -46,7 +48,7 @@ import JalaliUtils from "@date-io/jalaali";
 
 // import LuxonUtils from "@date-io/luxon";
 import {
-  KeyboardDatePicker,
+  DatePicker,
   KeyboardTimePicker,
   MuiPickersUtilsProvider
 } from "@material-ui/pickers";
@@ -98,7 +100,13 @@ const useStyles = makeStyles((theme: Theme) =>
       // width: "100%"
       // fontFamily: "Yekan"
     },
-    picker: {
+    datepicker: {
+      direction: "ltr",
+      width: "100%",
+      textAlign: "right"
+      // fontFamily: "Yekan"
+    },
+    timepicker: {
       direction: "ltr",
       width: "100%",
       textAlign: "right"
@@ -129,6 +137,7 @@ interface IAddressProp extends RouteComponentProps<IMatchParams> {
   ChangeFullname: Function;
   ChangeAddress: Function;
   ChangeDate: Function;
+  ChangeTime: Function;
   LoadUserInfo: Function;
   LoadLocation: Function;
   changePage: Function;
@@ -149,7 +158,7 @@ const Address: React.FC<IAddressProp> = (prop: IAddressProp) => {
     (m: IMarketPlus) => Number(m.id) === Number(marketId)
   );
 
-  console.log(market);
+  console.log(market, prop.deliver);
 
   const handleClickLoadingInfo = () => {
     const mobile: string = prop.deliver.mobile;
@@ -288,8 +297,8 @@ const Address: React.FC<IAddressProp> = (prop: IAddressProp) => {
           <React.Fragment>
             <Grid item xs={12} sm={5} className={classes.pickerGrid}>
               <MuiPickersUtilsProvider utils={JalaliUtils} locale="fa">
-                <KeyboardDatePicker
-                  className={classes.picker}
+                <DatePicker
+                  className={classes.datepicker}
                   label="تاریخ تحویل یا دریافت"
                   minDate={new Date()}
                   okLabel="تأیید"
@@ -298,6 +307,7 @@ const Address: React.FC<IAddressProp> = (prop: IAddressProp) => {
                   value={prop.deliver.date}
                   // onChange={handleDateChange}
                   onChange={date => {
+                    // console.log(date);
                     if (date != null) {
                       prop.ChangeDate(date);
                     }
@@ -309,34 +319,23 @@ const Address: React.FC<IAddressProp> = (prop: IAddressProp) => {
             <Grid item xs={12} sm={5} className={classes.pickerGrid}>
               <MuiPickersUtilsProvider utils={JalaliUtils} locale="fa">
                 <KeyboardTimePicker
-                  className={classes.picker}
+                  className={classes.timepicker}
                   label="زمان تحویل یا دریافت"
                   // minDate={new Date()}
-                  // okLabel="تأیید"
-                  // cancelLabel="لغو"
-                  // labelFunc={date => (date ? date.format("jYYYY/jMM/jDD") : "")}
+                  okLabel="تأیید"
+                  cancelLabel="لغو"
+                  format="HH:mm"
+                  labelFunc={date => (date ? date.format("hh:mm A") : "")}
                   value={prop.deliver.date}
                   // onChange={handleDateChange}
                   onChange={date => {
+                    // console.log(date);
                     if (date != null) {
-                      // prop.ChangeDate(date);
+                      prop.ChangeTime(date);
                     }
                   }}
                 />
               </MuiPickersUtilsProvider>
-              {/* <TextField
-                id="time"
-                label="زمان تحویل یا دریافت"
-                type="time"
-                defaultValue={prop.deliver.date.format("HH:mm")}
-                className={classes.picker}
-                InputLabelProps={{
-                  shrink: true
-                }}
-                inputProps={{
-                  step: 300 // 5 min
-                }}
-              /> */}
             </Grid>
           </React.Fragment>
         )}
@@ -456,13 +455,14 @@ const mapDispatchToProps: any = {
   ChangeFullname,
   ChangeAddress,
   ChangeDate,
+  ChangeTime,
   LoadUserInfo,
   LoadLocation,
   // changePage: changePage
   // addToCart: addToCart,
   // removeFromCart: removeFromCart,
   loadData,
-  changePage: (url: string) => push(url)
+  changePage: MakeOrder // (url: string) => push(url)
 };
 
 export default connect(

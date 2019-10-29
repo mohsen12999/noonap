@@ -87,10 +87,26 @@ export const ChangeDate: Function = (
   date: Moment
 ) => (dispatch: Dispatch) => {
   // event.stopPropagation();
-  dispatch({
-    type: ActionTypes.CHANGE_DATE,
-    payload: { date }
-  });
+  console.log(date);
+  if (date.isValid()) {
+    dispatch({
+      type: ActionTypes.CHANGE_DATE,
+      payload: { date }
+    });
+  }
+};
+
+export const ChangeTime: Function = (
+  // event: React.MouseEvent<HTMLButtonElement>,
+  date: Moment
+) => (dispatch: Dispatch) => {
+  // event.stopPropagation();
+  if (date.isValid()) {
+    dispatch({
+      type: ActionTypes.CHANGE_TIME,
+      payload: { date }
+    });
+  }
 };
 
 export const loadData: Function = () => (dispatch: Dispatch) => {
@@ -274,6 +290,42 @@ export const LoadLocation: any = () => (dispatch: Dispatch) => {
   //   dispatch({
   //     type: ActionTypes.FAILED_LOAD_LOCATION
   //   });
+};
+
+export const MakeOrder = () => (dispatch: Dispatch) => {
+  // const url: string = "https://apdr.ir/api/markets";
+  const url: string = "http://localhost/laravel_api/public/api/makeorder";
+
+  dispatch({
+    type: ActionTypes.TRY_LOADING_ORDER
+  });
+
+  fetch(url, { method: "GET" })
+    .then(res => res.json())
+    .then(res => {
+      if (res.error || res.result === false) {
+        dispatch({
+          type: ActionTypes.FAILED_LOAD_ORDER,
+          payload: { error: res.error }
+        });
+      }
+      const customer: ICustomer = res.customer;
+      dispatch({
+        type: ActionTypes.SUCCESS_LOAD_ORDER,
+        payload: {
+          fullname: customer.name,
+          district: customer.district,
+          address: customer.address
+        }
+      });
+    })
+    .catch(error => {
+      dispatch({
+        type: ActionTypes.FAILED_LOAD_ORDER,
+        payload: { error }
+      });
+    });
+
 };
 
 // export const ChangeTime: any = (

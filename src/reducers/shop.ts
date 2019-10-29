@@ -3,12 +3,14 @@ import { Moment } from "moment-jalaali";
 import { IGroup, IMarketPlus, IOpenTime, IProduct } from "../actions/shop";
 
 export interface IShopState {
+  // ------------------------------
   // dbInfo?: IDbInfo;
   groups: IGroup[];
   markets: IMarketPlus[];
   openTimes: IOpenTime[];
   products: IProduct[];
 
+  // ------------------------------
   // products: IProductsState;
   cart: ICartState;
   deliver: IDeliverState;
@@ -17,6 +19,11 @@ export interface IShopState {
   lastMarketId?: number;
   loadingDbInfo: boolean;
   loadDbInfo: boolean;
+
+  // ------------------------------
+  // order
+  // orderId
+  // orderId
 }
 
 export interface IProductsState {

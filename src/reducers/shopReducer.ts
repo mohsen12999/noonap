@@ -1,5 +1,6 @@
 import { ActionTypes } from "../actions/actionTypes";
 import { Reducer } from "redux";
+import { Moment } from "moment-jalaali";
 import {
   IShopState,
   INITIAL_SHOPSTATE,
@@ -67,6 +68,8 @@ const ShopReducer: Reducer<IShopState, { type: any; payload: any }> = (
     case ActionTypes.CHANGE_MOBILE:
     case ActionTypes.CHANGE_FULLNAME:
     case ActionTypes.CHANGE_ADDRESS:
+    case ActionTypes.CHANGE_DATE:
+    case ActionTypes.CHANGE_TIME:
     case ActionTypes.TRY_LOADING_USER_INFO:
     case ActionTypes.SUCCESS_LOAD_USER_INFO:
     case ActionTypes.FAILED_LOAD_USER_INFO:
@@ -165,6 +168,27 @@ const deliver: any = (
       return {
         ...state,
         address: address
+      };
+
+    case ActionTypes.CHANGE_DATE:
+      const new_date: Moment = action.payload.date;
+      const new_datetime1: Moment = state.date
+        .set("year", new_date.year())
+        .set("month", new_date.month())
+        .set("date", new_date.date());
+      return {
+        ...state,
+        date: new_datetime1
+      };
+
+    case ActionTypes.CHANGE_TIME:
+      const new_time: Moment = action.payload.date;
+      const new_datetime2: Moment = state.date
+        .set("hour", new_time.hour())
+        .set("minute", new_time.minute());
+      return {
+        ...state,
+        date: new_datetime2
       };
 
     case ActionTypes.TRY_LOADING_USER_INFO:
