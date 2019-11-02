@@ -84,6 +84,23 @@ const ShopReducer: Reducer<IShopState, { type: any; payload: any }> = (
         deliver: deliver(state.deliver, action)
         // error: state.error
       };
+    case ActionTypes.TRY_LOADING_ORDER:
+      return {
+        ...state,
+        loadOrder: true
+      };
+    case ActionTypes.SUCCESS_LOAD_ORDER:
+      return {
+        ...state,
+        order: action.payload.order,
+        orderDetails: action.payload.orderDetails,
+        loadOrder: false
+      };
+    case ActionTypes.FAILED_LOAD_ORDER:
+      return {
+        ...state,
+        loadOrder: false
+      };
 
     default:
       return state;

@@ -47,6 +47,9 @@ interface ICheckoutProps {
 const Checkout: React.FC<ICheckoutProps> = (prop: ICheckoutProps) => {
   const classes = useStyles();
 
+  // - TODO: has order? load from server
+  // - TODO: load order from store
+
   const products: IProduct[] = prop.products.filter(
     (p: IProduct) => Number(p.markets_id) === Number(prop.marketId)
   );

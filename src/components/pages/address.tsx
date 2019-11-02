@@ -2,8 +2,8 @@ import React from "react";
 import { RouteComponentProps } from "react-router-dom";
 
 import { connect } from "react-redux";
-import { IAppState, AppPages } from "../../reducers/app";
-import { IShopState, IDeliverState } from "../../reducers/shop";
+import { IAppState } from "../../reducers/app";
+import { IShopState, IDeliverState, ICartState } from "../../reducers/shop";
 import {
   ChangeDeliverKind,
   ChangeDeliverDistrict,
@@ -39,13 +39,12 @@ import NotListedLocationIcon from "@material-ui/icons/NotListedLocation";
 import Button from "@material-ui/core/Button";
 import ShoppingBasket from "@material-ui/icons/ShoppingBasket";
 
-import { push } from "connected-react-router";
-
 import Select from "@material-ui/core/Select";
 
 import jMoment from "moment-jalaali";
 import JalaliUtils from "@date-io/jalaali";
 
+//import { push } from "connected-react-router";
 // import LuxonUtils from "@date-io/luxon";
 import {
   DatePicker,
@@ -130,6 +129,7 @@ interface IAddressProp extends RouteComponentProps<IMatchParams> {
   // dbInfo?: IDbInfo;
   loadDbInfo: boolean;
   markets: IMarketPlus[];
+  cart: ICartState;
 
   ChangeDeliverKind: Function;
   ChangeDeliverDistrict: Function;
@@ -140,8 +140,8 @@ interface IAddressProp extends RouteComponentProps<IMatchParams> {
   ChangeTime: Function;
   LoadUserInfo: Function;
   LoadLocation: Function;
-  changePage: Function;
   loadData: Function;
+  MakeOrder: Function;
 }
 
 const Address: React.FC<IAddressProp> = (prop: IAddressProp) => {
@@ -158,7 +158,7 @@ const Address: React.FC<IAddressProp> = (prop: IAddressProp) => {
     (m: IMarketPlus) => Number(m.id) === Number(marketId)
   );
 
-  console.log(market, prop.deliver);
+  // console.log(market, prop.deliver);
 
   const handleClickLoadingInfo = () => {
     const mobile: string = prop.deliver.mobile;
@@ -425,10 +425,11 @@ const Address: React.FC<IAddressProp> = (prop: IAddressProp) => {
                 variant="contained"
                 color="primary"
                 className={classes.button}
-                onClick={() =>
-                  prop.changePage(
-                    process.env.PUBLIC_URL + "/" + AppPages.CHECKOUT
-                  )
+                onClick={
+                  () => prop.MakeOrder(marketId, prop.cart, prop.deliver)
+                  // prop.changePage(
+                  //   process.env.PUBLIC_URL + "/" + AppPages.CHECKOUT
+                  // )
                 }
               >
                 تائید خرید
@@ -445,7 +446,8 @@ const mapStateToProps: any = (State: { app: IAppState; shop: IShopState }) => ({
   // cart: State.shop.cart,
   deliver: State.shop.deliver,
   markets: State.shop.markets,
-  loadDbInfo: State.shop.loadDbInfo
+  loadDbInfo: State.shop.loadDbInfo,
+  cart: State.shop.cart
 });
 
 const mapDispatchToProps: any = {
@@ -462,7 +464,7 @@ const mapDispatchToProps: any = {
   // addToCart: addToCart,
   // removeFromCart: removeFromCart,
   loadData,
-  changePage: MakeOrder // (url: string) => push(url)
+  MakeOrder // (url: string) => push(url)
 };
 
 export default connect(

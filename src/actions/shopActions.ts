@@ -1,7 +1,16 @@
 import { ActionTypes } from "./actionTypes";
 import { Dispatch } from "redux";
 import { Moment } from "moment-jalaali";
-import { ICustomer, IDbInfo, IMarketPlus, MakeMarketPlus } from "./shop";
+import {
+  ICustomer,
+  IDbInfo,
+  IMarketPlus,
+  MakeMarketPlus,
+  IMakeOrder
+} from "./shop";
+import { IDeliverState, ICartState } from "../reducers/shop";
+import { push } from "connected-react-router";
+import { AppPages } from "../reducers/app";
 
 export const addToCart: Function = (
   event: React.MouseEvent<HTMLButtonElement>,
@@ -292,15 +301,28 @@ export const LoadLocation: any = () => (dispatch: Dispatch) => {
   //   });
 };
 
-export const MakeOrder = () => (dispatch: Dispatch) => {
-  // const url: string = "https://apdr.ir/api/markets";
+export const MakeOrder: any = (
+  marketId: string,
+  cart: ICartState,
+  deliver: IDeliverState
+) => (dispatch: Dispatch) => {
+  // const url: string = "https://apdr.ir/api/makeorder";
   const url: string = "http://localhost/laravel_api/public/api/makeorder";
 
   dispatch({
     type: ActionTypes.TRY_LOADING_ORDER
   });
+  const send_info: any = {
+    marketId,
+    cart,
+    ...deliver,
+    datedate: deliver.date.toDate(),
+    datest: deliver.date.format("YYYY/MM/DD hh:mm A")
+  };
 
-  fetch(url, { method: "GET" })
+  console.log(url, send_info);
+
+  fetch(url, { method: "POST", body: JSON.stringify(send_info) })
     .then(res => res.json())
     .then(res => {
       if (res.error || res.result === false) {
@@ -309,15 +331,20 @@ export const MakeOrder = () => (dispatch: Dispatch) => {
           payload: { error: res.error }
         });
       }
-      const customer: ICustomer = res.customer;
+      console.log(res);
+      const result: IMakeOrder = res as IMakeOrder;
       dispatch({
         type: ActionTypes.SUCCESS_LOAD_ORDER,
         payload: {
-          fullname: customer.name,
-          district: customer.district,
-          address: customer.address
+          order: result.order,
+          orderDetails: result.orderDetails
         }
       });
+      dispatch(
+        push(process.env.PUBLIC_URL + "/" + AppPages.CHECKOUT + "/" + result.id)
+      );
+      // console.log("push");
+      // push(process.env.PUBLIC_URL + "/" + AppPages.CHECKOUT + "/" + result.id);
     })
     .catch(error => {
       dispatch({
@@ -325,7 +352,6 @@ export const MakeOrder = () => (dispatch: Dispatch) => {
         payload: { error }
       });
     });
-
 };
 
 // export const ChangeTime: any = (

@@ -1,6 +1,13 @@
 import moment from "moment";
 import { Moment } from "moment-jalaali";
-import { IGroup, IMarketPlus, IOpenTime, IProduct } from "../actions/shop";
+import {
+  IGroup,
+  IMarketPlus,
+  IOpenTime,
+  IProduct,
+  IOrder,
+  IOrderDetail
+} from "../actions/shop";
 
 export interface IShopState {
   // ------------------------------
@@ -21,9 +28,9 @@ export interface IShopState {
   loadDbInfo: boolean;
 
   // ------------------------------
-  // order
-  // orderId
-  // orderId
+  loadOrder: boolean;
+  order?: IOrder;
+  orderDetails: IOrderDetail[];
 }
 
 export interface IProductsState {
@@ -60,7 +67,7 @@ export interface IDeliverState {
 
   location?: Position;
   date: Moment;
-  time: string;
+  // time: string;
 
   loadingInfo: boolean;
   loadingLocation: boolean;
@@ -83,7 +90,7 @@ export const INITIAL_SHOPSTATE: IShopState = {
     address: "",
     mobile: "",
     date: moment(),
-    time: "",
+    // time: "",
     loadingInfo: false,
     loadingLocation: false
     // , sendingCart:false
@@ -92,5 +99,9 @@ export const INITIAL_SHOPSTATE: IShopState = {
 
   lastMarketId: undefined,
   loadingDbInfo: false,
-  loadDbInfo: false
+  loadDbInfo: false,
+
+  loadOrder: false,
+  order: undefined,
+  orderDetails: []
 };

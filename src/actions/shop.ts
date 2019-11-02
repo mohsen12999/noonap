@@ -122,3 +122,50 @@ export const MakeMarketPlus: (
     return { ...mp, isOpen: isOpen };
   });
 };
+
+export interface IOrder {
+  id: number;
+
+  mobile: string;
+  name: string;
+  deliver_time: Date;
+  deliver_time_desc: string;
+  deliverKind: string;
+  address: string;
+  district: string;
+
+  latitude?: number;
+  longitude?: number;
+
+  markets_id: number;
+
+  price: number;
+  payed: boolean;
+  bankCode: string;
+
+  created_at?: any;
+  updated_at?: any;
+}
+
+export interface IOrderDetail {
+  id: number;
+
+  title: string;
+  persianTitle: string;
+  price: number;
+  count: number;
+
+  product_id: number;
+  order_id: number;
+
+  created_at?: any;
+  updated_at?: any;
+}
+
+export interface IMakeOrder {
+  result: boolean;
+  id: number;
+  order: IOrder;
+  orderDetails: IOrderDetail[];
+  price: number;
+}

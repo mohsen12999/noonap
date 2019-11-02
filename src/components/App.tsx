@@ -55,13 +55,13 @@ const App: React.FC<IAppProps> = (prop: IAppProps) => {
           />
           <Route
             exact
-            path={process.env.PUBLIC_URL + "/" + AppPages.CHECKOUT}
-            component={Checkout}
+            path={process.env.PUBLIC_URL + "/" + AppPages.ADDRESS + "/:id"}
+            component={(props: any) => <Address {...props} />}
           />
           <Route
             exact
-            path={process.env.PUBLIC_URL + "/" + AppPages.ADDRESS+"/:id"}
-            component={(props: any) => <Address {...props} />}
+            path={process.env.PUBLIC_URL + "/" + AppPages.CHECKOUT + "/:id"}
+            component={(props: any) => <Checkout {...props} />}
           />
           <Route component={NotFound} />
         </Switch>
