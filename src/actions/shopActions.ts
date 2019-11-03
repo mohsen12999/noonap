@@ -310,7 +310,7 @@ export const MakeOrder: any = (
   const url: string = "http://localhost/laravel_api/public/api/makeorder";
 
   dispatch({
-    type: ActionTypes.TRY_LOADING_ORDER
+    type: ActionTypes.TRY_MAKING_ORDER
   });
   const send_info: any = {
     marketId,
@@ -320,21 +320,19 @@ export const MakeOrder: any = (
     datest: deliver.date.format("YYYY/MM/DD hh:mm A")
   };
 
-  console.log(url, send_info);
-
   fetch(url, { method: "POST", body: JSON.stringify(send_info) })
     .then(res => res.json())
     .then(res => {
       if (res.error || res.result === false) {
         dispatch({
-          type: ActionTypes.FAILED_LOAD_ORDER,
+          type: ActionTypes.FAILED_MAKE_ORDER,
           payload: { error: res.error }
         });
       }
-      console.log(res);
+      // console.log(res);
       const result: IMakeOrder = res as IMakeOrder;
       dispatch({
-        type: ActionTypes.SUCCESS_LOAD_ORDER,
+        type: ActionTypes.SUCCESS_MAKE_ORDER,
         payload: {
           order: result.order,
           orderDetails: result.orderDetails
@@ -348,10 +346,51 @@ export const MakeOrder: any = (
     })
     .catch(error => {
       dispatch({
+        type: ActionTypes.FAILED_MAKE_ORDER,
+        payload: { error }
+      });
+    });
+};
+
+export const loadOrder: any = (orderId: string) => (dispatch: Dispatch) => {
+  // const url: string = "https://apdr.ir/api/order/"+orderId;
+  const url: string =
+    "http://localhost/laravel_api/public/api/order/" + orderId;
+
+  dispatch({
+    type: ActionTypes.TRY_LOADING_ORDER
+  });
+
+  fetch(url, { method: "GET" })
+    .then(res => res.json())
+    .then(res => {
+      if (res.error || res.result === false) {
+        dispatch({
+          type: ActionTypes.FAILED_LOAD_ORDER,
+          payload: { error: res.error }
+        });
+      }
+      const { order, order_details } = res;
+      dispatch({
+        type: ActionTypes.SUCCESS_LOAD_ORDER,
+        payload: {
+          order: order,
+          orderDetails: order_details
+        }
+      });
+      // console.log("push");
+      // push(process.env.PUBLIC_URL + "/" + AppPages.CHECKOUT + "/" + result.id);
+    })
+    .catch(error => {
+      dispatch({
         type: ActionTypes.FAILED_LOAD_ORDER,
         payload: { error }
       });
     });
+};
+
+export const send2Bank: any = () => (dispatch: Dispatch) => {
+  // TODO: bank setting
 };
 
 // export const ChangeTime: any = (

@@ -84,11 +84,13 @@ const ShopReducer: Reducer<IShopState, { type: any; payload: any }> = (
         deliver: deliver(state.deliver, action)
         // error: state.error
       };
+    case ActionTypes.TRY_MAKING_ORDER:
     case ActionTypes.TRY_LOADING_ORDER:
       return {
         ...state,
         loadOrder: true
       };
+    case ActionTypes.SUCCESS_MAKE_ORDER:
     case ActionTypes.SUCCESS_LOAD_ORDER:
       return {
         ...state,
@@ -96,6 +98,7 @@ const ShopReducer: Reducer<IShopState, { type: any; payload: any }> = (
         orderDetails: action.payload.orderDetails,
         loadOrder: false
       };
+    case ActionTypes.FAILED_MAKE_ORDER:
     case ActionTypes.FAILED_LOAD_ORDER:
       return {
         ...state,
