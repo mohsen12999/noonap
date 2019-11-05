@@ -6,6 +6,7 @@ export enum AppPages {
   ADDRESS = "address",
   BILL = "bill",
   CHECKOUT = "checkout",
+  COMEBACK = "comeback",
   SOON = "soon"
 }
 

@@ -9,6 +9,7 @@ import MainHeader from "./headers/main-header";
 import Soon from "./pages/soon";
 import Address from "./pages/address";
 import Checkout from "./pages/checkout";
+import Comeback from "./pages/comeback";
 import Market from "./pages/marketsPage/market";
 
 import { push } from "connected-react-router";
@@ -63,6 +64,15 @@ const App: React.FC<IAppProps> = (prop: IAppProps) => {
             path={process.env.PUBLIC_URL + "/" + AppPages.CHECKOUT + "/:id"}
             component={(props: any) => <Checkout {...props} />}
           />
+          <Route
+            exact
+            path={
+              process.env.PUBLIC_URL + "/" + AppPages.COMEBACK
+              // + "?status=:st&token=:tk"
+            }
+            component={(props: any) => <Comeback {...props} />}
+          />
+          {/* useLocation https://localhost:3000/comeback?status=1&token=bpKSpA */}
           <Route component={NotFound} />
         </Switch>
       </section>

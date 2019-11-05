@@ -389,8 +389,40 @@ export const loadOrder: any = (orderId: string) => (dispatch: Dispatch) => {
     });
 };
 
-export const send2Bank: any = () => (dispatch: Dispatch) => {
-  // TODO: bank setting
+export const send2Bank: any = (orderId: string) => (dispatch: Dispatch) => {
+  // const url: string = "https://apdr.ir/api/sendorder;
+  const url: string = "http://localhost/laravel_api/public/api/sendorder";
+
+  dispatch({
+    type: ActionTypes.TRY_SENDING_ORDER_TO_BANK
+  });
+
+  fetch(url, { method: "POST", body: JSON.stringify({ id: orderId }) })
+    .then(res => res.json())
+    .then(res => {
+      if (res.error || res.result === false) {
+        dispatch({
+          type: ActionTypes.FAILED_SEND_ORDER_TO_BANK,
+          payload: { error: res.error }
+        });
+      }
+      console.log(res);
+      const { url } = res;
+      window.location.href = url;
+      // dispatch(push(url));
+      // dispatch({
+      //   type: ActionTypes.SUCCESS_SEND_ORDER_TO_BANK,
+      //   payload: {
+      //     tocken: res.tocken
+      //   }
+      // });
+    })
+    .catch(error => {
+      dispatch({
+        type: ActionTypes.FAILED_SEND_ORDER_TO_BANK,
+        payload: { error }
+      });
+    });
 };
 
 // export const ChangeTime: any = (

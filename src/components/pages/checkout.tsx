@@ -190,12 +190,12 @@ const Checkout: React.FC<ICheckoutProps> = (prop: ICheckoutProps) => {
         </React.Fragment>
       )}
 
-      {totalPrice > 0 && (
+      {orderId !== undefined && totalPrice > 0 && (
         <Button
           variant="contained"
           color="primary"
           className={classes.button}
-          onClick={() => prop.send2Bank()}
+          onClick={() => prop.send2Bank(orderId)}
         >
           پرداخت مبلغ
           <CreditCardIcon className={classes.extendedIcon} />
