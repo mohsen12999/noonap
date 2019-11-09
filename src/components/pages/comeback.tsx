@@ -7,6 +7,7 @@ import { IShopState } from "../../reducers/shop";
 import { connect } from "react-redux";
 
 import { RouteComponentProps } from "react-router-dom";
+import queryString from "query-string";
 
 const useStyles: any = makeStyles({
   mainTitle: {
@@ -18,12 +19,7 @@ const useStyles: any = makeStyles({
   }
 });
 
-interface IMatchParams {
-  st?: string;
-  tk?: string;
-}
-
-interface IComebackProps extends RouteComponentProps<IMatchParams> {
+interface IComebackProps extends RouteComponentProps<any> {
   // tabId?: number;
   // changeTabId: Function;
 }
@@ -31,7 +27,10 @@ interface IComebackProps extends RouteComponentProps<IMatchParams> {
 const Comeback: React.FC<IComebackProps> = (prop: IComebackProps) => {
   const classes: any = useStyles();
 
-  console.log(prop);
+  const search: string = prop.history.location.search;
+  const parsed:queryString.ParsedQuery<string> = queryString.parse(location.search);
+
+  console.log(search);
 
   // useEffect(() => {
   //   prop.changeTabId(1);

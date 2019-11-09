@@ -425,6 +425,42 @@ export const send2Bank: any = (orderId: string) => (dispatch: Dispatch) => {
     });
 };
 
+export const verifyBank: any = (token: string) => (dispatch: Dispatch) => {
+  // const url: string = "https://apdr.ir/api/verify;
+  const url: string = "http://localhost/laravel_api/public/api/verify";
+
+  dispatch({
+    type: ActionTypes.TRY_SENDING_ORDER_TO_BANK
+  });
+
+  fetch(url, { method: "POST", body: JSON.stringify({ token: token }) })
+    .then(res => res.json())
+    .then(res => {
+      if (res.error || res.result === false) {
+        dispatch({
+          type: ActionTypes.FAILED_SEND_ORDER_TO_BANK,
+          payload: { error: res.error }
+        });
+      }
+      console.log(res);
+      const { url } = res;
+      window.location.href = url;
+      // dispatch(push(url));
+      // dispatch({
+      //   type: ActionTypes.SUCCESS_SEND_ORDER_TO_BANK,
+      //   payload: {
+      //     tocken: res.tocken
+      //   }
+      // });
+    })
+    .catch(error => {
+      dispatch({
+        type: ActionTypes.FAILED_SEND_ORDER_TO_BANK,
+        payload: { error }
+      });
+    });
+};
+
 // export const ChangeTime: any = (
 //   event: React.MouseEvent<HTMLButtonElement>,
 //   time: string

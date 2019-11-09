@@ -11,6 +11,7 @@ import TableCell from "@material-ui/core/TableCell";
 import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import CreditCardIcon from "@material-ui/icons/CreditCard";
+import CircularProgress from "@material-ui/core/CircularProgress";
 
 import { IAppState } from "../../reducers/app";
 import { IShopState } from "../../reducers/shop";
@@ -54,6 +55,10 @@ const useStyles: any = makeStyles((theme: Theme) =>
     button: {
       marginTop: theme.spacing(1),
       fontFamily: "Yekan"
+    },
+    progressDiv: {
+      textAlign: "center",
+      marginTop: "3rem"
     }
   })
 );
@@ -65,6 +70,7 @@ interface IMatchParams {
 interface ICheckoutProps extends RouteComponentProps<IMatchParams> {
   order?: IOrder;
   orderDetails: IOrderDetail[];
+  loadingOrder: boolean;
   changePage: Function;
   loadOrder: Function;
   send2Bank: Function;
@@ -93,7 +99,11 @@ const Checkout: React.FC<ICheckoutProps> = (prop: ICheckoutProps) => {
     <Container className={classes.root} maxWidth="md">
       <h3 className={classes.mainTitle}>لیست سفارش ها</h3>
 
-      {prop.orderDetails !== undefined && prop.orderDetails.length === 0 ? (
+      {prop.loadingOrder ? (
+        <div className={classes.progressDiv}>
+          <CircularProgress className={classes.progress} />
+        </div>
+      ) : prop.orderDetails !== undefined && prop.orderDetails.length === 0 ? (
         <Paper className={classes.root}>
           <Typography className={classes.myFont} variant="h5" component="h3">
             سبد خرید خالی هست!
@@ -207,7 +217,8 @@ const Checkout: React.FC<ICheckoutProps> = (prop: ICheckoutProps) => {
 
 const mapStateToProps = (State: { app: IAppState; shop: IShopState }) => ({
   order: State.shop.order,
-  orderDetails: State.shop.orderDetails
+  orderDetails: State.shop.orderDetails,
+  loadingOrder: State.shop.loadOrder
 });
 
 const mapDispatchToProps = {
