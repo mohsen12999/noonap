@@ -87,6 +87,7 @@ const ShopReducer: Reducer<IShopState, { type: any; payload: any }> = (
     case ActionTypes.TRY_MAKING_ORDER:
     case ActionTypes.TRY_LOADING_ORDER:
     case ActionTypes.TRY_SENDING_ORDER_TO_BANK:
+    case ActionTypes.TRY_VERIFY_BANK:
       return {
         ...state,
         loadOrder: true
@@ -99,10 +100,19 @@ const ShopReducer: Reducer<IShopState, { type: any; payload: any }> = (
         orderDetails: action.payload.orderDetails,
         loadOrder: false
       };
+    case ActionTypes.SUCCESS_VERIFY_BANK:
+      return {
+        ...state,
+        order: action.payload.order,
+        orderDetails: action.payload.orderDetails,
+        transId: action.payload.transId,
+        loadOrder: false
+      };
     case ActionTypes.FAILED_MAKE_ORDER:
     case ActionTypes.FAILED_LOAD_ORDER:
     case ActionTypes.FAILED_SEND_ORDER_TO_BANK:
     case ActionTypes.SUCCESS_SEND_ORDER_TO_BANK:
+    case ActionTypes.FAILED_VERIFY_BANK:
       return {
         ...state,
         loadOrder: false

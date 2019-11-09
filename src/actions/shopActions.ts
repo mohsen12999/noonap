@@ -409,13 +409,6 @@ export const send2Bank: any = (orderId: string) => (dispatch: Dispatch) => {
       console.log(res);
       const { url } = res;
       window.location.href = url;
-      // dispatch(push(url));
-      // dispatch({
-      //   type: ActionTypes.SUCCESS_SEND_ORDER_TO_BANK,
-      //   payload: {
-      //     tocken: res.tocken
-      //   }
-      // });
     })
     .catch(error => {
       dispatch({
@@ -430,7 +423,7 @@ export const verifyBank: any = (token: string) => (dispatch: Dispatch) => {
   const url: string = "http://localhost/laravel_api/public/api/verify";
 
   dispatch({
-    type: ActionTypes.TRY_SENDING_ORDER_TO_BANK
+    type: ActionTypes.TRY_VERIFY_BANK
   });
 
   fetch(url, { method: "POST", body: JSON.stringify({ token: token }) })
@@ -438,24 +431,25 @@ export const verifyBank: any = (token: string) => (dispatch: Dispatch) => {
     .then(res => {
       if (res.error || res.result === false) {
         dispatch({
-          type: ActionTypes.FAILED_SEND_ORDER_TO_BANK,
+          type: ActionTypes.FAILED_VERIFY_BANK,
           payload: { error: res.error }
         });
       }
       console.log(res);
-      const { url } = res;
-      window.location.href = url;
+      const { order, orderDetails, transId } = res;
       // dispatch(push(url));
-      // dispatch({
-      //   type: ActionTypes.SUCCESS_SEND_ORDER_TO_BANK,
-      //   payload: {
-      //     tocken: res.tocken
-      //   }
-      // });
+      dispatch({
+        type: ActionTypes.SUCCESS_VERIFY_BANK,
+        payload: {
+          order: res.order,
+          orderDetails: res.orderDetails,
+          transId: res.transId
+        }
+      });
     })
     .catch(error => {
       dispatch({
-        type: ActionTypes.FAILED_SEND_ORDER_TO_BANK,
+        type: ActionTypes.FAILED_VERIFY_BANK,
         payload: { error }
       });
     });

@@ -31,6 +31,7 @@ export interface IShopState {
   loadOrder: boolean;
   order?: IOrder;
   orderDetails: IOrderDetail[];
+  transId?:string;
 }
 
 export interface IProductsState {
