@@ -26,7 +26,7 @@ interface IComebackProps extends RouteComponentProps<any> {
   order?: IOrder;
   orderDetails: IOrderDetail[];
   loadingOrder: boolean;
-  transId: string;
+  transId?: string;
   verifyBank: Function;
 }
 
