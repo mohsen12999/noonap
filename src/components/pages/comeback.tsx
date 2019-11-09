@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Container from "@material-ui/core/Container";
 import { makeStyles } from "@material-ui/core/styles";
 
@@ -8,6 +8,9 @@ import { connect } from "react-redux";
 
 import { RouteComponentProps } from "react-router-dom";
 import queryString from "query-string";
+
+import { verifyBank } from "../../actions/shopActions";
+import { IOrder, IOrderDetail } from "../../actions/shop";
 
 const useStyles: any = makeStyles({
   mainTitle: {
@@ -20,21 +23,27 @@ const useStyles: any = makeStyles({
 });
 
 interface IComebackProps extends RouteComponentProps<any> {
-  // tabId?: number;
-  // changeTabId: Function;
+  order?: IOrder;
+  orderDetails: IOrderDetail[];
+  loadingOrder: boolean;
+  transId: string;
+  verifyBank: Function;
 }
 
 const Comeback: React.FC<IComebackProps> = (prop: IComebackProps) => {
   const classes: any = useStyles();
 
   const search: string = prop.history.location.search;
-  const parsed:queryString.ParsedQuery<string> = queryString.parse(location.search);
+  const parsed: queryString.ParsedQuery<string> = queryString.parse(
+    location.search
+  );
 
   console.log(search);
 
-  // useEffect(() => {
-  //   prop.changeTabId(1);
-  // });
+  useEffect(() => {
+    // http://Your-CallBack-URL?status={transaction_status}&token={token}
+    prop.verifyBank(parsed.token);
+  });
 
   // console.log(prop.tabId);
 
@@ -62,13 +71,14 @@ const Comeback: React.FC<IComebackProps> = (prop: IComebackProps) => {
 };
 
 const mapStateToProps = (State: { app: IAppState; shop: IShopState }) => ({
-  // cart: State.shop.cart
-  // tabId: State.app.tabId
+  order: State.shop.order,
+  orderDetails: State.shop.orderDetails,
+  transId: State.shop.transId,
+  loadingOrder: State.shop.loadOrder
 });
 
 const mapDispatchToProps = {
-  // changePage: changePage
-  // changeTabId: changeTabId
+  verifyBank
 };
 
 export default connect(
