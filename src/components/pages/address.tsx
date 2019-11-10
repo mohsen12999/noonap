@@ -128,6 +128,7 @@ interface IAddressProp extends RouteComponentProps<IMatchParams> {
   deliver: IDeliverState;
   // dbInfo?: IDbInfo;
   loadDbInfo: boolean;
+  loadingOrder: boolean;
   markets: IMarketPlus[];
   cart: ICartState;
 
@@ -421,20 +422,32 @@ const Address: React.FC<IAddressProp> = (prop: IAddressProp) => {
               (prop.deliver.deliverDistrict !== "" ||
                 prop.deliver.location != null))) && (
             <Grid item xs={12} sm={8}>
-              <Button
-                variant="contained"
-                color="primary"
-                className={classes.button}
-                onClick={
-                  () => prop.MakeOrder(marketId, prop.cart, prop.deliver)
-                  // prop.changePage(
-                  //   process.env.PUBLIC_URL + "/" + AppPages.CHECKOUT
-                  // )
-                }
-              >
-                تائید خرید
-                <ShoppingBasket className={classes.extendedIcon} />
-              </Button>
+              {prop.loadingOrder ? (
+                <Button
+                  variant="contained"
+                  color="primary"
+                  className={classes.button}
+                  disabled
+                >
+                  تائید خرید
+                  <ShoppingBasket className={classes.extendedIcon} />
+                </Button>
+              ) : (
+                <Button
+                  variant="contained"
+                  color="primary"
+                  className={classes.button}
+                  onClick={
+                    () => prop.MakeOrder(marketId, prop.cart, prop.deliver)
+                    // prop.changePage(
+                    //   process.env.PUBLIC_URL + "/" + AppPages.CHECKOUT
+                    // )
+                  }
+                >
+                  تائید خرید
+                  <ShoppingBasket className={classes.extendedIcon} />
+                </Button>
+              )}
             </Grid>
           )}
       </Grid>
@@ -447,7 +460,8 @@ const mapStateToProps: any = (State: { app: IAppState; shop: IShopState }) => ({
   deliver: State.shop.deliver,
   markets: State.shop.markets,
   loadDbInfo: State.shop.loadDbInfo,
-  cart: State.shop.cart
+  cart: State.shop.cart,
+  loadingOrder: State.shop.loadOrder
 });
 
 const mapDispatchToProps: any = {

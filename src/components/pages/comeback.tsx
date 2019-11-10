@@ -34,38 +34,23 @@ const Comeback: React.FC<IComebackProps> = (prop: IComebackProps) => {
   const classes: any = useStyles();
 
   const search: string = prop.history.location.search;
-  const parsed: queryString.ParsedQuery<string> = queryString.parse(
-    location.search
-  );
+  const parsed: queryString.ParsedQuery<string> = queryString.parse(search);
 
   console.log(search);
 
   useEffect(() => {
-    // http://Your-CallBack-URL?status={transaction_status}&token={token}
-    prop.verifyBank(parsed.token);
+    if (prop.transId === undefined && !prop.loadingOrder) {
+      // http://localhost:3000/comeback?status=1&token=b5WYow
+      prop.verifyBank(parsed.token);
+    }
   });
 
   // console.log(prop.tabId);
+  // is good? or bad
 
   return (
     <Container maxWidth="sm">
-      <h3 className={classes.mainTitle}>درباره ما</h3>
-      <p className={classes.mainTitle}>
-        کلیه حقوق مادی و معنوی اپلیکیشن نون متعلق به شرکت
-        <a
-          className={classes.companyLink}
-          href="http://www.apdr.ir"
-          title="وب سایت شرکت کاوشگران البرز"
-        >
-          کاوشگران البرز
-        </a>
-        می‌باشد.
-      </p>
-      <h3 className={classes.mainTitle}>آدرس</h3>
-      <p className={classes.mainTitle}>
-        رامسر - خیابان مطهری - جنب بانک صادرات مرکزی - طبقه دوم - شرکت کاوشگران
-        البرز
-      </p>
+      
     </Container>
   );
 };

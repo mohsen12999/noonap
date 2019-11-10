@@ -339,7 +339,13 @@ export const MakeOrder: any = (
         }
       });
       dispatch(
-        push(process.env.PUBLIC_URL + "/" + AppPages.CHECKOUT + "/" + result.id)
+        push(
+          process.env.PUBLIC_URL +
+            "/" +
+            AppPages.CHECKOUT +
+            "/" +
+            result.order.id
+        )
       );
       // console.log("push");
       // push(process.env.PUBLIC_URL + "/" + AppPages.CHECKOUT + "/" + result.id);
@@ -408,7 +414,13 @@ export const send2Bank: any = (orderId: string) => (dispatch: Dispatch) => {
       }
       console.log(res);
       const { url } = res;
+      dispatch({
+        type: ActionTypes.SUCCESS_SEND_ORDER_TO_BANK,
+        payload: { payurl: url }
+      });
       window.location.href = url;
+      // window.location = url;
+      // window.open(url);
     })
     .catch(error => {
       dispatch({
@@ -436,7 +448,7 @@ export const verifyBank: any = (token: string) => (dispatch: Dispatch) => {
         });
       }
       console.log(res);
-      const { order, orderDetails, transId } = res;
+      // const { order, orderDetails, transId } = res;
       // dispatch(push(url));
       dispatch({
         type: ActionTypes.SUCCESS_VERIFY_BANK,

@@ -12,6 +12,7 @@ import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import CreditCardIcon from "@material-ui/icons/CreditCard";
 import CircularProgress from "@material-ui/core/CircularProgress";
+import Grid from "@material-ui/core/Grid";
 
 import { IAppState } from "../../reducers/app";
 import { IShopState } from "../../reducers/shop";
@@ -37,6 +38,9 @@ const useStyles: any = makeStyles((theme: Theme) =>
       padding: theme.spacing(3, 2),
       // margin: theme.spacing(3, 2),
       overflowX: "auto"
+    },
+    addressGrid: {
+      padding: theme.spacing(3, 2)
     },
     myFont: {
       fontFamily: "Yekan"
@@ -71,6 +75,7 @@ interface ICheckoutProps extends RouteComponentProps<IMatchParams> {
   order?: IOrder;
   orderDetails: IOrderDetail[];
   loadingOrder: boolean;
+  payurl?: string;
   changePage: Function;
   loadOrder: Function;
   send2Bank: Function;
@@ -81,9 +86,19 @@ const Checkout: React.FC<ICheckoutProps> = (prop: ICheckoutProps) => {
 
   const orderId: string | undefined = prop.match.params.id;
 
-  if (prop.order === undefined) {
-    prop.loadOrder(orderId);
-  }
+  React.useEffect(() => {
+    if (prop.payurl !== undefined) {
+      window.location.href = prop.payurl;
+    }
+
+    if (
+      prop.order === undefined &&
+      orderId !== undefined &&
+      orderId !== "undefined"
+    ) {
+      prop.loadOrder(orderId);
+    }
+  });
 
   const totalPrice: number =
     prop.orderDetails === undefined
@@ -191,13 +206,22 @@ const Checkout: React.FC<ICheckoutProps> = (prop: ICheckoutProps) => {
       )}
 
       {prop.order !== undefined && (
-        <React.Fragment>
-          <p className={classes.myFont}>نام خریدار: {prop.order.name}</p>
-          <p className={classes.myFont}>شماره خریدار: {prop.order.mobile}</p>
+        <Grid className={classes.addressGrid} container spacing={1}>
+          <Grid className={classes.myFont} item md={4} xs={12}>
+            شماره سفارش: {prop.order.id}
+          </Grid>
+          <Grid className={classes.myFont} item md={4} xs={12}>
+            نام خریدار: {prop.order.name}
+          </Grid>
+          <Grid className={classes.myFont} item md={4} xs={12}>
+            شماره خریدار: {prop.order.mobile}
+          </Grid>
           {prop.order.address !== "" && (
-            <p className={classes.myFont}>آدرس: {prop.order.address}</p>
+            <Grid className={classes.myFont} item xs={12}>
+              آدرس: {prop.order.address}
+            </Grid>
           )}
-        </React.Fragment>
+        </Grid>
       )}
 
       {orderId !== undefined && totalPrice > 0 && (
@@ -218,7 +242,8 @@ const Checkout: React.FC<ICheckoutProps> = (prop: ICheckoutProps) => {
 const mapStateToProps = (State: { app: IAppState; shop: IShopState }) => ({
   order: State.shop.order,
   orderDetails: State.shop.orderDetails,
-  loadingOrder: State.shop.loadOrder
+  loadingOrder: State.shop.loadOrder,
+  payurl: State.shop.payurl
 });
 
 const mapDispatchToProps = {

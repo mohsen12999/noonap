@@ -98,6 +98,7 @@ const ShopReducer: Reducer<IShopState, { type: any; payload: any }> = (
         ...state,
         order: action.payload.order,
         orderDetails: action.payload.orderDetails,
+        payurl: undefined,
         loadOrder: false
       };
     case ActionTypes.SUCCESS_VERIFY_BANK:
@@ -111,10 +112,15 @@ const ShopReducer: Reducer<IShopState, { type: any; payload: any }> = (
     case ActionTypes.FAILED_MAKE_ORDER:
     case ActionTypes.FAILED_LOAD_ORDER:
     case ActionTypes.FAILED_SEND_ORDER_TO_BANK:
-    case ActionTypes.SUCCESS_SEND_ORDER_TO_BANK:
     case ActionTypes.FAILED_VERIFY_BANK:
       return {
         ...state,
+        loadOrder: false
+      };
+    case ActionTypes.SUCCESS_SEND_ORDER_TO_BANK:
+      return {
+        ...state,
+        payurl: action.payload.payurl,
         loadOrder: false
       };
 
