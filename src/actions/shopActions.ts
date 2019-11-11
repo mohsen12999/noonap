@@ -376,12 +376,13 @@ export const loadOrder: any = (orderId: string) => (dispatch: Dispatch) => {
           payload: { error: res.error }
         });
       }
-      const { order, order_details } = res;
+      const { order, orderDetails } = res;
+      sessionStorage.setItem("orderId", order.id);
       dispatch({
         type: ActionTypes.SUCCESS_LOAD_ORDER,
         payload: {
           order: order,
-          orderDetails: order_details
+          orderDetails: orderDetails
         }
       });
       // console.log("push");
@@ -414,6 +415,9 @@ export const send2Bank: any = (orderId: string) => (dispatch: Dispatch) => {
       }
       console.log(res);
       const { url } = res;
+
+      sessionStorage.setItem("orderId", orderId);
+
       dispatch({
         type: ActionTypes.SUCCESS_SEND_ORDER_TO_BANK,
         payload: { payurl: url }
