@@ -6,7 +6,9 @@ import {
   IDbInfo,
   IMarketPlus,
   MakeMarketPlus,
-  IMakeOrder
+  IMakeOrder,
+  IGroup,
+  IMarket
 } from "./shop";
 import { IDeliverState, ICartState } from "../reducers/shop";
 import { push } from "connected-react-router";
@@ -136,20 +138,53 @@ export const loadData: Function = () => (dispatch: Dispatch) => {
           payload: { error: res.error }
         });
       }
-      const info: IDbInfo = res;
-      // console.log(info);
-      // const markets: IMarket[] = info.markets;
-      // const openTimes: IOpenTime[] = info.openTimes;
-      const marketPlus: IMarketPlus[] = MakeMarketPlus(
-        info.markets,
-        info.openTimes
-      );
+      const info: IDbInfo = res as IDbInfo;
+
+      const groups: IGroup = res.groups.map((g: any) => {
+        const e: boolean = g.enabled === "0" || g.enabled === 0 ? false : true;
+        return { ...g, enabled: e };
+      });
+
+      const markets: IMarket[] = info.markets.map((m: any) => {
+        const freeDeliver: boolean =
+          m.freeDeliver === undefined ||
+          m.freeDeliver === 0 ||
+          m.freeDeliver === "0"
+            ? false
+            : true;
+        const enabled: boolean =
+          m.enabled === "0" || m.enabled === 0 ? false : true;
+        const express_send: boolean =
+          m.express_send === "0" || m.express_send === 0 ? false : true;
+        const future_send: boolean =
+          m.future_send === "0" || m.future_send === 0 ? false : true;
+        const takeout: boolean =
+          m.takeout === "0" || m.takeout === 0 ? false : true;
+        const reserve: boolean =
+          m.reserve === "0" || m.reserve === 0 ? false : true;
+        const future_takeout: boolean =
+          m.future_takeout === "0" || m.future_takeout === 0 ? false : true;
+
+        return {
+          ...m,
+          freeDeliver: freeDeliver,
+          enabled: enabled,
+          express_send: express_send,
+          future_send: future_send,
+          takeout: takeout,
+          reserve: reserve,
+          future_takeout: future_takeout
+        };
+      });
+
+      const marketPlus: IMarketPlus[] = MakeMarketPlus(markets, info.openTimes);
 
       dispatch({
         type: ActionTypes.SUCCESS_LOAD_INIT,
         payload: {
           // info: info,
-          groups: info.groups,
+          // groups: info.groups,
+          groups: groups,
           markets: marketPlus,
           openTimes: info.openTimes,
           products: info.products
@@ -360,7 +395,7 @@ export const MakeOrder: any = (
 };
 
 export const loadOrder: any = (orderId: string) => (dispatch: Dispatch) => {
-  const url: string = "https://apdr.ir/api/order/"+orderId;
+  const url: string = "https://apdr.ir/api/order/" + orderId;
   // const url: string = "http://localhost/laravel_api/public/api/order/" + orderId;
 
   dispatch({
@@ -400,14 +435,17 @@ export const send2Bank: any = (orderId: string) => (dispatch: Dispatch) => {
   const url: string = "https://apdr.ir/api/sendorder";
   // const url: string = "http://localhost/laravel_api/public/api/sendorder";
 
-  const redirect:string = "https://noonap.ir/comeback";
+  const redirect: string = "https://noonap.ir/comeback";
   // const redirect:string = "http://localhost:3000/comeback";
 
   dispatch({
     type: ActionTypes.TRY_SENDING_ORDER_TO_BANK
   });
 
-  fetch(url, { method: "POST", body: JSON.stringify({ id: orderId,redirect:redirect }) })
+  fetch(url, {
+    method: "POST",
+    body: JSON.stringify({ id: orderId, redirect: redirect })
+  })
     .then(res => res.json())
     .then(res => {
       if (res.error || res.result === false) {
