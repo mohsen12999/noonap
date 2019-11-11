@@ -119,8 +119,8 @@ export const ChangeTime: Function = (
 };
 
 export const loadData: Function = () => (dispatch: Dispatch) => {
-  // const url: string = "https://apdr.ir/api/markets";
-  const url: string = "http://localhost/laravel_api/public/api/markets";
+  const url: string = "https://apdr.ir/api/markets";
+  // const url: string = "http://localhost/laravel_api/public/api/markets";
 
   dispatch({
     type: ActionTypes.TRY_LOADING_INIT
@@ -167,6 +167,7 @@ export const loadData: Function = () => (dispatch: Dispatch) => {
 
 export const LoadUserInfo: any = (mobile: string) => (dispatch: Dispatch) => {
   const url: string = "https://apdr.ir/api/customers/" + mobile;
+  // const url: string = http://localhost/laravel_api/public/api/customers/" + mobile;
 
   dispatch({
     type: ActionTypes.TRY_LOADING_USER_INFO
@@ -306,8 +307,8 @@ export const MakeOrder: any = (
   cart: ICartState,
   deliver: IDeliverState
 ) => (dispatch: Dispatch) => {
-  // const url: string = "https://apdr.ir/api/makeorder";
-  const url: string = "http://localhost/laravel_api/public/api/makeorder";
+  const url: string = "https://apdr.ir/api/makeorder";
+  // const url: string = "http://localhost/laravel_api/public/api/makeorder";
 
   dispatch({
     type: ActionTypes.TRY_MAKING_ORDER
@@ -359,9 +360,8 @@ export const MakeOrder: any = (
 };
 
 export const loadOrder: any = (orderId: string) => (dispatch: Dispatch) => {
-  // const url: string = "https://apdr.ir/api/order/"+orderId;
-  const url: string =
-    "http://localhost/laravel_api/public/api/order/" + orderId;
+  const url: string = "https://apdr.ir/api/order/"+orderId;
+  // const url: string = "http://localhost/laravel_api/public/api/order/" + orderId;
 
   dispatch({
     type: ActionTypes.TRY_LOADING_ORDER
@@ -397,14 +397,17 @@ export const loadOrder: any = (orderId: string) => (dispatch: Dispatch) => {
 };
 
 export const send2Bank: any = (orderId: string) => (dispatch: Dispatch) => {
-  // const url: string = "https://apdr.ir/api/sendorder;
-  const url: string = "http://localhost/laravel_api/public/api/sendorder";
+  const url: string = "https://apdr.ir/api/sendorder";
+  // const url: string = "http://localhost/laravel_api/public/api/sendorder";
+
+  const redirect:string = "https://noonap.ir/comeback";
+  // const redirect:string = "https://localhost:3000/comeback";
 
   dispatch({
     type: ActionTypes.TRY_SENDING_ORDER_TO_BANK
   });
 
-  fetch(url, { method: "POST", body: JSON.stringify({ id: orderId }) })
+  fetch(url, { method: "POST", body: JSON.stringify({ id: orderId,redirect:redirect }) })
     .then(res => res.json())
     .then(res => {
       if (res.error || res.result === false) {
@@ -435,8 +438,8 @@ export const send2Bank: any = (orderId: string) => (dispatch: Dispatch) => {
 };
 
 export const verifyBank: any = (token: string) => (dispatch: Dispatch) => {
-  // const url: string = "https://apdr.ir/api/verify;
-  const url: string = "http://localhost/laravel_api/public/api/verify";
+  const url: string = "https://apdr.ir/api/verify";
+  // const url: string = "http://localhost/laravel_api/public/api/verify";
 
   dispatch({
     type: ActionTypes.TRY_VERIFY_BANK

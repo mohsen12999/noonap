@@ -98,7 +98,7 @@ const Checkout: React.FC<ICheckoutProps> = (prop: ICheckoutProps) => {
     ) {
       prop.loadOrder(orderId);
     }
-  });
+  },[]);
 
   const totalPrice: number =
     prop.orderDetails === undefined

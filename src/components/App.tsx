@@ -72,7 +72,6 @@ const App: React.FC<IAppProps> = (prop: IAppProps) => {
             }
             component={(props: any) => <Comeback {...props} />}
           />
-          {/* useLocation https://localhost:3000/comeback?status=1&token=bpKSpA */}
           <Route component={NotFound} />
         </Switch>
       </section>

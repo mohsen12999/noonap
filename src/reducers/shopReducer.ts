@@ -115,6 +115,7 @@ const ShopReducer: Reducer<IShopState, { type: any; payload: any }> = (
     case ActionTypes.FAILED_VERIFY_BANK:
       return {
         ...state,
+        transId:"",
         loadOrder: false
       };
     case ActionTypes.SUCCESS_SEND_ORDER_TO_BANK:

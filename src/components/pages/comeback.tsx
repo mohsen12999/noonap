@@ -42,6 +42,10 @@ const useStyles: any = makeStyles((theme: Theme) =>
     mainTitle: {
       fontFamily: "Yekan",
       textAlign: "center"
+    },
+    paper: {
+      padding: theme.spacing(3, 2),
+      margin: theme.spacing(3, 2)
     }
   })
 );
@@ -59,17 +63,16 @@ const Comeback: React.FC<IComebackProps> = (prop: IComebackProps) => {
   const classes: any = useStyles();
 
   const search: string = prop.history.location.search;
-  const parsed: queryString.ParsedQuery<string> = queryString.parse(search);
+  const parsed: queryString.ParsedQuery<string> = queryString.parse(search); //comeback?status=1&token=b5WYow
 
   const orderId: string | null = sessionStorage.getItem("orderId");
   console.log(search, prop.order, prop.orderDetails, orderId);
 
   useEffect(() => {
     if (prop.transId === undefined && !prop.loadingOrder) {
-      // http://localhost:3000/comeback?status=1&token=b5WYow
       prop.verifyBank(parsed.token);
     }
-  });
+  }, []);
 
   // console.log(prop.tabId);
   // is good? or bad
@@ -80,14 +83,15 @@ const Comeback: React.FC<IComebackProps> = (prop: IComebackProps) => {
         <div className={classes.progressDiv}>
           <CircularProgress className={classes.progress} />
         </div>
-      ) : prop.transId === undefined ? (
-        <Paper className={classes.root}>
+      ) : prop.transId === undefined || prop.transId === "" ? (
+        <Paper className={classes.paper}>
           <Typography className={classes.myFont} variant="h5" component="h3">
             اشکال در پرداخت مبلغ
           </Typography>
           <Typography className={classes.myFont} component="p">
             لطفا دوباره تلاش کنید
           </Typography>
+
           <Button
             variant="contained"
             color="primary"
@@ -133,7 +137,7 @@ const Comeback: React.FC<IComebackProps> = (prop: IComebackProps) => {
                 نام خریدار: {prop.order.name}
               </Grid>
               <Grid className={classes.myFont} item md={4} xs={12}>
-                نام خریدار: {deliverKindPersianst(prop.order.deliverKind)}
+                شیوه خرید: {deliverKindPersianst(prop.order.deliverKind)}
               </Grid>
 
               {prop.order.address !== "" && (
