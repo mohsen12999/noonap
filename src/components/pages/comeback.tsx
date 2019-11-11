@@ -72,7 +72,7 @@ const Comeback: React.FC<IComebackProps> = (prop: IComebackProps) => {
     if (prop.transId === undefined && !prop.loadingOrder) {
       prop.verifyBank(parsed.token);
     }
-  }, []);
+  }, [prop]);
 
   // console.log(prop.tabId);
   // is good? or bad

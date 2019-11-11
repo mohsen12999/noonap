@@ -401,7 +401,7 @@ export const send2Bank: any = (orderId: string) => (dispatch: Dispatch) => {
   // const url: string = "http://localhost/laravel_api/public/api/sendorder";
 
   const redirect:string = "https://noonap.ir/comeback";
-  // const redirect:string = "https://localhost:3000/comeback";
+  // const redirect:string = "http://localhost:3000/comeback";
 
   dispatch({
     type: ActionTypes.TRY_SENDING_ORDER_TO_BANK
