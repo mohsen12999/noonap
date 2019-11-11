@@ -2,8 +2,8 @@
   "short_name": "نون",
   "name": "نون - خرید نان و سایر کالا ها",
   "description": "خرید و تحویل راحت نان و سایر کالاها درب منزل",
-  "version": "0.1",
-  "version_name": "0.1 beta test",
+  "version": "0.2.0",
+  "version_name": "0.2.0 mocking bank",
   "default_locale": "fa",
   "lang": "fa",
   "dir": "rtl",
@@ -38,7 +38,7 @@
       "src": "icon-512x512.png",
       "type": "image/png",
       "sizes": "512x512"
-    }	 
+    }
   ],
   "start_url": ".",
   "display": "standalone",
