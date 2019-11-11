@@ -107,3 +107,37 @@ export const INITIAL_SHOPSTATE: IShopState = {
   order: undefined,
   orderDetails: []
 };
+
+export enum deliverKindType {
+  express_send = "express_send",
+  future_send = "future_send",
+  takeout = "takeout",
+  reserve = "reserve",
+  future_takeout = "future_takeout"
+}
+
+export const deliverKindPersian: (dk: deliverKindType) => string = (
+  dk: deliverKindType
+) => {
+  switch (dk) {
+    case deliverKindType.express_send:
+      return "ارسال فوری";
+    case deliverKindType.future_send:
+      return "ارسال در آینده";
+    case deliverKindType.takeout:
+      return "دریافت حضوری";
+    case deliverKindType.reserve:
+      return "رزرو مکان";
+    case deliverKindType.future_takeout:
+      return "تحویل حضوری در آینده";
+    default:
+      return "";
+  }
+};
+
+export const deliverKindPersianst: (st: string) => string = (st: string) => {
+  if (st === "") {
+    return "";
+  }
+  return deliverKindPersian(st as deliverKindType);
+};

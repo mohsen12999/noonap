@@ -15,7 +15,7 @@ import CircularProgress from "@material-ui/core/CircularProgress";
 import Grid from "@material-ui/core/Grid";
 
 import { IAppState } from "../../reducers/app";
-import { IShopState } from "../../reducers/shop";
+import { IShopState, deliverKindPersianst } from "../../reducers/shop";
 import { connect } from "react-redux";
 import { push } from "connected-react-router";
 
@@ -215,6 +215,9 @@ const Checkout: React.FC<ICheckoutProps> = (prop: ICheckoutProps) => {
           </Grid>
           <Grid className={classes.myFont} item md={4} xs={12}>
             شماره خریدار: {prop.order.mobile}
+          </Grid>
+          <Grid className={classes.myFont} item md={4} xs={12}>
+            شیوه تحویل: {deliverKindPersianst(prop.order.deliverKind)}
           </Grid>
           {prop.order.address !== "" && (
             <Grid className={classes.myFont} item xs={12}>

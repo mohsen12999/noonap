@@ -3,7 +3,13 @@ import { RouteComponentProps } from "react-router-dom";
 
 import { connect } from "react-redux";
 import { IAppState } from "../../reducers/app";
-import { IShopState, IDeliverState, ICartState } from "../../reducers/shop";
+import {
+  IShopState,
+  IDeliverState,
+  ICartState,
+  deliverKindType,
+  deliverKindPersian
+} from "../../reducers/shop";
 import {
   ChangeDeliverKind,
   ChangeDeliverDistrict,
@@ -203,36 +209,44 @@ const Address: React.FC<IAddressProp> = (prop: IAddressProp) => {
               {market !== undefined &&
                 market.express_send &&
                 (market.isOpen ? (
-                  <MenuItem value={"express_send"}>ارسال فوری</MenuItem>
+                  <MenuItem value={deliverKindType.express_send}>
+                    {deliverKindPersian(deliverKindType.express_send)}
+                  </MenuItem>
                 ) : (
-                  <MenuItem value={"express_send"} disabled>
-                    ارسال فوری{" "}
+                  <MenuItem value={deliverKindType.express_send} disabled>
+                    {deliverKindPersian(deliverKindType.express_send)}{" "}
                     <span className={classes.closeSpan}>(بسته است)</span>
                   </MenuItem>
                 ))}
 
               {market !== undefined && market.future_send && (
-                <MenuItem value={"future_send"}>ارسال در آینده</MenuItem>
+                <MenuItem value={deliverKindType.future_send}>
+                  {deliverKindPersian(deliverKindType.future_send)}
+                </MenuItem>
               )}
 
               {market !== undefined &&
                 market.takeout &&
                 (market.isOpen ? (
-                  <MenuItem value={"takeout"}>دریافت حضوری</MenuItem>
+                  <MenuItem value={deliverKindType.takeout}>
+                    {deliverKindPersian(deliverKindType.takeout)}
+                  </MenuItem>
                 ) : (
-                  <MenuItem value={"takeout"} disabled>
-                    دریافت حضوری{" "}
+                  <MenuItem value={deliverKindType.takeout} disabled>
+                    {deliverKindPersian(deliverKindType.takeout)}{" "}
                     <span className={classes.closeSpan}>(بسته است)</span>
                   </MenuItem>
                 ))}
 
               {market !== undefined && market.reserve && (
-                <MenuItem value={"reserve"}>رزرو مکان</MenuItem>
+                <MenuItem value={deliverKindType.reserve}>
+                  {deliverKindPersian(deliverKindType.reserve)}
+                </MenuItem>
               )}
 
               {market !== undefined && market.future_takeout && (
-                <MenuItem value={"future_takeout"}>
-                  تحویل حضوری در آینده
+                <MenuItem value={deliverKindType.future_takeout}>
+                  {deliverKindPersian(deliverKindType.future_takeout)}
                 </MenuItem>
               )}
             </Select>
@@ -292,9 +306,9 @@ const Address: React.FC<IAddressProp> = (prop: IAddressProp) => {
           </React.Fragment>
         )}
 
-        {(prop.deliver.deliverKind === "future_send" ||
-          prop.deliver.deliverKind === "reserve" ||
-          prop.deliver.deliverKind === "future_takeout") && (
+        {(prop.deliver.deliverKind === deliverKindType.future_send ||
+          prop.deliver.deliverKind === deliverKindType.reserve ||
+          prop.deliver.deliverKind === deliverKindType.future_takeout) && (
           <React.Fragment>
             <Grid item xs={12} sm={5} className={classes.pickerGrid}>
               <MuiPickersUtilsProvider utils={JalaliUtils} locale="fa">
@@ -341,8 +355,8 @@ const Address: React.FC<IAddressProp> = (prop: IAddressProp) => {
           </React.Fragment>
         )}
 
-        {(prop.deliver.deliverKind === "express_send" ||
-          prop.deliver.deliverKind === "future_send") && (
+        {(prop.deliver.deliverKind === deliverKindType.express_send ||
+          prop.deliver.deliverKind === deliverKindType.future_send) && (
           <React.Fragment>
             <Grid item xs={12} sm={8}>
               <FormControl className={classes.selectFormControl}>
@@ -413,11 +427,11 @@ const Address: React.FC<IAddressProp> = (prop: IAddressProp) => {
         {prop.deliver.deliverKind !== "" &&
           prop.deliver.mobile.length > 9 &&
           prop.deliver.fullname.length > 3 &&
-          (prop.deliver.deliverKind === "express_send" ||
-            prop.deliver.deliverKind === "takeout" ||
+          (prop.deliver.deliverKind === deliverKindType.express_send ||
+            prop.deliver.deliverKind === deliverKindType.takeout ||
             prop.deliver.date != null) &&
-          ((prop.deliver.deliverKind !== "express_send" &&
-            prop.deliver.deliverKind !== "future_send") ||
+          ((prop.deliver.deliverKind !== deliverKindType.express_send &&
+            prop.deliver.deliverKind !== deliverKindType.future_send) ||
             (prop.deliver.address.length > 3 &&
               (prop.deliver.deliverDistrict !== "" ||
                 prop.deliver.location != null))) && (

@@ -5,7 +5,7 @@ import queryString from "query-string";
 import { connect } from "react-redux";
 import { push } from "connected-react-router";
 
-import { IShopState } from "../../reducers/shop";
+import { IShopState, deliverKindPersianst } from "../../reducers/shop";
 import { IAppState, AppPages } from "../../reducers/app";
 import { verifyBank } from "../../actions/shopActions";
 import { IOrder, IOrderDetail } from "../../actions/shop";
@@ -127,11 +127,15 @@ const Comeback: React.FC<IComebackProps> = (prop: IComebackProps) => {
                 کد پیگیری: {prop.transId}
               </Grid>
               <Grid className={classes.myFont} item md={4} xs={12}>
+                شماره خریدار: {prop.order.mobile}
+              </Grid>
+              <Grid className={classes.myFont} item md={4} xs={12}>
                 نام خریدار: {prop.order.name}
               </Grid>
               <Grid className={classes.myFont} item md={4} xs={12}>
-                شماره خریدار: {prop.order.mobile}
+                نام خریدار: {deliverKindPersianst(prop.order.deliverKind)}
               </Grid>
+
               {prop.order.address !== "" && (
                 <Grid className={classes.myFont} item md={8} xs={12}>
                   آدرس: {prop.order.address}
@@ -144,16 +148,16 @@ const Comeback: React.FC<IComebackProps> = (prop: IComebackProps) => {
               <Table className={classes.table}>
                 <TableHead>
                   <TableRow>
-                    <TableCell className={classes.tableCell} align="center">
+                    <TableCell className={classes.myFont} align="center">
                       نام محصول
                     </TableCell>
-                    <TableCell className={classes.tableCell} align="center">
+                    <TableCell className={classes.myFont} align="center">
                       قیمت هر واحد
                     </TableCell>
-                    <TableCell className={classes.tableCell} align="center">
+                    <TableCell className={classes.myFont} align="center">
                       تعداد سفارش
                     </TableCell>
-                    <TableCell className={classes.tableCell} align="center">
+                    <TableCell className={classes.myFont} align="center">
                       قیمت
                     </TableCell>
                   </TableRow>
@@ -163,7 +167,7 @@ const Comeback: React.FC<IComebackProps> = (prop: IComebackProps) => {
                     prop.orderDetails.map((od: IOrderDetail) => (
                       <TableRow key={od.id}>
                         <TableCell
-                          className={classes.tableCell}
+                          className={classes.myFont}
                           component="td"
                           scope="row"
                           align="center"
@@ -171,7 +175,7 @@ const Comeback: React.FC<IComebackProps> = (prop: IComebackProps) => {
                           {od.persianTitle}
                         </TableCell>
                         <TableCell
-                          className={classes.tableCell}
+                          className={classes.myFont}
                           component="td"
                           scope="row"
                           align="center"
@@ -179,7 +183,7 @@ const Comeback: React.FC<IComebackProps> = (prop: IComebackProps) => {
                           {Math.trunc(od.price)} تومان
                         </TableCell>
                         <TableCell
-                          className={classes.tableCell}
+                          className={classes.myFont}
                           component="td"
                           scope="row"
                           align="center"
@@ -187,7 +191,7 @@ const Comeback: React.FC<IComebackProps> = (prop: IComebackProps) => {
                           {od.count}
                         </TableCell>
                         <TableCell
-                          className={classes.tableCell}
+                          className={classes.myFont}
                           component="td"
                           scope="row"
                           align="center"
@@ -197,10 +201,10 @@ const Comeback: React.FC<IComebackProps> = (prop: IComebackProps) => {
                       </TableRow>
                     ))}
                   <TableRow>
-                    <TableCell className={classes.tableCell} colSpan={3}>
+                    <TableCell className={classes.myFont} colSpan={3}>
                       مجموع قیمت ها
                     </TableCell>
-                    <TableCell className={classes.tableCell} align="center">
+                    <TableCell className={classes.myFont} align="center">
                       {prop.order !== undefined && prop.order.price} تومان
                     </TableCell>
                   </TableRow>
